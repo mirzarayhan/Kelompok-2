@@ -28,6 +28,13 @@
                             <input type="hidden" name="id" value="<?= $row->type_id; ?>">
                             <input type="text" name="type_name" class="form-control" value="<?= $row->name; ?>" required>
                         </div>
+                        <div class="form-group">
+                            <label>Unit Type *</label>
+                            <select name="type_status" class="form-control">
+                                <option value="E" <?= $row->status == 'E' ? 'selected' : '' ?>>Enable</option>
+                                <option value="D" <?= $row->status == 'D' ? 'selected' : '' ?>>Disable</option>
+                            </select>
+                        </div>
                         <div class="from-group">
                             <button type="submit" name="<?= $page; ?>" class="btn btn-success"><i class="fa fa-paper-plane"></i> Save</button>
                             <button type="reset" class="btn" style="margin-left: 10px"><i class="fa fa-undo"></i> Reset</button>

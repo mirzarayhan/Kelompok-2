@@ -2,6 +2,15 @@
 
 class Unit_m extends CI_Model
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Unit_m');
+        $this->load->model('Category_m');
+        $this->load->model('Type_m');
+    }
+
     public function get($id = null)
     {
         $this->db->from('p_unit');

@@ -36,17 +36,19 @@ class Unit extends CI_Controller
 
     public function add()
     {
-        $unit = new stdClass();
-        $unit->unit_id = null;
-        $unit->name = null;
-        $unit->address = null;
-        $unit->duration = null;
-        $unit->groupsize = null;
-        $unit->overview = null;
-        $unit->language = null;
+        $unit               = new stdClass();
+        $unit->unit_id      = null;
+        $unit->name         = null;
+        $unit->address      = null;
+        $unit->duration     = null;
+        $unit->groupsize    = null;
+        $unit->overview     = null;
+        $unit->language     = null;
         $data = [
-            'page' => 'add',
-            'row' => $unit
+            'page'      => 'add',
+            'category'  => $this->Category_m->dropdownList(),
+            'type'      => $this->Type_m->dropdownList(),
+            'row'       => $unit
         ];
         $this->template->load('template', 'product/unit/unit_form', $data);
     }
@@ -57,8 +59,10 @@ class Unit extends CI_Controller
         if ($query->num_rows() > 0) {
             $unit = $query->row();
             $data = [
-                'page' => 'edit',
-                'row' => $unit
+                'page'      => 'edit',
+                'category'  => $this->Category_m->dropdownList(),
+                'type'      => $this->Type_m->dropdownList(),
+                'row'       => $unit
             ];
             $this->template->load('template', 'product/unit/unit_form', $data);
         } else {
@@ -80,8 +84,8 @@ class Unit extends CI_Controller
     }
     public function laporan_pdf()
     {
-        $data['title'] = 'Report Unit';
-        $data['type'] = $this->Cetak_m->viewUnit();
+        $data['title']  = 'Report Unit';
+        $data['type']   = $this->Cetak_m->viewUnit();
         $this->load->library('pdf');
 
         $this->pdf->setPaper('A4', 'potrait');

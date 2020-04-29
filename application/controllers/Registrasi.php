@@ -2,44 +2,42 @@
 
 class Registrasi extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->library('form_validation');
+        $this->load->model('user_m');
+    }
     public function index()
     {
-        $this->form_validation->set_rules('name', 'Name', 'required', [
-            'required' => 'Name Wajib diisi!'
-        ]);
-        $this->form_validation->set_rules('address', 'address', 'required', [
-            'required' => 'Address Wajib diisi!'
-        ]);
-        $this->form_validation->set_rules('username', 'Username', 'required', [
-            'required' => 'Username Wajib diisi!'
-        ]);
-        $this->form_validation->set_rules('password_1', 'Password', 'required', [
-            'required' => 'Password Wajib diisi!'
-        ]);
-        $this->form_validation->set_rules('password_2', 'Password', 'required|matches[password_1]', [
-            'required' => 'Password Wajib diisi!',
-            'matches' => 'Password tidak cocok!'
-        ]);
+        $this->form_validation->set_rules('fullname', 'Name', 'required');
+        $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|is_unique[user.username]');
+        $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
+        $this->form_validation->set_rules(
+            'passconf',
+            'Password Confirmation',
+            'required|matches[password]',
+            ['matches' => '
+            Confirm password does not match with password']
+        );
+        $this->form_validation->set_rules('address', 'Address', 'required');
+        $this->form_validation->set_rules('level', 'Lavel', 'required');
+        $this->form_validation->set_message('required', 'The %s has not been filled');
+        $this->form_validation->set_message('is_unique', 'This %s has already been used');
+
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('templates/header');
             $this->load->view('Registrasi');
             $this->load->view('templates/footer');
         } else {
-            date_default_timezone_set('Asia/Jakarta');
-
-            $data = array(
-                'user_id'    => '',
-                'name'  => $this->input->post('name'),
-                'address' => $this->input->post('address'),
-                'tanggal_daftar' => date('Y-m-d H:i:s'),
-                'username'  => $this->input->post('username'),
-                'password'  => $this->input->post('password_1'),
-                'level'  => 2,
-            );
-
-            $this->db->insert('user', $data);
-            redirect('Auth/login');
+            $post = $this->input->post(null, TRUE);
+            $this->user_m->add($post);
+            if ($this->db->affected_rows() > 0) {
+                echo "<script>alert('Anda berhasil registrasi, Silahkan tunggu konfirmasi dari admin melalui email untuk bisa login.. :)')</script>";
+            }
+            echo "<script>window.location='" . site_url('auth/login') . "'</script>";
         }
     }
 }

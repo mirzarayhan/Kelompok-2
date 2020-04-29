@@ -8,13 +8,13 @@ class UserNonAktif_m extends CI_Model
         if ($id != null) {
             $this->db->where('user_id', $id);
         }
-        $query = $this->db->get();
+        $query = $this->db->where('status', 'N')
+            ->get();
         return $query;
     }
-
     public function edit($post)
     {
-        $params['status'] = $post['status'];
+        $params['status'] = 'Y';
         $this->db->where('user_id', $post['user_id']);
         $this->db->update('user', $params);
     }

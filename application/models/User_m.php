@@ -18,7 +18,7 @@ class User_m extends CI_Model
         if ($id != null) {
             $this->db->where('user_id', $id);
         }
-        $query = $this->db->get();
+        $query = $this->db->where('status', 'Y')->get();
         return $query;
     }
 

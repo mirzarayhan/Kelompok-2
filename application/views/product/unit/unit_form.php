@@ -54,17 +54,22 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label>Unit Type *</label>
-                            <select name="unit_type" class="form-control">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                            </select>
+                            <?php
+                            $atribut = array('class' => 'form-control');
+                            echo form_dropdown('type', $type, $row->type_id ?? '', $atribut);
+                            echo form_error('type');
+                            ?>
                         </div>
                         <div class="form-group col-md-3">
                             <label>Unit Categori *</label>
                             <select name="unit_categori" class="form-control">
-                                <option>option 1</option>
-                                <option>option 2</option>
+                                <option><?= $row->name ?></option>
                             </select>
+                            <?php
+                            $atribut = array('class' => 'form-control');
+                            echo form_dropdown('category', $category, $row->category_id ?? '', $atribut);
+                            echo form_error('category');
+                            ?>
                         </div>
                         <div class="from-group col-md-6">
                             <button type="submit" name="<?= $page; ?>" class="btn btn-success"><i class="fa fa-paper-plane"></i> Save</button>

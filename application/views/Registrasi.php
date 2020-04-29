@@ -10,9 +10,7 @@
 </style>
 
 <body style="background-color: darkslateblue">
-
     <div class="container">
-
         <div class="card o-hidden border-0 shadow-lg col-lg-6 my-5 mx-auto">
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
@@ -24,29 +22,43 @@
                                 <p class="mb-4">Daftarkan akun anda untuk dapat login ke website kami</p>
                             </div>
                             <form class="user" method="POST" action="<?php echo base_url('Registrasi') ?>">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="exampleInputEmail" placeholder="Name" name="name">
-                                    <?php echo form_error('name', '<div class="text-danger small ml-2">', '</div>') ?>
+                                <div class="form-group <?= form_error('fullname') ? 'has-error' : null; ?>">
+                                    <input type="text" name="fullname" class="form-control" value="<?= set_value('fullname'); ?>" placeholder="Nama Lengkap">
+                                    <span class="help-block"><?= form_error('fullname'); ?></span>
                                 </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-control" id="exampleInputEmail" placeholder="Email" name="email">
-                                    <?php echo form_error('email', '<div class="text-danger small ml-2">', '</div>') ?>
+                                <div class="form-group <?= form_error('email') ? 'has-error' : null; ?>">
+                                    <input type="text" name="email" class="form-control" value="<?= set_value('email'); ?>" placeholder="Email">
+                                    <span class="help-block"><?= form_error('email'); ?></span>
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="exampleInputEmail" placeholder="Username" name="username">
-                                    <?php echo form_error('username', '<div class="text-danger small ml-2">', '</div>') ?>
+                                <div class="form-group <?= form_error('username') ? 'has-error' : null; ?>">
+                                    <input type="text" name="username" class="form-control" value="<?= set_value('username'); ?>" placeholder="Username">
+                                    <span class="help-block"><?= form_error('username'); ?></span>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control" id="exampleInputPassword" placeholder="Password" name="password_1">
-                                        <?php echo form_error('password_1', '<div class="text-danger small ml-2">', '</div>') ?>
+                                    <div class="col-sm-6 mb-3 mb-sm-0 <?= form_error('password') ? 'has-error' : null; ?>">
+                                        <input type="password" name="password" class="form-control" value="<?= set_value('password'); ?>" placeholder="Password">
+                                        <span class="help-block"><?= form_error('password'); ?></span>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <input type="password" class="form-control" id="exampleRepeatPassword" placeholder="Ulangi Password" name="password_2">
-                                        <?php echo form_error('password_2', '<div class="text-danger small ml-2">', '</div>') ?>
+                                    <div class="col-sm-6 mb-3 mb-sm-0 <?= form_error('passconf') ? 'has-error' : null; ?>">
+                                        <input type="password" name="passconf" class="form-control" value="<?= set_value('passconf'); ?>" placeholder="Password Confirmation">
+                                        <span class="help-block"><?= form_error('passconf'); ?></span>
                                     </div>
                                 </div>
-                                <button type="submit" name="login" class="btn btn-warning btn-block">Daftar</button>
+                                <div class="form-group <?= form_error('address') ? 'has-error' : null; ?>">
+                                    <textarea name="address" class="form-control" placeholder="Address"><?= set_value('address'); ?></textarea>
+                                    <span class="help-block"><?= form_error('address'); ?></span>
+                                </div>
+
+                                <div class="form-group <?= form_error('level') ? 'has-error' : null; ?>">
+                                    <label for="">Level</label>
+                                    <select name="level" class="form-control" id="">
+                                        <?php $level = set_value('level') ?>
+                                        <option value="2" <?= $level == 2 ? "selected" : null; ?>>Kasir</option>
+                                    </select>
+                                    <span class="help-block"><?= form_error('level'); ?></span>
+                                </div>
+
+                                <button type="submit" name="login.php" class="btn btn-warning btn-block">Daftar</button>
                                 <hr>
                             </form>
                             <div class="text-center">
@@ -57,7 +69,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </body>
 

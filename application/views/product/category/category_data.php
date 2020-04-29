@@ -28,6 +28,7 @@
                     <tr>
                         <th style="width: 5%;">#</th>
                         <th>Name</th>
+                        <th>Status</th>
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
@@ -37,6 +38,7 @@
                         <tr>
                             <td style="width: 5%;"><?= $no++; ?>.</td>
                             <td><?= $data->name ?></td>
+                            <td><?= $data->status == 'E' ? 'Enable' : 'Disable'; ?></td>
                             <td class="text-center" width="160px">
                                 <a href="<?= site_url('category/edit/' . $data->category_id); ?>" class="btn btn-warning btn-xs">
                                     <i class="fa fa-pencil"></i> Update

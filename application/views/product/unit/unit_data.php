@@ -18,7 +18,7 @@
                 <a href="<?= site_url('unit/add'); ?>" class="btn btn-primary">
                     <i class="fa fa-plus"></i> Add</a>
                 <a href="<?= site_url('type/laporan_pdf'); ?>" class="btn btn-primary">
-                    <i class="fa fa-plus"></i> Print</a>
+                    <i class="fa fa-print"></i> Print</a>
             </div>
         </div>
 

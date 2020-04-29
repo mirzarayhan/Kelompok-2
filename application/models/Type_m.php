@@ -14,18 +14,19 @@ class Type_m extends CI_Model
 
     public function dropdownList()
     {
-        $results = $this->db->select('id, name')
+        $results = $this->db->select('type_id, name')
             ->where('status', 'aktif')
             ->get('p_type')
             ->result_array();
 
-        return array_column($results, 'name', 'id');
+        return array_column($results, 'name', 'type_id');
     }
 
     public function add($post)
     {
         $params = [
-            'name' => $post['type_name']
+            'name' => $post['type_name'],
+            'staus' => $post['type_status']
         ];
         $this->db->insert('p_type', $params);
     }
@@ -34,6 +35,7 @@ class Type_m extends CI_Model
     {
         $params = [
             'name' => $post['type_name'],
+            'status' => $post['type_status'],
             'updated ' => date('Y-m-d  H:i:s')
         ];
         $this->db->where('type_id', $post['id']);

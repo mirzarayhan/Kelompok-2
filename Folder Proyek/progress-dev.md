@@ -22,3 +22,11 @@
 ### MINGGU KE 12 (23 APRIL 2020) ###
 -Membuat Dashboard lebih menarik & dinamis <br>
 -Akumulasi Progress : 35% <br>
+
+### MINGGU KE 13 (29 APRIL 2020) ###
+-Fix fitur registrasi dan konfirmasi akun <br>
+-Menambah navigasi Tour Product->Units + Item dengan fitur yang sama CRUD, Search & Sorting, print <br>
+-Fitur Upload gambar, edit / replace gambar yang lama & hapus <br>
+-Fitur Barcode, QR-Code & Print <br>
+-Merubah Struktur tabel database <br>
+-Akumulasi Progress : 50% <br>

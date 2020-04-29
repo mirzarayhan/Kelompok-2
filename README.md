@@ -44,3 +44,10 @@ Matkul Proyek
 
 (Kamis, 23 April 2020)
 1. Membuat tampilan dashboard lebih dinamis
+
+(Rabu, 29 April 2020)
+1. Fix fitur registrasi dan konfirmasi akun
+2. Menambah navigasi Tour Product->Units + Item dengan fitur yang sama CRUD, Search & Sorting, print
+3. Fitur Upload gambar, edit / replace gambar yang lama & hapus
+4. Fitur Barcode, QR-Code & Print 
+5. Merubah Struktur tabel database

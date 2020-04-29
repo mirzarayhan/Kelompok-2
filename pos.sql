@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 26 Apr 2020 pada 17.01
+-- Waktu pembuatan: 29 Apr 2020 pada 17.12
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.3.11
 
@@ -46,7 +46,7 @@ INSERT INTO `customer` (`customer_id`, `name`, `gender`, `phone`, `address`, `cr
 (1, 'Abdul Ajiz', 'L', '081358588519', 'Malioboro, Jogja', '2020-03-05 02:35:02', '2020-04-24 09:44:48'),
 (2, 'Intan Nur Ja\'a Al Faricha', 'P', '081443244233', 'Cluring, Banyuwangi', '2020-03-05 02:37:49', '0000-00-00 00:00:00'),
 (3, 'Abdurrosyid Muhasibi', 'L', '085667443666', 'Kediri, Jawa Timur', '2020-03-05 02:38:29', '2020-03-04 20:45:53'),
-(5, 'Silvia Amali', 'P', '087755635625', 'Ambulu, Jember', '2020-03-05 02:40:54', '2020-03-04 20:41:34');
+(5, 'Septianda Reza Maulana', 'L', '082257125415', 'Perumahan Jati Asri Blok A3, Kebon Agung, Kraksaan-Probolinggo', '2020-03-05 02:40:54', '2020-04-27 07:59:02');
 
 -- --------------------------------------------------------
 
@@ -67,24 +67,36 @@ CREATE TABLE `p_category` (
 --
 
 INSERT INTO `p_category` (`category_id`, `name`, `created`, `updated`, `status`) VALUES
-(1, 'Family', '2020-03-05 03:40:11', '2020-03-09 15:03:38', 'aktif'),
-(2, 'ATV Trip', '2020-03-05 03:40:57', '2020-03-04 23:38:50', 'aktif'),
-(3, 'Beach Tour', '2020-03-05 03:43:12', '2020-03-04 23:55:33', 'aktif'),
-(4, 'Mountain Trip', '2020-03-05 03:43:23', '2020-03-04 23:52:29', 'aktif'),
-(7, 'Snorecling', '2020-03-05 05:59:00', NULL, 'aktif');
+(1, 'Java Tours', '2020-03-05 03:40:11', '2020-04-29 05:50:49', 'aktif'),
+(2, 'Bali Tours', '2020-03-05 03:40:57', '2020-04-29 05:51:01', 'aktif'),
+(3, 'Lombok Tours', '2020-03-05 03:43:12', '2020-04-29 05:52:44', 'aktif');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `p_language`
+-- Struktur dari tabel `p_item`
 --
 
-CREATE TABLE `p_language` (
+CREATE TABLE `p_item` (
+  `item_id` int(11) NOT NULL,
+  `barcode` varchar(100) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `category_id` int(11) NOT NULL,
   `unit_id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
+  `price` int(11) DEFAULT NULL,
+  `stock` int(10) NOT NULL DEFAULT 0,
   `created` datetime NOT NULL DEFAULT current_timestamp(),
   `updated` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `p_item`
+--
+
+INSERT INTO `p_item` (`item_id`, `barcode`, `name`, `category_id`, `unit_id`, `price`, `stock`, `created`, `updated`) VALUES
+(2, 'A001', 'Mout Bromo Tours', 1, 10, 500000, 0, '2020-04-29 12:11:46', '2020-04-29 09:20:49'),
+(5, 'A002', 'Gili Islands Tour', 3, 8, 5000000, 0, '2020-04-29 13:17:52', NULL),
+(6, 'A003', 'Malang', 1, 11, 1935000, 0, '2020-04-29 14:19:48', NULL);
 
 -- --------------------------------------------------------
 
@@ -117,6 +129,7 @@ CREATE TABLE `p_unit` (
   `unit_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `address` text NOT NULL,
+  `image` varchar(1000) DEFAULT NULL,
   `duration` varchar(50) NOT NULL,
   `groupsize` varchar(50) NOT NULL DEFAULT '',
   `language` varchar(50) NOT NULL,
@@ -131,8 +144,11 @@ CREATE TABLE `p_unit` (
 -- Dumping data untuk tabel `p_unit`
 --
 
-INSERT INTO `p_unit` (`unit_id`, `name`, `address`, `duration`, `groupsize`, `language`, `overview`, `tourtype`, `tourcategory`, `created`, `updated`) VALUES
-(1, 'WONDERFUL BROMO AND IJEN TRIP – START MALANG', 'Kawah Ijen, East Java, Indonesia', '2 days 1 nights', 'Unlimitid', 'English', 'Bromo tour combined with Ijen Crater began the journey from Malang to Sukapura village by driving on the first day. You’ll find many interesting spots along the way to reach Sukapura village, e.g. Singosari Temple, Lawang traditional market and Purwodadai Botanical Garden. After arriving at Sukapura village, you’ll check in at the hotel that near from farming area. So you can witness the daily of the Tenggerese people in your free time.', 0, 0, '2020-04-24 11:07:11', NULL);
+INSERT INTO `p_unit` (`unit_id`, `name`, `address`, `image`, `duration`, `groupsize`, `language`, `overview`, `tourtype`, `tourcategory`, `created`, `updated`) VALUES
+(8, 'Sendang Gile Waterfall', 'West Nusa Tenggara, Indonesia', 'unit-280420-.jpg', '8 hour', 'Unlimited', 'English', 'You will see the beautiful valley and some monkeys around the way. ', 0, 0, '2020-04-28 23:30:35', '2020-04-29 09:15:15'),
+(9, 'Gili Trawangan', 'West Nusa Tenggara, Indonesia', 'unit-280420-1.jpg', '8 hours', 'Unlimited', 'English', 'You can see and enjoy the beautiful Mount Agung in Bali.', 0, 0, '2020-04-28 23:31:01', '2020-04-29 09:15:25'),
+(10, 'BROMO', 'Probolinggo, East Java, Indonesia', 'unit-290420-.jpg', '2 days 1 night', 'Unlimited', 'English', 'You will see the beautiful mount.', 0, 0, '2020-04-29 11:53:39', '2020-04-29 09:15:33'),
+(11, 'Batu', 'Malang, East Java, Indonesia', 'unit-290420-1.jpg', '2 days 1 night', 'Unlimited', 'English', 'Malang City located on the southwestern part of Indonesia, Java island.', 0, 0, '2020-04-29 14:17:46', '2020-04-29 09:17:57');
 
 -- --------------------------------------------------------
 
@@ -159,7 +175,7 @@ INSERT INTO `supplier` (`supplier_id`, `name`, `phone`, `address`, `description`
 (3, 'Miftahul Huda', '081358588519', 'Purwoharjo, Banyuwangi', 'Supliyer ke 2', '2020-03-04 08:46:20', '2020-04-24 08:12:44'),
 (4, 'Tour Fun', '087755635625', 'Ambulu, Jember', 'Hanya melayani tour  pada Hari libur', '2020-03-04 08:58:03', '2020-04-24 08:25:52'),
 (5, 'Mujib Trour', '081443244233', 'Gumuk, Banyuwangi', 'Tour Guide', '2020-03-04 09:42:02', '2020-03-04 07:55:35'),
-(10, 'Week Tour', '085667443666', 'Dinoyo, Malang', 'Agen Perjalanan daerah malang saja', '2020-03-04 10:53:48', '2020-03-04 05:46:11');
+(10, 'Septianda Reza Maulana', '082257125415', ' Perumahan Jati Asri Blok A3, Kebon Agung, Kraksaan-Probolinggo', 'Agen Perjalanan daerah probolinggo saja', '2020-03-04 10:53:48', '2020-04-27 07:59:37');
 
 -- --------------------------------------------------------
 
@@ -183,11 +199,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `username`, `email`, `name`, `password`, `address`, `level`, `status`) VALUES
-(1, 'Admin', '', 'M. Irvan Alfi Hidayat', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Banyuwangi', 1, 'Y'),
-(2, 'kasir1', '', 'Yusril Ihza', '874c0ac75f323057fe3b7fb3f5a8a41df2b94b1d', 'Banyuwangi', 2, 'Y'),
-(3, 'Kepopo', '', 'Denny Nur Ramadhan', '601f1889667efaebb33b8c12572835da3f027f78', 'Malang', 2, 'Y'),
-(4, 'koceng', '', 'Ahmad cnyder', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Betek', 2, 'N'),
-(8, 'huda123', '', 'miftahul huda', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'banyuwangi', 1, 'Y');
+(1, 'Admin', 'irvan@gmail.com', 'M. Irvan Alfi Hidayat', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Banyuwangi', 1, 'Y'),
+(9, 'septiandareza', 'septiandareza07@gmail.com', 'Septianda Reza Maulana', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Perumahan Jati Asri Blok A3', 1, 'Y'),
+(10, 'septianda', 'septiandareza07@gmail.com', 'Septianda Reza Maulana', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'jhjggjg', 2, 'N'),
+(11, 'mirza', 'mirza@gmail.com', 'Mirza Zarqani Rayhan', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Malang', 2, 'N'),
+(12, 'febri', 'febrialia_anggreini@rocketmail.com', 'Febri Alia Anggreini', '28556b717c75fbd8ca07639955f04eee22382c71', 'Probolinggo', 2, 'N'),
+(13, 'suswantini', 'suswantini@gmail.com', 'Suswantini', '7c222fb2927d828af22f592134e8932480637c0d', 'Jati Asri', 2, 'N');
 
 --
 -- Indexes for dumped tables
@@ -206,10 +223,13 @@ ALTER TABLE `p_category`
   ADD PRIMARY KEY (`category_id`);
 
 --
--- Indeks untuk tabel `p_language`
+-- Indeks untuk tabel `p_item`
 --
-ALTER TABLE `p_language`
-  ADD PRIMARY KEY (`unit_id`);
+ALTER TABLE `p_item`
+  ADD PRIMARY KEY (`item_id`),
+  ADD UNIQUE KEY `barcode` (`barcode`),
+  ADD KEY `category_id` (`category_id`),
+  ADD KEY `unit_id` (`unit_id`);
 
 --
 -- Indeks untuk tabel `p_type`
@@ -252,10 +272,10 @@ ALTER TABLE `p_category`
   MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `p_language`
+-- AUTO_INCREMENT untuk tabel `p_item`
 --
-ALTER TABLE `p_language`
-  MODIFY `unit_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `p_item`
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `p_type`
@@ -267,7 +287,7 @@ ALTER TABLE `p_type`
 -- AUTO_INCREMENT untuk tabel `p_unit`
 --
 ALTER TABLE `p_unit`
-  MODIFY `unit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `unit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `supplier`
@@ -279,7 +299,18 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `p_item`
+--
+ALTER TABLE `p_item`
+  ADD CONSTRAINT `p_item_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `p_category` (`category_id`),
+  ADD CONSTRAINT `p_item_ibfk_2` FOREIGN KEY (`unit_id`) REFERENCES `p_unit` (`unit_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

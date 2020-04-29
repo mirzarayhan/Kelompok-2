@@ -23,7 +23,7 @@ class User extends CI_Controller
     {
         $this->form_validation->set_rules('fullname', 'Name', 'required');
         $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|is_unique[user.username]');
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|c');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|callback_unique_email[user.email]');
         $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
         $this->form_validation->set_rules(
             'passconf',
@@ -53,7 +53,7 @@ class User extends CI_Controller
     {
         $this->form_validation->set_rules('fullname', 'Name', 'required');
         $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|is_unique[user.username]');
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|callback_unique_email[user.email]');
         $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
         $this->form_validation->set_rules(
             'passconf',
@@ -84,7 +84,7 @@ class User extends CI_Controller
         $this->form_validation->set_rules('fullname', 'Name', 'required');
         $uname1 = $this->input->post['username'];
         $this->form_validation->set_rules('username', 'username', 'required|min_length[5]|callback_user_check[' . $uname1 . ']');
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+        $this->form_validation->set_rules('email', 'Email', 'required');
 
         if ($this->input->post('password')) {
             $this->form_validation->set_rules('password', 'Password', 'min_length[6]');

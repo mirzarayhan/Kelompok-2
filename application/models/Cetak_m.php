@@ -34,4 +34,9 @@ class Cetak_m extends CI_Model
         $query = $this->db->get('p_unit');
         return $query->result();
     }
+    public function viewItem() {
+        $this->db->select('*');
+        $query = $this->db->get('p_item');
+        return $query->result();
+    }
 }

@@ -28,7 +28,6 @@
                     <tr>
                         <th style="width: 5%;">#</th>
                         <th>Name</th>
-                        <th>Status</th>
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
@@ -38,14 +37,13 @@
                         <tr>
                             <td style="width: 5%;"><?= $no++; ?>.</td>
                             <td><?= $data->name ?></td>
-                            <td><?= $data->status == 'E' ? 'Enable' : 'Disable'; ?></td>
                             <td class="text-center" width="160px">
                                 <a href="<?= site_url('category/edit/' . $data->category_id); ?>" class="btn btn-warning btn-xs">
-                                    <i class="fa fa-pencil"></i> Update
+                                    <i class="fa fa-pencil"></i> Edit
                                 </a>
                                 <form action="<?= site_url('category/delete'); ?>" method="POST" class="pull-right">
                                     <input type="hidden" name="category_id" value="<?= $data->category_id ?>">
-                                    <button class="btn btn-danger btn-xs" onclick="return confirm('Apakah Anda Yakin ingin menghapus data ini?')">
+                                    <button class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this data?')">
                                         <i class="fa fa-trash"></i> Delete</button>
                                 </form>
                             </td>

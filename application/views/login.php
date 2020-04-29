@@ -50,5 +50,5 @@
             </form>
             <hr>
             <div class="text-center">
-                <p style="color :white">Belum Punya Akun?
-                    <a class="medium" href="<?php echo base_url('Registrasi') ?>"> >> Daftar disini <<</a> </p> </div> </form> </div> </div> </body> </html>
+                <p style="color :white">Don't have an account?
+                    <a class="medium" href="<?php echo base_url('Registrasi') ?>"> >> Register Here <<</a> </p> </div> </form> </div> </div> </body> </html>

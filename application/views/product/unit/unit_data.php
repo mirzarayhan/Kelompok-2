@@ -17,7 +17,7 @@
             <div class="pull-right">
                 <a href="<?= site_url('unit/add'); ?>" class="btn btn-primary">
                     <i class="fa fa-plus"></i> Add</a>
-                <a href="<?= site_url('type/laporan_pdf'); ?>" class="btn btn-primary">
+                <a href="<?= site_url('unit/laporan_pdf'); ?>" class="btn btn-primary">
                     <i class="fa fa-print"></i> Print</a>
             </div>
         </div>
@@ -29,6 +29,7 @@
                         <th style="width: 5%;">#</th>
                         <th>Name / Title</th>
                         <th>Address</th>
+                        <th>Image</th>
                         <th>Duration</th>
                         <th>Group Size</th>
                         <th>Overview</th>
@@ -45,6 +46,11 @@
                             <td style="width: 5%;"><?= $no++; ?>.</td>
                             <td><?= $data->name ?></td>
                             <td><?= $data->address ?></td>
+                            <td>
+                                <?php if($data->image != null) { ?>
+                                    <img src="<?=base_url('uploads/unit/'.$data->image )?>" style="width:100px">
+                                <?php } ?>
+                            </td>
                             <td><?= $data->duration ?></td>
                             <td><?= $data->groupsize ?></td>
                             <td><?= $data->overview ?></td>
@@ -53,11 +59,11 @@
                             <td><?= $data->tourcategory ?></td>
                             <td class="text-center" width="160px">
                                 <a href="<?= site_url('unit/edit/' . $data->unit_id); ?>" class="btn btn-warning btn-xs">
-                                    <i class="fa fa-pencil"></i> Update
+                                    <i class="fa fa-pencil"></i> Edit
                                 </a>
                                 <form action="<?= site_url('unit/delete'); ?>" method="POST" class="pull-right">
                                     <input type="hidden" name="unit_id" value="<?= $data->unit_id ?>">
-                                    <button class="btn btn-danger btn-xs" onclick="return confirm('Apakah Anda Yakin ingin menghapus data ini?')">
+                                    <button class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this data?')">
                                         <i class="fa fa-trash"></i> Delete</button>
                                 </form>
                             </td>

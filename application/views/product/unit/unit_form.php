@@ -22,7 +22,8 @@
         <div class="box-body table-responsive">
             <div class="row">
                 <div>
-                    <form action="<?= site_url('unit/proses'); ?>" method="POST">
+                    <?php echo form_open_multipart('unit/proses') ?>
+                    <!-- <form action="<?= site_url('unit/proses'); ?>" method="POST"> -->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Unit Name *</label>
@@ -31,51 +32,59 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Unit Address *</label>
-                                <textarea name="unit_address" class="form-control" value="<?= $row->address; ?>" required></textarea>
+                                <input type="text" name="unit_address" class="form-control" value="<?= $row->address; ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Image</label>
+                                <?php if($page == 'edit') {
+                                    if($row->image != null) { ?>
+                                        <div style="margin-bottom:5px">
+                                            <img src="<?=base_url('uploads/unit/'.$row->image )?>" style="width:100%">
+                                        </div>
+                                    <?php
+                                    }
+                                } ?>
+                                <input type="file" name="image" class="form-control">
+                                <small>(Leave blank if not <?=$page == 'edit' ? 'change' : 'available' ?>)</small>
                             </div>
                             <div class="form-group">
                                 <label for="">Unit Duration *</label>
-                                <input type="text" name="unit_duration" class="form-control" value="<?= $row->duration; ?>" required>
+                                <input type="text" name="unit_duration" class="form-control" value="<?= $row->duration; ?>">
                             </div>
                             <div class="form-group">
                                 <label for="">Unit Grup Size *</label>
-                                <input type="text" name="unit_grupsize" class="form-control" value="<?= $row->groupsize; ?>" required>
+                                <input type="text" name="unit_grupsize" class="form-control" value="<?= $row->groupsize; ?>">
                             </div>
                             <div class="form-group">
                                 <label for="">Unit Overview *</label>
-                                <textarea name="unit_overview" class="form-control" value="<?= $row->overview; ?>" required></textarea>
+                                <input type="text" name="unit_overview" class="form-control" value="<?= $row->overview; ?>">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Unit Language *</label>
-                                <input type="text" name="unit_language" class="form-control" value="<?= $row->language; ?>" required>
+                                <input type="text" name="unit_language" class="form-control" value="<?= $row->language; ?>">
                             </div>
                         </div>
                         <div class="form-group col-md-3">
                             <label>Unit Type *</label>
-                            <?php
-                            $atribut = array('class' => 'form-control');
-                            echo form_dropdown('type', $type, $row->type_id ?? '', $atribut);
-                            echo form_error('type');
-                            ?>
+                            <select name="unit_type" class="form-control">
+                                <option>option 1</option>
+                                <option>option 2</option>
+                            </select>
                         </div>
                         <div class="form-group col-md-3">
                             <label>Unit Categori *</label>
                             <select name="unit_categori" class="form-control">
-                                <option><?= $row->name ?></option>
+                                <option value="">- Choose -</option>
                             </select>
-                            <?php
-                            $atribut = array('class' => 'form-control');
-                            echo form_dropdown('category', $category, $row->category_id ?? '', $atribut);
-                            echo form_error('category');
-                            ?>
                         </div>
                         <div class="from-group col-md-6">
                             <button type="submit" name="<?= $page; ?>" class="btn btn-success"><i class="fa fa-paper-plane"></i> Save</button>
                             <button type="reset" class="btn" style="margin-left: 10px"><i class="fa fa-undo"></i> Reset</button>
                         </div>
-                    </form>
+                    <?php echo form_close() ?>
+                    <!-- </form> -->
                 </div>
             </div>
         </div>

@@ -39,12 +39,12 @@
                         <tr>
                             <td style="width: 5%;"><?= $no++; ?>.</td>
                             <td><?= $data->name ?></td>
-                            <td><?= $data->gender == 'L' ? 'male' : 'female' ?></td>
+                            <td><?= $data->gender == 'L' ? 'Male' : 'Female' ?></td>
                             <td><?= $data->phone ?></td>
                             <td><?= $data->address ?></td>
                             <td class="text-center" width="160px">
                                 <a href="<?= site_url('customer/edit/' . $data->customer_id); ?>" class="btn btn-warning btn-xs">
-                                    <i class="fa fa-pencil"></i> Update
+                                    <i class="fa fa-pencil"></i> Edit
                                 </a>
                                 <form action="<?= site_url('customer/delete'); ?>" method="POST" class="pull-right">
                                     <input type="hidden" name="customer_id" value="<?= $data->customer_id ?>">

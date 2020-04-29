@@ -39,7 +39,6 @@ class Type extends CI_Controller
         $type = new stdClass();
         $type->type_id = null;
         $type->name = null;
-        $type->status = null;
         $data = [
             'page' => 'add',
             'row' => $type
@@ -74,8 +73,7 @@ class Type extends CI_Controller
         }
         redirect('type');
     }
-    public function laporan_pdf()
-    {
+    public function laporan_pdf() {
         $data['title'] = 'Report Type';
         $data['type'] = $this->Cetak_m->viewType();
         $this->load->library('pdf');

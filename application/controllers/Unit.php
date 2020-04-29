@@ -21,34 +21,79 @@ class Unit extends CI_Controller
 
     public function proses()
     {
+        $config['upload_path']      = './uploads/unit/';
+        $config['allowed_types']    = 'gif|jpg|jpeg|png';
+        $config['max_size']         = 5120;
+        $config['file_name']        = 'unit-'.date('dmy').'-'.substr(md5(rand()));
+        $this->load->library('upload', $config);
+
         $post = $this->input->post(null, TRUE);
         if (isset($_POST['add'])) {
-            $this->unit_m->add($post);
+            
+            if(@$_FILES['image']['name'] != null) {
+                if($this->upload->do_upload('image')) {
+                    $post['image']  =   $this->upload->data('file_name');
+                    $this->unit_m->add($post); 
+                    if ($this->db->affected_rows() > 0) {
+                        $this->session->set_flashdata('success', 'Data has been successfully saved!!');
+                    }
+                    redirect('unit');
+                }else {
+                    $error = $this->upload->display_errors();
+                    $this->session->set_flashdata('error', $error);
+                    redirect('unit/add');
+                }  
+            }else {
+                $post['image']  = null;
+                $this->unit_m->add($post); 
+                if ($this->db->affected_rows() > 0) {
+                    $this->session->set_flashdata('success', 'Data has been successfully saved!!');
+                }
+                redirect('unit');
+            }
         } else if (isset($_POST['edit'])) {
-            $this->unit_m->edit($post);
+            if(@$_FILES['image']['name'] != null) {
+                if($this->upload->do_upload('image')) {
+                    $unit = $this->unit_m->get($post['id'])->row();
+                    if($unit->image != null) {
+                        $target_file = './uploads/unit/'. $unit->image;
+                        unlink($target_file);
+                    }
+                    $post['image']  =   $this->upload->data('file_name');
+                    $this->unit_m->edit($post); 
+                    if ($this->db->affected_rows() > 0) {
+                        $this->session->set_flashdata('success', 'Data has been successfully saved!!');
+                    }
+                    redirect('unit');
+                }else {
+                    $error = $this->upload->display_errors();
+                    $this->session->set_flashdata('error', $error);
+                    redirect('unit/add');
+                }
+            }else {
+                $post['image']  = null;
+                $this->unit_m->edit($post); 
+                if ($this->db->affected_rows() > 0) {
+                    $this->session->set_flashdata('success', 'Data has been successfully saved!!');
+                }
+                redirect('unit');
+            }
         }
-
-        if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', 'data has been successfully saved');
-        }
-        redirect('unit');
     }
 
     public function add()
     {
-        $unit               = new stdClass();
-        $unit->unit_id      = null;
-        $unit->name         = null;
-        $unit->address      = null;
-        $unit->duration     = null;
-        $unit->groupsize    = null;
-        $unit->overview     = null;
-        $unit->language     = null;
+        $unit = new stdClass();
+        $unit->unit_id = null;
+        $unit->name = null;
+        $unit->address = null;
+        $unit->duration = null;
+        $unit->groupsize = null;
+        $unit->overview = null;
+        $unit->language = null;
         $data = [
-            'page'      => 'add',
-            'category'  => $this->Category_m->dropdownList(),
-            'type'      => $this->Type_m->dropdownList(),
-            'row'       => $unit
+            'page' => 'add',
+            'row' => $unit
         ];
         $this->template->load('template', 'product/unit/unit_form', $data);
     }
@@ -59,10 +104,8 @@ class Unit extends CI_Controller
         if ($query->num_rows() > 0) {
             $unit = $query->row();
             $data = [
-                'page'      => 'edit',
-                'category'  => $this->Category_m->dropdownList(),
-                'type'      => $this->Type_m->dropdownList(),
-                'row'       => $unit
+                'page' => 'edit',
+                'row' => $unit
             ];
             $this->template->load('template', 'product/unit/unit_form', $data);
         } else {
@@ -74,18 +117,23 @@ class Unit extends CI_Controller
 
     public function delete()
     {
+        $unit = $this->unit_m->get($id)->row();
+        if($unit->image != null) {
+            $target_file = './uploads/unit/'. $unit->image;
+            unlink($target_file);
+        }
         $id = $this->input->post('unit_id');
         $this->unit_m->del($id);
 
         if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', 'data has been successfully deleted');
+            $this->session->set_flashdata('success', 'Data has been successfully deleted!!');
         }
         redirect('unit');
     }
     public function laporan_pdf()
     {
-        $data['title']  = 'Report Unit';
-        $data['type']   = $this->Cetak_m->viewUnit();
+        $data['title'] = 'Report Unit';
+        $data['unit'] = $this->Cetak_m->viewUnit();
         $this->load->library('pdf');
 
         $this->pdf->setPaper('A4', 'potrait');

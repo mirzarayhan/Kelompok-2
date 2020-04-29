@@ -35,7 +35,7 @@ class Registrasi extends CI_Controller
             $post = $this->input->post(null, TRUE);
             $this->user_m->add($post);
             if ($this->db->affected_rows() > 0) {
-                echo "<script>alert('Anda berhasil registrasi, Silahkan tunggu konfirmasi dari admin melalui email untuk bisa login.. :)')</script>";
+                echo "<script>alert('Registration is successfull, Please wait for confirmation from Admin via email to login :)')</script>";
             }
             echo "<script>window.location='" . site_url('auth/login') . "'</script>";
         }

@@ -48,10 +48,10 @@
                             <td><?= $data->status == "Y" ? "Aktif" : "Non Aktif" ?></td>
                             <td class="text-center" width="160px">
                                 <a href="<?= site_url('user/edit/' . $data->user_id); ?>" class="btn btn-warning btn-xs">
-                                    <i class="fa fa-pencil"></i> Update</a>
+                                    <i class="fa fa-pencil"></i> Edit</a>
                                 <form action="<?= site_url('user/delete'); ?>" method="POST" class="pull-right">
                                     <input type="hidden" name="user_id" value="<?= $data->user_id ?>">
-                                    <button class="btn btn-danger btn-xs" onclick="return confirm('Apakah Anda Yakin ingin menghapus data ini?')">
+                                    <button class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this data?')">
                                         <i class="fa fa-trash"></i> Delete</button>
                                 </form>
                             </td>

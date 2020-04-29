@@ -29,7 +29,7 @@ class Category extends CI_Controller
         }
 
         if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', 'data has been successfully saved');
+            $this->session->set_flashdata('success', 'Data has been successfully saved!!');
         }
         redirect('category');
     }
@@ -39,7 +39,6 @@ class Category extends CI_Controller
         $category = new stdClass();
         $category->category_id = null;
         $category->name = null;
-        $category->status = null;
         $data = [
             'page' => 'add',
             'row' => $category
@@ -70,12 +69,11 @@ class Category extends CI_Controller
         $this->category_m->del($id);
 
         if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', 'data has been successfully deleted');
+            $this->session->set_flashdata('success', 'Data has been successfully deleted!!');
         }
         redirect('category');
     }
-    public function laporan_pdf()
-    {
+    public function laporan_pdf() {
         $data['title'] = 'Report Category';
         $data['category'] = $this->Cetak_m->viewCategory();
         $this->load->library('pdf');

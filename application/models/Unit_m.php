@@ -2,21 +2,13 @@
 
 class Unit_m extends CI_Model
 {
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->load->model('Unit_m');
-        $this->load->model('Category_m');
-        $this->load->model('Type_m');
-    }
-
     public function get($id = null)
     {
         $this->db->from('p_unit');
         if ($id != null) {
             $this->db->where('unit_id', $id);
         }
+        $this->db->order_by('unit_id', 'asc');
         $query = $this->db->get();
         return $query;
     }
@@ -24,14 +16,15 @@ class Unit_m extends CI_Model
     public function add($post)
     {
         $params = [
-            'title'     => $post['title'],
-            'address'   => $post['address'],
-            'duration'  => $post['duration'],
-            'groupsize' => $post['groupsize'],
-            'overview'  => $post['overview'],
-            'tourtype'  => $post['tourtype'],
-            'language'  => $post['language'],
-            'category'  => $post['category']
+            'name'      => $post['unit_name'],
+            'address'   => $post['unit_address'],
+            'image'     => $post['image'],
+            'duration'  => $post['unit_duration'],
+            'groupsize' => $post['unit_grupsize'],
+            'overview'  => $post['unit_overview'],
+            'tourtype'  => $post['unit_type'],
+            'language'  => $post['unit_language'],
+            'tourcategory'  => $post['unit_categori']
         ];
         $this->db->insert('p_unit', $params);
     }
@@ -39,16 +32,19 @@ class Unit_m extends CI_Model
     public function edit($post)
     {
         $params = [
-            'title'     => $post['title'],
-            'address'   => $post['address'],
-            'duration'  => $post['duration'],
-            'groupsize' => $post['groupsize'],
-            'overview'  => $post['overview'],
-            'tourtype'  => $post['tourtype'],
-            'language'  => $post['language'],
-            'category'  => $post['category'],
+            'name'      => $post['unit_name'],
+            'address'   => $post['unit_address'],
+            'duration'  => $post['unit_duration'],
+            'groupsize' => $post['unit_grupsize'],
+            'overview'  => $post['unit_overview'],
+            'tourtype'  => $post['unit_type'],
+            'language'  => $post['unit_language'],
+            'tourcategory'  => $post['unit_categori'],
             'updated '  => date('Y-m-d  H:i:s')
         ];
+        if($post['image'] != null) {
+            $params['image'] = $post['image'];
+        }
         $this->db->where('unit_id', $post['id']);
         $this->db->update('p_unit', $params);
     }

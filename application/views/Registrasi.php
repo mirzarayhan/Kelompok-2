@@ -10,7 +10,9 @@
 </style>
 
 <body style="background-color: darkslateblue">
+
     <div class="container">
+
         <div class="card o-hidden border-0 shadow-lg col-lg-6 my-5 mx-auto">
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
@@ -19,11 +21,11 @@
                         <div class="p-5">
                             <div class="text-center">
                                 <h1 class="h4 mb-1" style="color:white"><b>Register </b>PT.Traviora</h1>
-                                <p class="mb-4">Daftarkan akun anda untuk dapat login ke website kami</p>
+                                <p class="mb-4">Register your account for when login in to our website</p>
                             </div>
                             <form class="user" method="POST" action="<?php echo base_url('Registrasi') ?>">
                                 <div class="form-group <?= form_error('fullname') ? 'has-error' : null; ?>">
-                                    <input type="text" name="fullname" class="form-control" value="<?= set_value('fullname'); ?>" placeholder="Nama Lengkap">
+                                    <input type="text" name="fullname" class="form-control" value="<?= set_value('fullname'); ?>" placeholder="Fullname">
                                     <span class="help-block"><?= form_error('fullname'); ?></span>
                                 </div>
                                 <div class="form-group <?= form_error('email') ? 'has-error' : null; ?>">
@@ -35,6 +37,7 @@
                                     <span class="help-block"><?= form_error('username'); ?></span>
                                 </div>
                                 <div class="form-group row">
+
                                     <div class="col-sm-6 mb-3 mb-sm-0 <?= form_error('password') ? 'has-error' : null; ?>">
                                         <input type="password" name="password" class="form-control" value="<?= set_value('password'); ?>" placeholder="Password">
                                         <span class="help-block"><?= form_error('password'); ?></span>
@@ -48,7 +51,6 @@
                                     <textarea name="address" class="form-control" placeholder="Address"><?= set_value('address'); ?></textarea>
                                     <span class="help-block"><?= form_error('address'); ?></span>
                                 </div>
-
                                 <div class="form-group <?= form_error('level') ? 'has-error' : null; ?>">
                                     <label for="">Level</label>
                                     <select name="level" class="form-control" id="">
@@ -57,18 +59,20 @@
                                     </select>
                                     <span class="help-block"><?= form_error('level'); ?></span>
                                 </div>
-
-                                <button type="submit" name="login.php" class="btn btn-warning btn-block">Daftar</button>
+                                
+                                <button type="submit" name="login.php" class="btn btn-warning btn-block">Register</button>
                                 <hr>
                             </form>
                             <div class="text-center">
-                                <a class="small" href="<?php echo base_url('Auth/login') ?>">Sudah Punya Akun? Silahkan Login</a>
+                                <a class="small" href="<?php echo base_url('Auth/login') ?>">Already have an account? Please Login!!</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
     </div>
 </body>
 

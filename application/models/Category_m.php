@@ -14,19 +14,18 @@ class Category_m extends CI_Model
 
     public function dropdownList()
     {
-        $results = $this->db->select('category_id, name')
+        $results = $this->db->select('id, name')
             ->where('status', 'aktif')
             ->get('p_category')
             ->result_array();
 
-        return array_column($results, 'name', 'category_id');
+        return array_column($results, 'name', 'id');
     }
 
     public function add($post)
     {
         $params = [
-            'name' => $post['category_name'],
-            'staus' => $post['category_status']
+            'name' => $post['category_name']
         ];
         $this->db->insert('p_category', $params);
     }
@@ -35,7 +34,6 @@ class Category_m extends CI_Model
     {
         $params = [
             'name' => $post['category_name'],
-            'staus' => $post['category_status'],
             'updated ' => date('Y-m-d  H:i:s')
         ];
         $this->db->where('category_id', $post['id']);

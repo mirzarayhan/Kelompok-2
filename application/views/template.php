@@ -148,7 +148,7 @@
                             <li><a href="<?= site_url('unit'); ?>"><i class="fa fa-circle-o"></i> Units</a></li>
                             <li><a href="<?= site_url('category'); ?>"><i class="fa fa-circle-o"></i> Categories</a></li>
                             <li><a href="<?= site_url('type'); ?>"><i class="fa fa-circle-o"></i> Tour Type</a></li>
-                            <li><a href="#"><i class="fa fa-circle-o"></i> Items</a></li>
+                            <li><a href="<?= site_url('item'); ?>"><i class="fa fa-circle-o"></i> Items</a></li>
                         </ul>
                     </li>
                     <li class="treeview">

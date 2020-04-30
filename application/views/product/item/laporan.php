@@ -41,26 +41,26 @@
                 <tr>
                     <th>No</th>
                     <th>Item Id</th>
-                    <th>Barcode</th>
                     <th>Name</th>
-                    <th>Category Id</th>
-                    <th>Unit Id</th>
-                    <th>Price</th>
-                    <th>Stock</th>
+                    <th>Address</th>
+                    <th>Duration</th>
+                    <th>Group Size</th>
+                    <th>Tour Type</th>
+                    <th>Tour Category</th>
                 </tr>
             </thead>
             <tbody>
                 <?php $no = 1; ?>
-                <?php foreach ($item as $itm) : ?>
+                <?php foreach ($item as $un) : ?>
                     <tr>
                         <td><?= $no; ?></td>
-                        <td><?= $itm->item_id; ?></td>
-                        <td><?= $itm->barcode; ?></td>
-                        <td><?= $itm->name; ?></td>
-                        <td><?= $itm->category_id; ?></td>
-                        <td><?= $itm->unit_id; ?></td>
-                        <td><?= $itm->price; ?></td>
-                        <td><?= $itm->stock; ?></td>             
+                        <td><?= $un->item_id; ?></td>
+                        <td><?= $un->name; ?></td>
+                        <td><?= $un->address; ?></td>
+                        <td><?= $un->duration; ?></td>
+                        <td><?= $un->groupsize; ?></td>
+                        <td><?= $un->tourtype; ?></td>
+                        <td><?= $un->tourcategory; ?></td>
                     </tr>
                     <?php $no++; ?>
                 <?php endforeach; ?>

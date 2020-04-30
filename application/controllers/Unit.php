@@ -8,108 +8,85 @@ class Unit extends CI_Controller
     {
         parent::__construct();
         check_not_login();
-        $this->load->model('unit_m');
+        $this->load->model(['Unit_m', 'category_m', 'Unit_m']);
         $this->load->model('Cetak_m');
     }
 
-
     public function index()
     {
-        $data['row'] = $this->unit_m->get();
+        $data['row'] = $this->Unit_m->get();
         $this->template->load('template', 'product/unit/unit_data', $data);
     }
 
     public function proses()
     {
-        $config['upload_path']      = './uploads/unit/';
-        $config['allowed_types']    = 'gif|jpg|jpeg|png';
-        $config['max_size']         = 5120;
-        $config['file_name']        = 'unit-'.date('dmy').'-'.substr(md5(rand()));
-        $this->load->library('upload', $config);
-
         $post = $this->input->post(null, TRUE);
         if (isset($_POST['add'])) {
-            
-            if(@$_FILES['image']['name'] != null) {
-                if($this->upload->do_upload('image')) {
-                    $post['image']  =   $this->upload->data('file_name');
-                    $this->unit_m->add($post); 
-                    if ($this->db->affected_rows() > 0) {
-                        $this->session->set_flashdata('success', 'Data has been successfully saved!!');
-                    }
-                    redirect('unit');
-                }else {
-                    $error = $this->upload->display_errors();
-                    $this->session->set_flashdata('error', $error);
-                    redirect('unit/add');
-                }  
-            }else {
-                $post['image']  = null;
-                $this->unit_m->add($post); 
-                if ($this->db->affected_rows() > 0) {
-                    $this->session->set_flashdata('success', 'Data has been successfully saved!!');
-                }
-                redirect('unit');
+            if ($this->Unit_m->check_barcode($post['barcode'])->num_rows() > 0) {
+                $this->session->set_flashdata('error', "Barcode $post[barcode] already used!!");
+                redirect('unit/add');
+            } else {
+                $this->Unit_m->add($post);
             }
         } else if (isset($_POST['edit'])) {
-            if(@$_FILES['image']['name'] != null) {
-                if($this->upload->do_upload('image')) {
-                    $unit = $this->unit_m->get($post['id'])->row();
-                    if($unit->image != null) {
-                        $target_file = './uploads/unit/'. $unit->image;
-                        unlink($target_file);
-                    }
-                    $post['image']  =   $this->upload->data('file_name');
-                    $this->unit_m->edit($post); 
-                    if ($this->db->affected_rows() > 0) {
-                        $this->session->set_flashdata('success', 'Data has been successfully saved!!');
-                    }
-                    redirect('unit');
-                }else {
-                    $error = $this->upload->display_errors();
-                    $this->session->set_flashdata('error', $error);
-                    redirect('unit/add');
-                }
-            }else {
-                $post['image']  = null;
-                $this->unit_m->edit($post); 
-                if ($this->db->affected_rows() > 0) {
-                    $this->session->set_flashdata('success', 'Data has been successfully saved!!');
-                }
-                redirect('unit');
+            if ($this->Unit_m->check_barcode($post['barcode'], $post['id'])->num_rows() > 0) {
+                $this->session->set_flashdata('error', "Barcode $post[barcode] already used!!");
+                redirect('unit/edit/' . $post['id']);
+            } else {
+                $this->Unit_m->edit($post);
             }
         }
+
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', 'Data has been successfully saved!!');
+        }
+        redirect('unit');
     }
 
     public function add()
     {
-        $unit = new stdClass();
-        $unit->unit_id = null;
-        $unit->name = null;
-        $unit->address = null;
-        $unit->duration = null;
-        $unit->groupsize = null;
-        $unit->overview = null;
-        $unit->language = null;
-        $data = [
-            'page' => 'add',
-            'row' => $unit
-        ];
+        $unit                   = new stdClass();
+        $unit->unit_id          = null;
+        $unit->barcode          = null;
+        $unit->name             = null;
+        $unit->price            = null;
+        $unit->category_id      = null;
+
+        $query_category = $this->category_m->get();
+        $query_unit     = $this->Unit_m->get();
+        $unit[null]     = '- Choose -';
+        foreach ($query_unit->result() as $unt) {
+            $unit[$unt->unit_id] = $unt->name;
+        }
+        $data = array(
+            'page'      => 'add',
+            'row'       =>  $unit,
+            'category'  =>  $query_category,
+            'unit'      =>  $unit, 'selectedunit' => null,
+        );
         $this->template->load('template', 'product/unit/unit_form', $data);
     }
 
     public function edit($id)
     {
-        $query = $this->unit_m->get($id);
+        $query = $this->Unit_m->get($id);
         if ($query->num_rows() > 0) {
             $unit = $query->row();
-            $data = [
-                'page' => 'edit',
-                'row' => $unit
-            ];
+            $query_category = $this->category_m->get();
+            $query_unit     = $this->Unit_m->get();
+            $unit[null]     = '- Choose -';
+            foreach ($query_unit->result() as $unt) {
+                $unit[$unt->unit_id] = $unt->name;
+            }
+            $data = array(
+                'page'      => 'edit',
+                'row'       =>  $unit,
+                'category'  =>  $query_category,
+                'unit'      =>  $unit, 'selectedunit' => $unit->unit_id,
+            );
             $this->template->load('template', 'product/unit/unit_form', $data);
         } else {
-            echo "<script>alert('Data tidak ditemukan');";
+            echo "<script>alert('Data tidak dunitukan');";
             $this->session->set_flashdata('success', 'data not found');
             redirect('unit');
         }
@@ -117,13 +94,8 @@ class Unit extends CI_Controller
 
     public function delete()
     {
-        $unit = $this->unit_m->get($id)->row();
-        if($unit->image != null) {
-            $target_file = './uploads/unit/'. $unit->image;
-            unlink($target_file);
-        }
         $id = $this->input->post('unit_id');
-        $this->unit_m->del($id);
+        $this->Unit_m->del($id);
 
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', 'Data has been successfully deleted!!');
@@ -132,12 +104,29 @@ class Unit extends CI_Controller
     }
     public function laporan_pdf()
     {
-        $data['title'] = 'Report Unit';
-        $data['unit'] = $this->Cetak_m->viewUnit();
+        $data['title'] = 'Report unit';
+        $data['unit'] = $this->Cetak_m->viewunit();
         $this->load->library('pdf');
 
         $this->pdf->setPaper('A4', 'potrait');
         $this->pdf->filename = "laporan_unit.pdf";
         $this->pdf->load_view('product/unit/laporan', $data);
+    }
+    public function barcode_qrcode($id)
+    {
+        $data['row'] = $this->Unit_m->get($id)->row();
+        $this->template->load('template', 'product/unit/barcode_qrcode', $data);
+    }
+    public function barcode_print($id)
+    {
+        $data['row'] = $this->Unit_m->get($id)->row();
+        $html = $this->load->view('product/unit/barcode_print', $data, true);
+        $this->fungsi->PdfGenerator($html, 'barcode-' . $data['row']->barcode, 'A4', 'landscape');
+    }
+    public function qrcode_print($id)
+    {
+        $data['row'] = $this->Unit_m->get($id)->row();
+        $html = $this->load->view('product/unit/qrcode_print', $data, true);
+        $this->fungsi->PdfGenerator($html, 'qrcode-' . $data['row']->barcode, 'A4', 'portrait');
     }
 }

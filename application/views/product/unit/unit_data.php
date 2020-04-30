@@ -4,7 +4,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href=""><i class="fa fa-dashboard"></i></a></li>
-        <li class="active">Unit</li>
+        <li class="active">Units</li>
     </ol>
 </section>
 
@@ -13,7 +13,7 @@
     <?php $this->view('messages'); ?>
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Data Unit</h3>
+            <h3 class="box-title">Data Units</h3>
             <div class="pull-right">
                 <a href="<?= site_url('unit/add'); ?>" class="btn btn-primary">
                     <i class="fa fa-plus"></i> Add</a>
@@ -27,16 +27,13 @@
                 <thead>
                     <tr>
                         <th style="width: 5%;">#</th>
-                        <th>Name / Title</th>
-                        <th>Address</th>
-                        <th>Image</th>
-                        <th>Duration</th>
-                        <th>Group Size</th>
-                        <th>Overview</th>
-                        <th>Language</th>
-                        <th>Tour Type</th>
-                        <th>Tour Category</th>
-                        <th class="text-center">Actions</th>
+                        <th>Barcode</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,19 +41,17 @@
                     <?php foreach ($row->result() as $key => $data) : ?>
                         <tr>
                             <td style="width: 5%;"><?= $no++; ?>.</td>
-                            <td><?= $data->name ?></td>
-                            <td><?= $data->address ?></td>
                             <td>
-                                <?php if($data->image != null) { ?>
-                                    <img src="<?=base_url('uploads/unit/'.$data->image )?>" style="width:100px">
-                                <?php } ?>
+                                <?= $data->barcode ?> <br>
+                                <a href="<?= site_url('unit/barcode_qrcode/' . $data->unit_id); ?>" class="btn btn-default btn-xs">
+                                    Generate<i class="fa fa-barcode"></i>
+                                </a>
                             </td>
-                            <td><?= $data->duration ?></td>
-                            <td><?= $data->groupsize ?></td>
-                            <td><?= $data->overview ?></td>
-                            <td><?= $data->language ?></td>
-                            <td><?= $data->tourtype ?></td>
-                            <td><?= $data->tourcategory ?></td>
+                            <td><?= $data->name ?></td>
+                            <td><?= $data->category_name ?></td>
+                            <td><?= $data->item_name ?></td>
+                            <td><?= $data->price ?></td>
+                            <td><?= $data->stock ?></td>
                             <td class="text-center" width="160px">
                                 <a href="<?= site_url('unit/edit/' . $data->unit_id); ?>" class="btn btn-warning btn-xs">
                                     <i class="fa fa-pencil"></i> Edit

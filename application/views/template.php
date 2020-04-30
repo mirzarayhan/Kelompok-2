@@ -145,10 +145,10 @@
                             <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="<?= site_url('unit'); ?>"><i class="fa fa-circle-o"></i> Units</a></li>
+                            <li><a href="<?= site_url('item'); ?>"><i class="fa fa-circle-o"></i> Items</a></li>
                             <li><a href="<?= site_url('category'); ?>"><i class="fa fa-circle-o"></i> Categories</a></li>
                             <li><a href="<?= site_url('type'); ?>"><i class="fa fa-circle-o"></i> Tour Type</a></li>
-                            <li><a href="<?= site_url('item'); ?>"><i class="fa fa-circle-o"></i> Items</a></li>
+                            <li><a href="<?= site_url('unit'); ?>"><i class="fa fa-circle-o"></i> Units</a></li>
                         </ul>
                     </li>
                     <li class="treeview">

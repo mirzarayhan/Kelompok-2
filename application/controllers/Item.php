@@ -24,7 +24,7 @@ class Item extends CI_Controller
         $config['upload_path']      = './uploads/item/';
         $config['allowed_types']    = 'gif|jpg|jpeg|png';
         $config['max_size']         = 5120;
-        $config['file_name']        = 'item-' . date('dmy') . '-' . substr(md5(rand()));
+        $config['file_name']        = 'item-' . date('dmy') . '-' . substr(md5(rand()), 0, 10);
         $this->load->library('upload', $config);
 
         $post = $this->input->post(null, TRUE);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Apr 2020 pada 15.58
+-- Waktu pembuatan: 02 Bulan Mei 2020 pada 15.39
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.3.11
 
@@ -67,9 +67,9 @@ CREATE TABLE `p_category` (
 --
 
 INSERT INTO `p_category` (`category_id`, `name`, `created`, `updated`, `status`) VALUES
-(1, 'Java Tours', '2020-03-05 03:40:11', '2020-04-29 05:50:49', 'aktif'),
-(2, 'Bali Tours', '2020-03-05 03:40:57', '2020-04-29 05:51:01', 'aktif'),
-(3, 'Lombok Tours', '2020-03-05 03:43:12', '2020-04-29 05:52:44', 'aktif');
+(1, 'Java Tours', '2020-03-05 03:40:11', '2020-04-29 05:50:49', 'E'),
+(2, 'Bali Tours', '2020-03-05 03:40:57', '2020-04-29 05:51:01', 'E'),
+(3, 'Lombok Tours', '2020-03-05 03:43:12', '2020-05-01 16:44:24', 'D');
 
 -- --------------------------------------------------------
 
@@ -121,7 +121,7 @@ CREATE TABLE `p_type` (
 --
 
 INSERT INTO `p_type` (`type_id`, `name`, `created`, `updated`, `status`) VALUES
-(1, 'Daily Tour', '2020-03-08 00:49:39', NULL, 'aktif');
+(1, 'Daily Tour', '2020-03-08 00:49:39', '2020-05-01 16:56:45', 'E');
 
 -- --------------------------------------------------------
 
@@ -204,7 +204,9 @@ INSERT INTO `user` (`user_id`, `username`, `email`, `name`, `password`, `address
 (10, 'septianda', 'septiandareza07@gmail.com', 'Septianda Reza Maulana', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'jhjggjg', 2, 'N'),
 (11, 'mirza', 'mirza@gmail.com', 'Mirza Zarqani Rayhan', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Malang', 2, 'N'),
 (12, 'febri', 'febrialia_anggreini@rocketmail.com', 'Febri Alia Anggreini', '28556b717c75fbd8ca07639955f04eee22382c71', 'Probolinggo', 2, 'N'),
-(13, 'suswantini', 'suswantini@gmail.com', 'Suswantini', '7c222fb2927d828af22f592134e8932480637c0d', 'Jati Asri', 2, 'N');
+(13, 'suswantini', 'suswantini@gmail.com', 'Suswantini', '7c222fb2927d828af22f592134e8932480637c0d', 'Jati Asri', 2, 'N'),
+(14, 'huda123', 'miftahkonae95@gmail.com', 'Miftahul Huda', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Banyuwangi', 2, 'Y'),
+(15, 'hikam123', 'hikampadang34@gmail.com', 'hikam padang', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Singojuruh', 2, 'Y');
 
 --
 -- Indexes for dumped tables
@@ -299,7 +301,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

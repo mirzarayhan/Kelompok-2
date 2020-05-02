@@ -4,7 +4,7 @@ class Unit_m extends CI_Model
 {
     public function get($id = null)
     {
-        $this->db->select('p_unit.*, p_category.name as name, p_item.name as name');
+        $this->db->select('p_unit.*, p_category.name as category_name, p_item.name as item_name');
         $this->db->from('p_unit');
         $this->db->join('p_category', 'p_category.category_id = p_unit.category_id');
         $this->db->join('p_item', 'p_item.item_id = p_unit.item_id');

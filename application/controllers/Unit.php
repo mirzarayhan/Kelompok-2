@@ -8,7 +8,7 @@ class Unit extends CI_Controller
     {
         parent::__construct();
         check_not_login();
-        $this->load->model(['unit_m', 'category_m', 'item_m']);
+        $this->load->model(['Unit_m', 'category_m', 'item_m']);
         $this->load->model('Cetak_m');
     }
 

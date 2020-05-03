@@ -34,6 +34,7 @@ class Unit_m extends CI_Model
             'category_id'   => $post['category'],
             'item_id'       => $post['item'],
             'price'         => $post['price'],
+            'stock'         => $post['stock']
         ];
         $this->db->insert('p_unit', $params);
     }
@@ -46,6 +47,7 @@ class Unit_m extends CI_Model
             'category_id'   => $post['category'],
             'item_id'       => $post['item'],
             'price'         => $post['price'],
+            'stock'         => $post['stock'],
             'updated '      => date('Y-m-d  H:i:s')
         ];
         $this->db->where('unit_id', $post['id']);

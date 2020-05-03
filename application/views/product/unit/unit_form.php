@@ -55,6 +55,10 @@
                             <label for="">Price *</label>
                             <input type="number" name="price" value="<?= $row->price; ?>" class="form-control" required>
                         </div>
+                        <div class="form-group">
+                            <label for="">Stock *</label>
+                            <input type="number" name="stock" value="<?= $row->stock; ?>" class="form-control" required>
+                        </div>
                         <div class="from-group">
                             <button type="submit" name="<?= $page; ?>" class="btn btn-success"><i class="fa fa-paper-plane"></i> Save</button>
                             <button type="reset" class="btn" style="margin-left: 10px"><i class="fa fa-undo"></i> Reset</button>

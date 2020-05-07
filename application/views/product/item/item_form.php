@@ -23,11 +23,14 @@
             <div class="row">
                 <div>
                     <?php echo form_open_multipart('item/proses') ?>
-                    <!-- <form action="<?= site_url('item/proses'); ?>" method="POST"> -->
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="">Item Name *</label>
+                            <label for="">Barcode *</label>
                             <input type="hidden" name="id" value="<?= $row->item_id; ?>">
+                            <input type="text" name="barcode" value="<?= $row->barcode; ?>" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Item Name *</label>
                             <input type="text" name="item_name" class="form-control" value="<?= $row->name; ?>" required>
                         </div>
                         <div class="form-group">
@@ -62,15 +65,20 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label>Item Type *</label>
-                        <select name="item_type" class="form-control">
-                            <option>option 1</option>
-                            <option>option 2</option>
-                        </select>
+                        <?php echo form_dropdown(
+                            'type',
+                            $type,
+                            $selectedtype,
+                            ['class' => 'form-control', 'required' => 'required']
+                        ); ?>
                     </div>
                     <div class="form-group col-md-3">
                         <label>item Categori *</label>
-                        <select name="item_categori" class="form-control">
+                        <select name="category" class="form-control" required>
                             <option value="">- Choose -</option>
+                            <?php foreach ($category->result() as $key => $data) { ?>
+                                <option value="<?= $data->category_id ?>" <?= $data->category_id == $row->category_id ? "selected" : null ?>> <?= $data->name ?></option>
+                            <?php } ?>
                         </select>
                     </div>
                     <div class="col-md-6">
@@ -88,7 +96,6 @@
                         <button type="reset" class="btn" style="margin-left: 10px"><i class="fa fa-undo"></i> Reset</button>
                     </div>
                     <?php echo form_close() ?>
-                    <!-- </form> -->
                 </div>
             </div>
         </div>

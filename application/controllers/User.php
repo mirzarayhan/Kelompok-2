@@ -19,10 +19,37 @@ class User extends CI_Controller
         $this->template->load('template', 'user/user_data', $data);
     }
 
+    public function proses()
+    {
+        $post = $this->input->post(null, TRUE);
+        if (isset($_POST['add'])) {
+            $this->user_m->add($post);
+        } else if (isset($_POST['edit'])) {
+            $this->user_m->edit($post);
+        }
+
+        if ($this->db->affected_rows() > 0) {
+            echo "<script>alert('Data Berhasil disimpan');</script>";
+        }
+        echo "<script>window.location='" . site_url('user') . "'</script>";
+    }
+
     public function add()
     {
+        $user = new stdClass();
+        $user->user_id      = null;
+        $user->name         = null;
+        $user->username     = null;
+        $user->gender       = null;
+        $user->email        = null;
+        $user->password     = null;
+        $user->passconf     = null;
+        $user->address      = null;
+        $user->level        = null;
+
         $this->form_validation->set_rules('fullname', 'Name', 'required');
         $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|is_unique[user.username]');
+        $this->form_validation->set_rules('gender', 'Gender', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
         $this->form_validation->set_rules(
@@ -33,12 +60,17 @@ class User extends CI_Controller
             Confirm password does not match with password']
         );
         $this->form_validation->set_rules('address', 'Address', 'required');
-        $this->form_validation->set_rules('level', 'Lavel', 'required');
+        $this->form_validation->set_rules('level', 'Level', 'required');
         $this->form_validation->set_message('required', 'The %s has not been filled');
         $this->form_validation->set_message('is_unique', 'This %s has already been used');
 
+        $data = [
+            'page' => 'add',
+            'row' => $user
+        ];
+
         if ($this->form_validation->run() == FALSE) {
-            $this->template->load('template', 'user/user_form_add');
+            $this->template->load('template', 'user/user_form', $data);
         } else {
             $post = $this->input->post(null, TRUE);
             $this->user_m->add($post);
@@ -55,6 +87,7 @@ class User extends CI_Controller
         $this->form_validation->set_rules('fullname', 'Name', 'required');
         $uname1 = $this->input->post['username'];
         $this->form_validation->set_rules('username', 'username', 'required|min_length[5]|callback_user_check[' . $uname1 . ']');
+        $this->form_validation->set_rules('gender', 'Gender', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
 
         if ($this->input->post('password')) {
@@ -77,16 +110,20 @@ class User extends CI_Controller
             );
         }
         $this->form_validation->set_rules('address', 'Address', 'required');
-        $this->form_validation->set_rules('level', 'Lavel', 'required');
-        $this->form_validation->set_rules('status', 'Status', 'required');
+        $this->form_validation->set_rules('level', 'Level', 'required');
+        // $this->form_validation->set_rules('status', 'Status', 'required');
         $this->form_validation->set_message('required', 'The %s has not been filled');
         $this->form_validation->set_message('is_unique', 'This %s has already been used');
 
         if ($this->form_validation->run() == FALSE) {
             $query = $this->user_m->get($id);
             if ($query->num_rows() > 0) {
-                $data['row'] = $query->row();
-                $this->template->load('template', 'user/user_form_edit', $data);
+                $user = $query->row();
+                $data = [
+                    'page' => 'edit',
+                    'row' => $user
+                ];
+                $this->template->load('template', 'user/user_form', $data);
             } else {
                 echo "<script>alert('Data tidak ditemukan');";
                 echo "window.location='" . site_url('user') . "'</script>";
@@ -101,10 +138,10 @@ class User extends CI_Controller
         }
     }
 
-    function user_check($uname)
+    function user_check($uname1)
     {
         $post = $this->input->post(null, TRUE);
-        $query = $this->db->query("SELECT * FROM user WHERE username ='$uname' AND user_id !='$post[user_id]'");
+        $query = $this->db->query("SELECT * FROM user WHERE username ='$uname1' AND user_id !='$post[user_id]'");
         if ($query->num_rows() > 0) {
             $this->form_validation->set_message('user_check', 'This %s has already been used, please change!');
             return FALSE;

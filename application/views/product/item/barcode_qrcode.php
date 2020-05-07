@@ -1,10 +1,10 @@
 <section class="content-header">
-    <h1>Units
+    <h1>Item Barcode
         <small>Tabel</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href=""><i class="fa fa-dashboard"></i></a></li>
-        <li class="active">Units</li>
+        <li class="active">Item</li>
     </ol>
 </section>
 
@@ -26,7 +26,7 @@
             <br>
             <?= $row->barcode ?>
             <br><br>
-            <a href="<?= site_url('unit/barcode_print/' . $row->unit_id) ?>" target="_blank" class="btn btn-default btn-flat btn-sm">
+            <a href="<?= site_url('item/barcode_print/' . $row->item_id) ?>" target="_blank" class="btn btn-default btn-flat btn-sm">
                 <i class="fa fa-print"></i> Print</a>
         </div>
     </div>

@@ -22,6 +22,7 @@
                         <th>Username</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Gender</th>
                         <th>Status</th>
                         <th class="text-center">Actions</th>
                     </tr>
@@ -34,12 +35,13 @@
                             <td><?= $data->username ?></td>
                             <td><?= $data->name ?></td>
                             <td><?= $data->email ?></td>
+                            <td><?= $data->gender == 'L' ? 'Male' : 'Female' ?></td>
                             <td><?= $data->status == "Y" ? "Active" : "Non Active" ?></td>
                             <td class="text-center" width="160px">
                                 <form action="<?= site_url('userNonAktif/edit/'); ?>" method="POST" class="">
                                     <input type="hidden" name="user_id" value="<?= $data->user_id ?>">
                                     <button class="btn btn-warning btn-xs" onclick="return confirm('Are you sure you want to activate this user?')">
-                                        <i class="fa fa-pencil"></i>> Activated</button>
+                                        <i class="fa fa-pencil"></i> Activated</button>
                                 </form>
                             </td>
                         </tr>

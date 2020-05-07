@@ -8,7 +8,7 @@ class Unit extends CI_Controller
     {
         parent::__construct();
         check_not_login();
-        $this->load->model(['Unit_m', 'category_m', 'item_m']);
+        $this->load->model(['Unit_m']);
         $this->load->model('Cetak_m');
     }
 
@@ -22,48 +22,27 @@ class Unit extends CI_Controller
     {
         $post = $this->input->post(null, TRUE);
         if (isset($_POST['add'])) {
-            if ($this->Unit_m->check_barcode($post['barcode'])->num_rows() > 0) {
-                $this->session->set_flashdata('error', "Barcode $post[barcode] already used!!");
-                redirect('unit/add');
-            } else {
-                $this->Unit_m->add($post);
-            }
+            $this->Unit_m->add($post);
         } else if (isset($_POST['edit'])) {
-            if ($this->Unit_m->check_barcode($post['barcode'], $post['id'])->num_rows() > 0) {
-                $this->session->set_flashdata('error', "Barcode $post[barcode] already used!!");
-                redirect('unit/edit/' . $post['id']);
-            } else {
-                $this->Unit_m->edit($post);
-            }
+            $this->Unit_m->edit($post);
         }
 
         if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', 'Data has been successfully saved!!');
+            $this->session->set_flashdata('success', 'data has been successfully saved');
         }
         redirect('unit');
     }
 
     public function add()
     {
-        $unit                   = new stdClass();
-        $unit->unit_id          = null;
-        $unit->barcode          = null;
-        $unit->name             = null;
-        $unit->price            = null;
-        $unit->category_id      = null;
-        $unit->stock            = null;
+        $unit           = new stdClass();
+        $unit->unit_id  = null;
+        $unit->name     = null;
+        $unit->stock    = null;
 
-        $query_category = $this->category_m->get();
-        $query_item     = $this->item_m->get();
-        $item[null]     = '- Choose -';
-        foreach ($query_item->result() as $itm) {
-            $item[$itm->item_id] = $itm->name;
-        }
         $data = array(
             'page'      => 'add',
-            'row'       =>  $unit,
-            'category'  =>  $query_category,
-            'item'      =>  $item, 'selecteditem' => null,
+            'row'       =>  $unit
         );
         $this->template->load('template', 'product/unit/unit_form', $data);
     }
@@ -73,17 +52,9 @@ class Unit extends CI_Controller
         $query = $this->Unit_m->get($id);
         if ($query->num_rows() > 0) {
             $unit = $query->row();
-            $query_category = $this->category_m->get();
-            $query_item     = $this->item_m->get();
-            $item[null]     = '- Choose -';
-            foreach ($query_item->result() as $itm) {
-                $item[$itm->item_id] = $itm->name;
-            }
             $data = array(
-                'page'      => 'edit',
-                'row'       =>  $unit,
-                'category'  =>  $query_category,
-                'item'      =>  $item, 'selecteditem' => $unit->item_id,
+                'page'  => 'edit',
+                'row'   =>  $unit
             );
             $this->template->load('template', 'product/unit/unit_form', $data);
         } else {
@@ -113,25 +84,5 @@ class Unit extends CI_Controller
         $this->pdf->setPaper('A4', 'potrait');
         $this->pdf->filename = "laporan_unit.pdf";
         $this->pdf->load_view('product/unit/laporan', $data);
-    }
-
-    public function barcode_qrcode($id)
-    {
-        $data['row'] = $this->Unit_m->get($id)->row();
-        $this->template->load('template', 'product/unit/barcode_qrcode', $data);
-    }
-
-    public function barcode_print($id)
-    {
-        $data['row']    = $this->Unit_m->get($id)->row();
-        $html           = $this->load->view('product/unit/barcode_print', $data, true);
-        $this->fungsi->PdfGenerator($html, 'barcode-' . $data['row']->barcode, 'A4', 'landscape');
-    }
-
-    public function qrcode_print($id)
-    {
-        $data['row']    = $this->Unit_m->get($id)->row();
-        $html           = $this->load->view('product/unit/qrcode_print', $data, true);
-        $this->fungsi->PdfGenerator($html, 'qrcode-' . $data['row']->barcode, 'A4', 'portrait');
     }
 }

@@ -27,11 +27,7 @@
                 <thead>
                     <tr>
                         <th style="width: 5%;">#</th>
-                        <th>Barcode</th>
                         <th>Name</th>
-                        <th>Category</th>
-                        <th>Item</th>
-                        <th>Price</th>
                         <th>Stock</th>
                         <th>Action</th>
                     </tr>
@@ -41,16 +37,7 @@
                     <?php foreach ($row->result() as $key => $data) : ?>
                         <tr>
                             <td style="width: 5%;"><?= $no++; ?>.</td>
-                            <td>
-                                <?= $data->barcode ?> <br>
-                                <a href="<?= site_url('unit/barcode_qrcode/' . $data->unit_id); ?>" class="btn btn-default btn-xs">
-                                    Generate<i class="fa fa-barcode"></i>
-                                </a>
-                            </td>
                             <td><?= $data->name ?></td>
-                            <td><?= $data->category_name ?></td>
-                            <td><?= $data->item_name ?></td>
-                            <td><?= $data->price ?></td>
                             <td><?= $data->stock ?></td>
                             <td class="text-center" width="160px">
                                 <a href="<?= site_url('unit/edit/' . $data->unit_id); ?>" class="btn btn-warning btn-xs">

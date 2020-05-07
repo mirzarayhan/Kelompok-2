@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barcode Utem <?= $row->barcode ?></title>
+    <title>Barcode Item <?= $row->barcode ?></title>
 </head>
 
 <body>

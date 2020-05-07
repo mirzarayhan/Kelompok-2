@@ -28,6 +28,7 @@
                         <th>#</th>
                         <th>Username</th>
                         <th>Name</th>
+                        <th>Gender</th>
                         <th>Email</th>
                         <th>Address</th>
                         <th>Level</th>
@@ -42,6 +43,7 @@
                             <td style="width: 5%;"><?= $no++; ?>.</td>
                             <td><?= $data->username ?></td>
                             <td><?= $data->name ?></td>
+                            <td><?= $data->gender == 'L' ? 'Male' : 'Female' ?></td>
                             <td><?= $data->email ?></td>
                             <td><?= $data->address ?></td>
                             <td><?= $data->level == 1 ? "Admin" : "Kasir" ?></td>

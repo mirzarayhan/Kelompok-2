@@ -8,7 +8,7 @@ class Item extends CI_Controller
     {
         parent::__construct();
         check_not_login();
-        $this->load->model('Item_m');
+        $this->load->model(['Item_m', 'category_m', 'type_m']);
         $this->load->model('Cetak_m');
     }
 
@@ -29,7 +29,7 @@ class Item extends CI_Controller
 
         $post = $this->input->post(null, TRUE);
         if (isset($_POST['add'])) {
-
+            // gambar
             if (@$_FILES['image']['name'] != null) {
                 if ($this->upload->do_upload('image')) {
                     $post['image']  =   $this->upload->data('file_name');
@@ -51,7 +51,15 @@ class Item extends CI_Controller
                 }
                 redirect('item');
             }
+            // barcode
+            if ($this->Item_m->check_barcode($post['barcode'])->num_rows() > 0) {
+                $this->session->set_flashdata('error', "Barcode $post[barcode] already used!!");
+                redirect('item/add');
+            } else {
+                $this->Item_m->add($post);
+            }
         } else if (isset($_POST['edit'])) {
+            // gambar
             if (@$_FILES['image']['name'] != null) {
                 if ($this->upload->do_upload('image')) {
                     $item = $this->Item_m->get($post['id'])->row();
@@ -78,22 +86,42 @@ class Item extends CI_Controller
                 }
                 redirect('item');
             }
+            // barcode
+            if ($this->Item_m->check_barcode($post['barcode'], $post['id'])->num_rows() > 0) {
+                $this->session->set_flashdata('error', "Barcode $post[barcode] already used!!");
+                redirect('item/edit/' . $post['id']);
+            } else {
+                $this->Unit_m->edit($post);
+            }
         }
     }
 
     public function add()
     {
         $item = new stdClass();
-        $item->item_id = null;
-        $item->name = null;
-        $item->address = null;
-        $item->duration = null;
-        $item->groupsize = null;
-        $item->overview = null;
-        $item->language = null;
+        $item->item_id      = null;
+        $item->barcode      = null;
+        $item->name         = null;
+        $item->address      = null;
+        $item->duration     = null;
+        $item->groupsize    = null;
+        $item->overview     = null;
+        $item->language     = null;
+        $item->type_id      = null;
+        $item->category_id  = null;
+        $item->price        = null;
+
+        $query_category     = $this->category_m->get();
+        $query_type         = $this->type_m->get();
+        $type[null]         = '- Choose -';
+        foreach ($query_type->result() as $typ) {
+            $type[$typ->type_id] = $typ->name;
+        }
         $data = [
-            'page' => 'add',
-            'row' => $item
+            'page'          => 'add',
+            'row'           => $item,
+            'category'      =>  $query_category,
+            'type'          =>  $type, 'selectedtype' => null
         ];
         $this->template->load('template', 'product/item/item_form', $data);
     }
@@ -103,9 +131,17 @@ class Item extends CI_Controller
         $query = $this->Item_m->get($id);
         if ($query->num_rows() > 0) {
             $item = $query->row();
+            $query_category = $this->category_m->get();
+            $query_type     = $this->type_m->get();
+            $type[null]     = '- Choose -';
+            foreach ($query_type->result() as $typ) {
+                $type[$typ->type_id] = $typ->name;
+            }
             $data = [
-                'page' => 'edit',
-                'row' => $item
+                'page'      => 'edit',
+                'row'       => $item,
+                'category'  =>  $query_category,
+                'type'      =>  $type, 'selectedtype' => $item->type_id
             ];
             $this->template->load('template', 'product/item/item_form', $data);
         } else {
@@ -130,14 +166,35 @@ class Item extends CI_Controller
         }
         redirect('item');
     }
+
     public function laporan_pdf()
     {
-        $data['title'] = 'Report item';
-        $data['item'] = $this->Cetak_m->viewitem();
+        $data['title']          = 'Report item';
+        $data['item']           = $this->Cetak_m->viewitem();
         $this->load->library('pdf');
 
         $this->pdf->setPaper('A4', 'potrait');
-        $this->pdf->filename = "laporan_item.pdf";
+        $this->pdf->filename    = "laporan_item.pdf";
         $this->pdf->load_view('product/item/laporan', $data);
+    }
+
+    public function barcode_qrcode($id)
+    {
+        $data['row']    = $this->Item_m->get($id)->row();
+        $this->template->load('template', 'product/item/barcode_qrcode', $data);
+    }
+
+    public function barcode_print($id)
+    {
+        $data['row']    = $this->Item_m->get($id)->row();
+        $html           = $this->load->view('product/item/barcode_print', $data, true);
+        $this->fungsi->PdfGenerator($html, 'barcode-' . $data['row']->barcode, 'A4', 'landscape');
+    }
+
+    public function qrcode_print($id)
+    {
+        $data['row']    = $this->Item_m->get($id)->row();
+        $html           = $this->load->view('product/item/qrcode_print', $data, true);
+        $this->fungsi->PdfGenerator($html, 'qrcode-' . $data['row']->barcode, 'A4', 'portrait');
     }
 }

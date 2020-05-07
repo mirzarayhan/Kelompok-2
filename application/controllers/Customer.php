@@ -74,8 +74,7 @@ class Customer extends CI_Controller
         }
         echo "<script>window.location='" . site_url('customer') . "'</script>";
     }
-    public function laporan_pdf()
-    {
+    public function laporan_pdf() {
         $data['title'] = 'Report Customer';
         $data['customer'] = $this->Cetak_m->viewCustomer();
         $this->load->library('pdf');

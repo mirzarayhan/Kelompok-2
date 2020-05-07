@@ -25,35 +25,8 @@
                 <div class="col-md-6">
                     <form action="<?= site_url('unit/proses'); ?>" method="POST">
                         <div class="form-group">
-                            <label for="">Barcode *</label>
-                            <input type="hidden" name="id" value="<?= $row->unit_id; ?>">
-                            <input type="text" name="barcode" value="<?= $row->barcode; ?>" class="form-control" required>
-                        </div>
-                        <div class="form-group">
                             <label for="product_name">Product Name *</label>
                             <input type="text" name="product_name" id="product_name" value="<?= $row->name; ?>" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Category *</label>
-                            <select name="category" class="form-control" required>
-                                <option value="">- Choose -</option>
-                                <?php foreach ($category->result() as $key => $data) { ?>
-                                    <option value="<?= $data->category_id ?>" <?= $data->category_id == $row->category_id ? "selected" : null ?>> <?= $data->name ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Item *</label>
-                            <?php echo form_dropdown(
-                                'item',
-                                $item,
-                                $selecteditem,
-                                ['class' => 'form-control', 'required' => 'required']
-                            ); ?>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Price *</label>
-                            <input type="number" name="price" value="<?= $row->price; ?>" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="">Stock *</label>

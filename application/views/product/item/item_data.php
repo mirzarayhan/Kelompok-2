@@ -27,6 +27,7 @@
                 <thead>
                     <tr>
                         <th style="width: 5%;">#</th>
+                        <th>Barcode</th>
                         <th>Name / Title</th>
                         <th>Address</th>
                         <th>Image</th>
@@ -36,6 +37,7 @@
                         <th>Language</th>
                         <th>Tour Type</th>
                         <th>Tour Category</th>
+                        <th>Price</th>
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
@@ -44,6 +46,12 @@
                     <?php foreach ($row->result() as $key => $data) : ?>
                         <tr>
                             <td style="width: 5%;"><?= $no++; ?>.</td>
+                            <td>
+                                <?= $data->barcode ?> <br>
+                                <a href="<?= site_url('item/barcode_qrcode/' . $data->item_id); ?>" class="btn btn-default btn-xs">
+                                    Generate<i class="fa fa-barcode"></i>
+                                </a>
+                            </td>
                             <td><?= $data->name ?></td>
                             <td><?= $data->address ?></td>
                             <td>
@@ -57,6 +65,7 @@
                             <td><?= $data->language ?></td>
                             <td><?= $data->type_id ?></td>
                             <td><?= $data->category_id ?></td>
+                            <td><?= $data->price ?></td>
                             <td class="text-center" width="160px">
                                 <a href="<?= site_url('item/edit/' . $data->item_id); ?>" class="btn btn-warning btn-xs">
                                     <i class="fa fa-pencil"></i> Edit

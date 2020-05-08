@@ -41,12 +41,16 @@
                 <tr>
                     <th>No</th>
                     <th>Item Id</th>
+                    <th>Barcode</th>
                     <th>Name</th>
                     <th>Address</th>
                     <th>Duration</th>
                     <th>Group Size</th>
+                    <th>Overview</th>
+                    <th>Language</th>
                     <th>Tour Type</th>
                     <th>Tour Category</th>
+                    <th>Price</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,12 +59,16 @@
                     <tr>
                         <td><?= $no; ?></td>
                         <td><?= $un->item_id; ?></td>
+                        <td><?= $un->barcode; ?></td>
                         <td><?= $un->name; ?></td>
                         <td><?= $un->address; ?></td>
                         <td><?= $un->duration; ?></td>
                         <td><?= $un->groupsize; ?></td>
-                        <td><?= $un->tourtype; ?></td>
-                        <td><?= $un->tourcategory; ?></td>
+                        <td><?= $un->overview; ?></td>
+                        <td><?= $un->language; ?></td>
+                        <td><?= $un->type_id; ?></td>
+                        <td><?= $un->category_id; ?></td>
+                        <td><?= $un->price; ?></td>
                     </tr>
                     <?php $no++; ?>
                 <?php endforeach; ?>

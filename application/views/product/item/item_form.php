@@ -10,6 +10,7 @@
 
 <!-- Main content -->
 <section class="content">
+    <?php $this->view('messages'); ?>
     <div class="box">
         <div class="box-header">
             <h3 class="box-title"><?= ucfirst($page); ?> Item</h3>
@@ -89,6 +90,10 @@
                         <div class="form-group">
                             <label for="">Item Overview *</label>
                             <textarea name="item_overview" class="form-control" required><?= $row->overview; ?></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Price *</label>
+                            <input type="number" name="price" value="<?= $row->price; ?>" class="form-control"  required>
                         </div>
                     </div>
                     <div class="from-group col-md-6">

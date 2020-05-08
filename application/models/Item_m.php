@@ -12,7 +12,7 @@ class Item_m extends CI_Model
         if ($id != null) {
             $this->db->where('item_id', $id);
         }
-        $this->db->order_by('item_id', 'asc');
+        $this->db->order_by('barcode', 'asc');
         $query = $this->db->get();
         return $query;
     }
@@ -26,10 +26,10 @@ class Item_m extends CI_Model
             'image'         => $post['image'],
             'duration'      => $post['item_duration'],
             'groupsize'     => $post['item_grupsize'],
-            'overview'      => $post['item_overview'],
-            'type_id'       => $post['item_type'],
-            'category_id'   => $post['item_categori'],
+            'type_id'       => $post['type'],
+            'category_id'   => $post['category'],  
             'language'      => $post['item_language'],
+            'overview'      => $post['item_overview'],     
             'price'         => $post['price']
         ];
         $this->db->insert('p_item', $params);
@@ -41,13 +41,12 @@ class Item_m extends CI_Model
             'barcode'       => $post['barcode'],
             'name'          => $post['item_name'],
             'address'       => $post['item_address'],
-            'image'         => $post['image'],
             'duration'      => $post['item_duration'],
             'groupsize'     => $post['item_grupsize'],
-            'overview'      => $post['item_overview'],
-            'type_id'       => $post['item_type'],
-            'category_id'   => $post['item_categori'],
+            'type_id'       => $post['type'],
+            'category_id'   => $post['category'],  
             'language'      => $post['item_language'],
+            'overview'      => $post['item_overview'],     
             'price'         => $post['price'],
             'updated '      => date('Y-m-d  H:i:s')
         ];
@@ -56,12 +55,6 @@ class Item_m extends CI_Model
         }
         $this->db->where('item_id', $post['id']);
         $this->db->update('p_item', $params);
-    }
-
-    public function del($id)
-    {
-        $this->db->where('item_id', $id);
-        $this->db->delete('p_item');
     }
 
     function check_barcode($code, $id = null)
@@ -73,5 +66,11 @@ class Item_m extends CI_Model
         }
         $query = $this->db->get();
         return $query;
+    }
+    
+    public function del($id)
+    {
+        $this->db->where('item_id', $id);
+        $this->db->delete('p_item');
     }
 }

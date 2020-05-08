@@ -15,8 +15,8 @@ class Unit_m extends CI_Model
     public function add($post)
     {
         $params = [
-            'name'          => $post['product_name'],
-            'stock'         => $post['stock']
+            'name'  => $post['product_name'],
+            'stock' => $post['stock']
         ];
         $this->db->insert('p_unit', $params);
     }
@@ -24,9 +24,9 @@ class Unit_m extends CI_Model
     public function edit($post)
     {
         $params = [
-            'name'          => $post['product_name'],
-            'stock'         => $post['stock'],
-            'updated '      => date('Y-m-d  H:i:s')
+            'name'      => $post['product_name'],
+            'stock'     => $post['stock'],
+            'updated'   => date('Y-m-d  H:i:s')
         ];
         $this->db->where('unit_id', $post['id']);
         $this->db->update('p_unit', $params);

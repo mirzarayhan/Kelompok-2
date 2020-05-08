@@ -63,8 +63,8 @@
                             <td><?= $data->groupsize ?></td>
                             <td><?= $data->overview ?></td>
                             <td><?= $data->language ?></td>
-                            <td><?= $data->type_id ?></td>
-                            <td><?= $data->category_id ?></td>
+                            <td><?= $data->type_name ?></td>
+                            <td><?= $data->category_name ?></td>
                             <td><?= $data->price ?></td>
                             <td class="text-center" width="160px">
                                 <a href="<?= site_url('item/edit/' . $data->item_id); ?>" class="btn btn-warning btn-xs">

@@ -62,7 +62,7 @@
 
         <div class="info-box-content">
           <span class="info-box-text">User Non Active</span>
-          <span class="info-box-number"> <?= $this->fungsi->count_user() ?> </span>
+          <span class="info-box-number"> <?= $this->fungsi->count_user2() ?> </span>
         </div>
         <!-- /.info-box-content -->
       </div>

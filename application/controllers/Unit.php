@@ -8,13 +8,13 @@ class Unit extends CI_Controller
     {
         parent::__construct();
         check_not_login();
-        $this->load->model(['Unit_m']);
+        $this->load->model(['unit_m']);
         $this->load->model('Cetak_m');
     }
 
     public function index()
     {
-        $data['row'] = $this->Unit_m->get();
+        $data['row'] = $this->unit_m->get();
         $this->template->load('template', 'product/unit/unit_data', $data);
     }
 
@@ -22,13 +22,13 @@ class Unit extends CI_Controller
     {
         $post = $this->input->post(null, TRUE);
         if (isset($_POST['add'])) {
-            $this->Unit_m->add($post);
+            $this->unit_m->add($post);
         } else if (isset($_POST['edit'])) {
-            $this->Unit_m->edit($post);
+            $this->unit_m->edit($post);
         }
 
         if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', 'data has been successfully saved');
+            $this->session->set_flashdata('success', 'Data has been successfully saved!!');
         }
         redirect('unit');
     }
@@ -49,17 +49,17 @@ class Unit extends CI_Controller
 
     public function edit($id)
     {
-        $query = $this->Unit_m->get($id);
+        $query = $this->unit_m->get($id);
         if ($query->num_rows() > 0) {
             $unit = $query->row();
-            $data = array(
+            $data = [
                 'page'  => 'edit',
-                'row'   =>  $unit
-            );
+                'row'   => $unit
+            ];
             $this->template->load('template', 'product/unit/unit_form', $data);
         } else {
-            echo "<script>alert('Data tidak dunitukan');";
-            $this->session->set_flashdata('success', 'data not found');
+            echo "<script>alert('Data tidak ditemukan');";
+            $this->session->set_flashdata('success', 'Data Not Found!!');
             redirect('unit');
         }
     }
@@ -67,7 +67,7 @@ class Unit extends CI_Controller
     public function delete()
     {
         $id = $this->input->post('unit_id');
-        $this->Unit_m->del($id);
+        $this->unit_m->del($id);
 
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', 'Data has been successfully deleted!!');
@@ -78,7 +78,7 @@ class Unit extends CI_Controller
     public function laporan_pdf()
     {
         $data['title']  = 'Report unit';
-        $data['unit']   = $this->Cetak_m->viewunit();
+        $data['unit']   = $this->Cetak_m->viewUnit();
         $this->load->library('pdf');
 
         $this->pdf->setPaper('A4', 'potrait');

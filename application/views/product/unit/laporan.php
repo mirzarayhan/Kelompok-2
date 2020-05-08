@@ -55,11 +55,7 @@
                     <tr>
                         <td><?= $no; ?></td>
                         <td><?= $unt->unit_id; ?></td>
-                        <td><?= $unt->barcode; ?></td>
                         <td><?= $unt->name; ?></td>
-                        <td><?= $unt->category_id; ?></td>
-                        <td><?= $unt->item_id; ?></td>
-                        <td><?= $unt->price; ?></td>
                         <td><?= $unt->stock; ?></td>
                     </tr>
                     <?php $no++; ?>

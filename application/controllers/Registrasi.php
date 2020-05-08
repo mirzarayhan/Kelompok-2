@@ -10,15 +10,9 @@ class Registrasi extends CI_Controller
     }
     public function index()
     {
-        $this->load->view('templates/header');
-        $this->load->view('Registrasi');
-        $this->load->view('templates/footer');
-    }
-
-    public function addRegister()
-    {
         $this->form_validation->set_rules('fullname', 'Name', 'required');
         $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|is_unique[user.username]');
+        $this->form_validation->set_rules('gender', 'Gender', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
         $this->form_validation->set_rules(
@@ -29,8 +23,10 @@ class Registrasi extends CI_Controller
             Confirm password does not match with password']
         );
         $this->form_validation->set_rules('address', 'Address', 'required');
+        $this->form_validation->set_rules('level', 'Lavel', 'required');
         $this->form_validation->set_message('required', 'The %s has not been filled');
         $this->form_validation->set_message('is_unique', 'This %s has already been used');
+
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('templates/header');
@@ -38,11 +34,11 @@ class Registrasi extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $post = $this->input->post(null, TRUE);
-            $this->user_m->addRegister($post);
+            $this->user_m->add($post);
             if ($this->db->affected_rows() > 0) {
-                echo "<script>alert('Data Berhasil di Tambahkan')</script>";
+                echo "<script>alert('Registration is successfull, Please wait for confirmation from Admin via email to login :)')</script>";
             }
-            echo "<script>window.location='" . site_url('user') . "'</script>";
+            echo "<script>window.location='" . site_url('auth/login') . "'</script>";
         }
     }
 }

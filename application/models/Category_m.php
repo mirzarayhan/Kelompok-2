@@ -14,12 +14,12 @@ class Category_m extends CI_Model
 
     public function dropdownList()
     {
-        $results = $this->db->select('category_id, name')
+        $results = $this->db->select('id, name')
             ->where('status', 'E')
             ->get('p_category')
             ->result_array();
 
-        return array_column($results, 'name', 'category_id');
+        return array_column($results, 'name', 'id');
     }
 
     public function add($post)

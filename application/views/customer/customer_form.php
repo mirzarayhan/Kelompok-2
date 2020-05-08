@@ -33,7 +33,7 @@
                             <select name="gender" class="form-control" id="" required>
                                 <option value="">- Pilih -</option>
                                 <option value="L" <?= $row->gender == 'L' ? 'selected' : '' ?>>Male</option>
-                                <option value="P" <?= $row->gender == 'P' ? 'selected' : '' ?>>female</option>
+                                <option value="P" <?= $row->gender == 'P' ? 'selected' : '' ?>>Female</option>
                             </select>
                         </div>
                         <div class="form-group">

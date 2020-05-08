@@ -29,37 +29,42 @@ class Item extends CI_Controller
 
         $post = $this->input->post(null, TRUE);
         if (isset($_POST['add'])) {
-            // gambar
-            if (@$_FILES['image']['name'] != null) {
-                if ($this->upload->do_upload('image')) {
-                    $post['image']  =   $this->upload->data('file_name');
+            //validasi barcode
+            if ($this->Item_m->check_barcode($post['barcode'])->num_rows() > 0) {
+                $this->session->set_flashdata('error', "Barcode $post[barcode] already used!!");
+                redirect('item/add');
+            } else {
+                // gambar
+                if (@$_FILES['image']['name'] != null) {
+                    if ($this->upload->do_upload('image')) {
+                        $post['image']  =   $this->upload->data('file_name');
+                        $this->Item_m->add($post);
+                        if ($this->db->affected_rows() > 0) {
+                            $this->session->set_flashdata('success', 'Data has been successfully saved!!');
+                        }
+                        redirect('item');
+                    } else {
+                        $error = $this->upload->display_errors();
+                        $this->session->set_flashdata('error', $error);
+                        redirect('item/add');
+                    }
+                } else {
+                    $post['image']  = null;
                     $this->Item_m->add($post);
                     if ($this->db->affected_rows() > 0) {
                         $this->session->set_flashdata('success', 'Data has been successfully saved!!');
                     }
                     redirect('item');
-                } else {
-                    $error = $this->upload->display_errors();
-                    $this->session->set_flashdata('error', $error);
-                    redirect('item/add');
                 }
-            } else {
-                $post['image']  = null;
-                $this->Item_m->add($post);
-                if ($this->db->affected_rows() > 0) {
-                    $this->session->set_flashdata('success', 'Data has been successfully saved!!');
-                }
-                redirect('item');
-            }
-            // barcode
-            if ($this->Item_m->check_barcode($post['barcode'])->num_rows() > 0) {
-                $this->session->set_flashdata('error', "Barcode $post[barcode] already used!!");
-                redirect('item/add');
-            } else {
-                $this->Item_m->add($post);
             }
         } else if (isset($_POST['edit'])) {
-            // gambar
+
+            // barcode
+            if ($this->Item_m->check_barcode($post['barcode'], $post['id'])->num_rows() > 0) {
+                $this->session->set_flashdata('error', "Barcode $post[barcode] already used!!");
+                redirect('item/edit/' . $post['id']);
+            } else {
+                // gambar
             if (@$_FILES['image']['name'] != null) {
                 if ($this->upload->do_upload('image')) {
                     $item = $this->Item_m->get($post['id'])->row();
@@ -86,12 +91,6 @@ class Item extends CI_Controller
                 }
                 redirect('item');
             }
-            // barcode
-            if ($this->Item_m->check_barcode($post['barcode'], $post['id'])->num_rows() > 0) {
-                $this->session->set_flashdata('error', "Barcode $post[barcode] already used!!");
-                redirect('item/edit/' . $post['id']);
-            } else {
-                $this->Unit_m->edit($post);
             }
         }
     }
@@ -151,7 +150,7 @@ class Item extends CI_Controller
         }
     }
 
-    public function delete($id)
+    public function delete()
     {
         $item = $this->Item_m->get($id)->row();
         if ($item->image != null) {

@@ -44,7 +44,7 @@
             <br>
             <?= $row->barcode ?>
             <br><br>
-            <a href="<?= site_url('unit/qrcode_print/' . $row->unit_id) ?>" target="_blank" class="btn btn-default btn-flat btn-sm">
+            <a href="<?= site_url('item/qrcode_print/' . $row->item_id) ?>" target="_blank" class="btn btn-default btn-flat btn-sm">
                 <i class="fa fa-print"></i> Print</a>
         </div>
     </div>

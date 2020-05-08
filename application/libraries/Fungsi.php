@@ -31,6 +31,10 @@ class Fungsi
         $this->CI->load->model('User_m');
         return $this->CI->User_m->get()->num_rows();
     }
+    public function count_user2() {
+        $this->CI->load->model('UserNonAktif_m');
+        return $this->CI->User_m->get()->num_rows();
+    }
     public function PdfGenerator($html, $filename, $paper, $orientatiton) {
         // instantiate and use the dompdf class
         $dompdf = new Dompdf\Dompdf();

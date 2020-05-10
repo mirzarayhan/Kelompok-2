@@ -20,17 +20,16 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-toggled">
     <!-- Site wrapper -->
     <div class="wrapper">
 
         <header class="main-header">
-            <a href="<?= site_url('dashboard') ?>" class="logo" style="background-color: #1a2226">
-                <span class="logo-mini"><b>Tr</b></span>
+            <a href="<?= base_url('client\index') ?>" class="logo" style="background-color: #1a2226">
                 <img src="<?= base_url() ?>assets/img/Logo.png" alt="Logo Traviora" height="50%">
                 <span class="logo-lg">Traviora</span>
             </a>
-            <nav class="navbar navbar-static-top">
+            <nav class="navbar navbar-expand-xl">
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
@@ -51,7 +50,7 @@
                                             $this->uri->segment(1) == 'unit' ||
                                             $this->uri->segment(1) == 'type' ? 'active' : ''; ?>">
                         <a href="#">
-                            <i class="fa fa-archive"></i> <span>Tour Jawa</span>
+                            <span>Tour Jawa</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
@@ -75,7 +74,7 @@
                                             $this->uri->segment(1) == 'stockin' ||
                                             $this->uri->segment(1) == 'stockout' ? 'active' : ''; ?>">
                         <a href="#">
-                            <i class="fa fa-money"></i> <span>Tour Bali</span>
+                            <span>Tour Bali</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
@@ -94,7 +93,7 @@
                     </li>
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-pie-chart"></i> <span>Tour Lombok</span>
+                            <span>Tour Lombok</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
@@ -106,7 +105,7 @@
                         </ul>
                     </li>
                     <li <?= $this->uri->segment(1) == 'dashboard' ||  $this->uri->segment(1) == '' ? 'class="active"' : ''; ?>>
-                        <a href="<?= site_url('dashboard'); ?>"><i class="fa fa-dashboard"></i><span>Blog</span></a>
+                        <a href="<?= site_url('dashboard'); ?>"><span>Blog</span></a>
                     </li>
             </section>
         </aside>

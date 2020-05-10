@@ -28,15 +28,12 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="card mb-4 shadow-sm">
-                                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-                                        <title>Placeholder</title>
-                                        <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                                    </svg>
+                                    <img src="<?= base_url('assets\img\kawah ijen.jpg') ?>" width="100%" height="155px">
                                     <div class="card-body">
                                         <h3>Java</h3>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="btn-group">
-                                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                                <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
                                             </div>
                                         </div>
                                     </div>
@@ -44,15 +41,12 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="card mb-4 shadow-sm">
-                                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-                                        <title>Placeholder</title>
-                                        <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                                    </svg>
+                                    <img src="<?= base_url('assets\img\tanah_lot.jpg') ?>" width="100%" height="155px">
                                     <div class="card-body">
                                         <h3>Bali</h3>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="btn-group">
-                                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                                <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
                                             </div>
                                         </div>
                                     </div>
@@ -60,15 +54,12 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="card mb-4 shadow-sm">
-                                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-                                        <title>Placeholder</title>
-                                        <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                                    </svg>
+                                    <img src="<?= base_url('assets\img\rinjani.jpg') ?>" width="100%" height="155px">
                                     <div class="card-body">
                                         <h3>Lombok</h3>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="btn-group">
-                                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                                <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
                                             </div>
                                         </div>
                                     </div>
@@ -93,15 +84,12 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
+                            <img src="<?= base_url('assets\img\ayung.jpg') ?>" width="100%" height="155px">
                             <div class="card-body">
                                 <p class="card-text">Ayung River Rafting with Bahama</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
                                     </div>
                                     <small class="text-muted">Rp.350.000</small>
                                 </div>
@@ -110,15 +98,12 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
+                        <img src="<?= base_url('assets\img\bali_hai.jpg') ?>" width="100%" height="155px">
                             <div class="card-body">
                                 <p class="card-text">Sunset Dinner Cruise with Bali Hai</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
                                     </div>
                                     <small class="text-muted">Rp.847.000</small>
                                 </div>
@@ -127,15 +112,12 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
+                        <img src="<?= base_url('assets\img\wake.jpg') ?>" width="100%" height="155px">
                             <div class="card-body">
                                 <p class="card-text">Bali Wake Park(1 hour AQUALAND)</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
                                     </div>
                                     <small class="text-muted">Rp.190.000</small>
                                 </div>
@@ -159,15 +141,12 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
+                        <img src="<?= base_url('assets\img\bromo.jpg') ?>" width="100%" height="155px">
                             <div class="card-body">
                                 <p class="card-text">Bromo Overnight Trip-Start Bali</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
                                     </div>
                                     <small class="text-muted">Rp.2.000.000</small>
                                 </div>
@@ -176,15 +155,12 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
+                        <img src="<?= base_url('assets\img\api_biru.jpg') ?>" width="100%" height="155px">
                             <div class="card-body">
                                 <p class="card-text">Wonderful Bromo adn Ijen Trip-Start Bali</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
                                     </div>
                                     <small class="text-muted">Rp.3.500.000</small>
                                 </div>
@@ -193,15 +169,12 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
+                        <img src="<?= base_url('assets\img\tangga-bromo.jpg') ?>" width="100%" height="155px">
                             <div class="card-body">
                                 <p class="card-text">Wonderful Bromo and Ijen Trip-Start Yogyakarta</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
                                     </div>
                                     <small class="text-muted">Rp.2.750.000</small>
                                 </div>
@@ -225,15 +198,12 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
+                        <img src="<?= base_url('assets\img\sasak.jpg') ?>" width="100%" height="155px">
                             <div class="card-body">
                                 <p class="card-text">Exotic Sasak Daily Tour</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
                                     </div>
                                     <small class="text-muted">Rp.900.000</small>
                                 </div>
@@ -242,15 +212,12 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
+                        <img src="<?= base_url('assets\img\nanggu.jpg') ?>" width="100%" height="155px">
                             <div class="card-body">
                                 <p class="card-text">Full Day Gili Nanggu Tour</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
                                     </div>
                                     <small class="text-muted">Rp.950.000</small>
                                 </div>
@@ -259,15 +226,12 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
+                        <img src="<?= base_url('assets\img\trawangan.jpg') ?>" width="100%" height="155px">
                             <div class="card-body">
                                 <p class="card-text">Wonderful Bromo and Ijen Trip-Start Yogyakarta</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
                                     </div>
                                     <small class="text-muted">Rp.1.175.000</small>
                                 </div>

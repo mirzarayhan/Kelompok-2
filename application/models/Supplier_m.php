@@ -15,10 +15,10 @@ class supplier_m extends CI_Model
     public function add($post)
     {
         $params = [
-            'name' => $post['supplier_name'],
-            'phone' => $post['phone'],
-            'address' => $post['addr'],
-            'description' => empty($post['descript']) ? null : $post['descript'],
+            'name'          => $post['supplier_name'],
+            'phone'         => $post['phone'],
+            'address'       => $post['addr'],
+            'description'   => empty($post['descript']) ? null : $post['descript'],
         ];
         $this->db->insert('supplier', $params);
     }
@@ -26,11 +26,11 @@ class supplier_m extends CI_Model
     public function edit($post)
     {
         $params = [
-            'name' => $post['supplier_name'],
-            'phone' => $post['phone'],
-            'address' => $post['addr'],
-            'description' => empty($post['descript']) ? null : $post['descript'],
-            'updated ' => date('Y-m-d  H:i:s')
+            'name'          => $post['supplier_name'],
+            'phone'         => $post['phone'],
+            'address'       => $post['addr'],
+            'description'   => empty($post['descript']) ? null : $post['descript'],
+            'updated '      => date('Y-m-d  H:i:s')
         ];
         $this->db->where('supplier_id', $post['id']);
         $this->db->update('supplier', $params);

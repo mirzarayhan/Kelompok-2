@@ -62,7 +62,6 @@ $route['translate_uri_dashes'] = TRUE;
 $route['stock/in'] = 'stock/stock_in_data';
 $route['stock/in/add'] = 'stock/stock_in_add';
 $route['stock/in/process'] = 'stock/stock_in_process';
-$route['stock/in/edit/(:num)'] = 'stock/stock_in_edit/$1';
-$route['stock/in/del/(:num)'] = 'stock/stock_in_del/$1';
+$route['stock/in/del/(:num)/(:num)'] = 'stock/stock_in_del';
 
 // $route['translate_uri_dashes'] = FALSE;

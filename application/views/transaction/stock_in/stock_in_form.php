@@ -15,7 +15,7 @@
         <div class="box-header">
             <h3 class="box-title">Add Stock In</h3>
             <div class="pull-right">
-                <a href="<?= site_url('category'); ?>" class="btn btn-warning">
+                <a href="<?= site_url('stock/in'); ?>" class="btn btn-warning">
                     <i class="fa fa-arrow-left"></i> Back</a>
             </div>
         </div>
@@ -23,7 +23,7 @@
         <div class="box-body table-responsive">
             <div class="row">
                 <div class="col-md-6">
-                    <form action="<?= site_url('stock/in'); ?>" method="POST">
+                    <form action="<?= site_url('stock/process'); ?>" method="POST">
                         <div class="form-group <?= form_error('date') ? 'has-error' : null; ?>">
                             <label for="date">Date *</label>
                             <input type="date" name="date" id="date" class="form-control" value="<?= date('Y-m-d') ?>" required>
@@ -71,6 +71,9 @@
                             <label for="supplier">Supplier</label>
                             <select name="supplier" id="supplier" class="form-control">
                                 <option value="">- Pilih -</option>
+                                <?php foreach ($supplier as $s => $data) {
+                                    echo '<option value="' . $data->supplier_id . '>' . $data->name . '</option>';
+                                } ?>
                             </select>
                             <span class="help-block"><?= form_error('supplier'); ?></span>
                         </div>

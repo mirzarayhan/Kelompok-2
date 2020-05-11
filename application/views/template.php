@@ -166,7 +166,7 @@
                         </ul>
                     </li>
                     <li class="treeview <?= $this->uri->segment(1) == 'sales' ||
-                                            $this->uri->segment(1) == 'stockin' ||
+                                            $this->uri->segment(1) == 'stock' && $this->uri->segment(2) == 'in' ||
                                             $this->uri->segment(1) == 'stockout' ? 'active' : ''; ?>">
                         <a href="#">
                             <i class="fa fa-money"></i> <span>Transaction</span>
@@ -178,8 +178,8 @@
                             <li <?= $this->uri->segment(1) == 'sales' ? 'class="active"' : ''; ?>>
                                 <a href="<?= site_url('sales'); ?>"><i class="fa fa-circle-o"></i> Sales</a>
                             </li>
-                            <li <?= $this->uri->segment(1) == 'stockin' ? 'class="active"' : ''; ?>>
-                                <a href="<?= site_url('stockin'); ?>"><i class="fa fa-circle-o"></i> Stock In</a>
+                            <li <?= $this->uri->segment(1) == 'stock' && $this->uri->segment(2) == 'in' ? 'class="active"' : ''; ?>>
+                                <a href="<?= site_url('stock/in'); ?>"><i class="fa fa-circle-o"></i> Stock In</a>
                             </li>
                             <li <?= $this->uri->segment(1) == 'stockout' ? 'class="active"' : ''; ?>>
                                 <a href="<?= site_url('stockout'); ?>"><i class="fa fa-circle-o"></i> Stock Out</a>
@@ -202,6 +202,7 @@
                         <li class="header">SETTING</li>
                         <li><a href="<?= site_url('user'); ?>"><i class="fa fa-user"></i><span>User Aktif</span></a></li>
                         <li><a href="<?= site_url('userNonAktif'); ?>"><i class="fa fa-user"></i><span>User Non Active</span></a></li>
+                        <li><a href="<?= site_url('akun'); ?>"><i class="fa fa-object-group"></i><span>Akun Website</span></a></li>
                     <?php endif; ?>
             </section>
         </aside>

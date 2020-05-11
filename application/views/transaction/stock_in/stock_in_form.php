@@ -113,7 +113,8 @@
                         </tr>
                     </thead>
                     <tbody style="font-size: 11px">
-                        <?php foreach ($item as $i => $data) { ?>
+                        <?php
+                        foreach ($item as $i => $data) { ?>
                             <tr>
                                 <td><?= $data->barcode; ?></td>
                                 <td><?= $data->name; ?></td>
@@ -122,7 +123,7 @@
                                 <td class="text-right"><?= indo_currency($data->price); ?></td>
                                 <td class="text-right"><?= $data->stock ?></td>
                                 <td class="text-right">
-                                    <button class="btn btn-xs btn-info" id="select" data-id="<?= $data->item_id; ?>" data-barcode="<?= $data->barcode; ?>" data-name="<?= $data->name; ?>" data-type="<?= $data->type_name; ?>" data-category="<?= $data->category_name; ?>" data-price="<?= $data->price; ?>" data-stock="<?= $data->stock; ?>">
+                                    <button class="btn btn-xs btn-info btn-modal" id="select" data-id="<?= $data->item_id; ?>" data-barcode="<?= $data->barcode; ?>" data-name="<?= $data->name; ?>" data-type="<?= $data->type_name; ?>" data-category="<?= $data->category_name; ?>" data-price="<?= $data->price; ?>" data-stock="<?= $data->stock; ?>">
                                         <i class="fa fa-check">Select</i>
                                     </button>
                                 </td>
@@ -134,25 +135,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function() {
-        $(document).on('click', '#select', function() {
-            var item_id = $(this).data('id');
-            var barcode = $(this).data('barcode');
-            var name = $(this).data('name');
-            var type_name = $(this).data('type');
-            var category_name = $(this).data('category');
-            var stock = $(this).data('stock');
-            var price = $(this).data('price');
-            $('#item_id').val(item_id);
-            $('#barcode').val(barcode);
-            $('#item_name').val(name);
-            $('#type_name').val(type_name);
-            $('#category_name').val(category_name);
-            $('#stock').val(stock);
-            $('#price').val(price);
-            $('#modal-item').val('hide');
-        })
-    })
-</script>

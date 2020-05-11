@@ -232,6 +232,31 @@
             $('#dtable').DataTable()
         })
     </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#dtable').DataTable()
+            $(".btn-modal").click(function(e) {
+                e.preventDefault();
+                console.log("aa");
+                var item_id = $(this).data('id');
+                var barcode = $(this).data('barcode');
+                var name = $(this).data('name');
+                var type_name = $(this).data('type');
+                var category_name = $(this).data('category');
+                var stock = $(this).data('stock');
+                var price = $(this).data('price');
+                $('#item_id').val(item_id);
+                $('#barcode').val(barcode);
+                $('#item_name').val(name);
+                $('#type_name').val(type_name);
+                $('#category_name').val(category_name);
+                $('#stock').val(stock);
+                $('#price').val(price);
+                $('#modal-item').modal('hide');
+            });
+        })
+    </script>
 </body>
 
 </html>

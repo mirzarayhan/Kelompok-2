@@ -65,32 +65,32 @@ class Item extends CI_Controller
                 redirect('item/edit/' . $post['id']);
             } else {
                 // gambar
-            if (@$_FILES['image']['name'] != null) {
-                if ($this->upload->do_upload('image')) {
-                    $item = $this->Item_m->get($post['id'])->row();
-                    if ($item->image != null) {
-                        $target_file = './uploads/item/' . $item->image;
-                        unlink($target_file);
+                if (@$_FILES['image']['name'] != null) {
+                    if ($this->upload->do_upload('image')) {
+                        $item = $this->Item_m->get($post['id'])->row();
+                        if ($item->image != null) {
+                            $target_file = './uploads/item/' . $item->image;
+                            unlink($target_file);
+                        }
+                        $post['image']  =   $this->upload->data('file_name');
+                        $this->Item_m->edit($post);
+                        if ($this->db->affected_rows() > 0) {
+                            $this->session->set_flashdata('success', 'Data has been successfully saved!!');
+                        }
+                        redirect('item');
+                    } else {
+                        $error = $this->upload->display_errors();
+                        $this->session->set_flashdata('error', $error);
+                        redirect('item/add');
                     }
-                    $post['image']  =   $this->upload->data('file_name');
+                } else {
+                    $post['image']  = null;
                     $this->Item_m->edit($post);
                     if ($this->db->affected_rows() > 0) {
                         $this->session->set_flashdata('success', 'Data has been successfully saved!!');
                     }
                     redirect('item');
-                } else {
-                    $error = $this->upload->display_errors();
-                    $this->session->set_flashdata('error', $error);
-                    redirect('item/add');
                 }
-            } else {
-                $post['image']  = null;
-                $this->Item_m->edit($post);
-                if ($this->db->affected_rows() > 0) {
-                    $this->session->set_flashdata('success', 'Data has been successfully saved!!');
-                }
-                redirect('item');
-            }
             }
         }
     }
@@ -109,6 +109,7 @@ class Item extends CI_Controller
         $item->type_id      = null;
         $item->category_id  = null;
         $item->price        = null;
+        $item->stock        = null;
 
         $query_category     = $this->category_m->get();
         $query_type         = $this->type_m->get();
@@ -152,12 +153,12 @@ class Item extends CI_Controller
 
     public function delete()
     {
+        $id = $this->input->post('item_id');
         $item = $this->Item_m->get($id)->row();
         if ($item->image != null) {
             $target_file = './uploads/item/' . $item->image;
             unlink($target_file);
         }
-        $id = $this->input->post('item_id');
         $this->Item_m->del($id);
 
         if ($this->db->affected_rows() > 0) {

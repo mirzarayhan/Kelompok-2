@@ -93,7 +93,11 @@
                         </div>
                         <div class="form-group">
                             <label for="">Price *</label>
-                            <input type="number" name="price" value="<?= $row->price; ?>" class="form-control"  required>
+                            <input type="number" name="price" value="<?= $row->price; ?>" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Stock *</label>
+                            <input type="number" name="stock" value="<?= $row->stock; ?>" class="form-control" required>
                         </div>
                     </div>
                     <div class="from-group col-md-6">

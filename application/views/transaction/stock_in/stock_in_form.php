@@ -25,8 +25,8 @@
                 <div class="col-md-6">
                     <form action="<?= site_url('stock/in'); ?>" method="POST">
                         <div class="form-group <?= form_error('date') ? 'has-error' : null; ?>">
-                            <label for="">Date *</label>
-                            <input type="date" name="date" class="form-control" value="<?= date('Y-m-d') ?>" required>
+                            <label for="date">Date *</label>
+                            <input type="date" name="date" id="date" class="form-control" value="<?= date('Y-m-d') ?>" required>
                             <span class="help-block"><?= form_error('date'); ?></span>
                         </div>
                         <div>
@@ -42,15 +42,19 @@
                             </span>
                         </div>
                         <div class="form-group <?= form_error('item_name') ? 'has-error' : null; ?>">
-                            <label for="">Item Name</label>
+                            <label for="item_name">Item Name</label>
                             <input type="text" name="item_name" id="item_name" class="form-control" readonly>
                             <span class="help-block"><?= form_error('item_name'); ?></span>
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-8">
-                                    <label for="unit_name">Item unit</label>
-                                    <input type="text" name="unit_name" id="unit_name" class="form-control" readonly>
+                                <div class="col-md-4">
+                                    <label for="type_name">Item Type</label>
+                                    <input type="text" name="type_name" id="type_name" class="form-control" readonly>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="category_name">Category Type</label>
+                                    <input type="text" name="category_name" id="category_name" class="form-control" readonly>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="stock">Initial Stock *</label>
@@ -85,3 +89,70 @@
         </div>
     </div>
 </section>
+
+<div class="modal fade" id="modal-item">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Select Product Item</h4>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class="table table-bordered table-striped" id="dtable">
+                    <thead>
+                        <tr>
+                            <th>Barcode</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size: 11px">
+                        <?php foreach ($item as $i => $data) { ?>
+                            <tr>
+                                <td><?= $data->barcode; ?></td>
+                                <td><?= $data->name; ?></td>
+                                <td><?= $data->type_name; ?></td>
+                                <td><?= $data->category_name; ?></td>
+                                <td class="text-right"><?= indo_currency($data->price); ?></td>
+                                <td class="text-right"><?= $data->stock ?></td>
+                                <td class="text-right">
+                                    <button class="btn btn-xs btn-info" id="select" data-id="<?= $data->item_id; ?>" data-barcode="<?= $data->barcode; ?>" data-name="<?= $data->name; ?>" data-type="<?= $data->type_name; ?>" data-category="<?= $data->category_name; ?>" data-price="<?= $data->price; ?>" data-stock="<?= $data->stock; ?>">
+                                        <i class="fa fa-check">Select</i>
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $(document).on('click', '#select', function() {
+            var item_id = $(this).data('id');
+            var barcode = $(this).data('barcode');
+            var name = $(this).data('name');
+            var type_name = $(this).data('type');
+            var category_name = $(this).data('category');
+            var stock = $(this).data('stock');
+            var price = $(this).data('price');
+            $('#item_id').val(item_id);
+            $('#barcode').val(barcode);
+            $('#item_name').val(name);
+            $('#type_name').val(type_name);
+            $('#category_name').val(category_name);
+            $('#stock').val(stock);
+            $('#price').val(price);
+            $('#modal-item').val('hide');
+        })
+    })
+</script>

@@ -23,7 +23,7 @@
         </div>
 
         <div class="box-body table-responsive">
-            <table class="table table-bordered table-striped" id="dtable">
+            <table class="table table-bordered table-striped" id="dtable" style="font-size: 11px">
                 <thead>
                     <tr>
                         <th style="width: 5%;">#</th>
@@ -37,6 +37,7 @@
                         <th>Language</th>
                         <th>Tour Type</th>
                         <th>Tour Category</th>
+                        <th>Stock</th>
                         <th>Price</th>
                         <th class="text-center">Actions</th>
                     </tr>
@@ -65,6 +66,7 @@
                             <td><?= $data->language ?></td>
                             <td><?= $data->type_name ?></td>
                             <td><?= $data->category_name ?></td>
+                            <td><?= $data->stock ?></td>
                             <td><?= $data->price ?></td>
                             <td class="text-center" width="160px">
                                 <a href="<?= site_url('item/edit/' . $data->item_id); ?>" class="btn btn-warning btn-xs">

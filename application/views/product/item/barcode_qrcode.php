@@ -14,7 +14,7 @@
         <div class="box-header">
             <h3 class="box-title">Barcode Generator <i class="fa fa-barcode"></i></h3>
             <div class="pull-right">
-                <a href="<?= site_url('unit'); ?>" class="btn btn-warning btn-flat btn-sm">
+                <a href="<?= site_url('item'); ?>" class="btn btn-warning btn-flat btn-sm">
                     <i class="fa fa-undo"></i> Back</a>
             </div>
         </div>
@@ -37,7 +37,7 @@
         </div>
         <div class="box-body">
             <?php
-            $qrCode = new Endroid\QrCode\QrCode('Life is too short to be generating QR codes');
+            $qrCode = new Endroid\QrCode\QrCode($row->barcode);
             $qrCode->writeFile('uploads/qr-code/unit-' . $row->barcode . '.png');
             ?>
             <img src="<?= base_url('uploads/qr-code/unit-' . $row->barcode . '.png') ?>" style="width:200px">

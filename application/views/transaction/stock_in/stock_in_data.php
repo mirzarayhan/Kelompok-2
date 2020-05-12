@@ -45,8 +45,8 @@
                             <td><?= $data->qty ?></td>
                             <td><?= indo_date($data->date) ?></td>
                             <td class="text-center" width="160px">
-                                <a href="" class="btn btn-default btn-xs">
-                                    <i class="fa fa-eye"></i> Detail
+                                <a href="" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal-detail" data-barcode="<?= $data->barcode ?>" data-itemname="<?= $data->item_name ?>" data-suppliername="<?= $data->supplier_name ?>" data-qty="<?= $data->qty ?>" data-date="<?= indo_date($data->date) ?>">
+                                    <i class="fa fa-eye"></i> Details
                                 </a>
                                 <a href="<?= site_url('stock/in/del/' . $data->stock_id . '/' . $data->item_id); ?>" class="btn btn-danger btn-xs" onclick="return confirm('Apakah Anda Yakin ingin menghapus data ini?')">
                                     <i class="fa fa-Trash"></i> Delete
@@ -59,3 +59,25 @@
         </div>
     </div>
 </section>
+
+<div class="modal fade" id="modal-detail">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Stock In Details</h4>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class="table table-bordered no-margin">
+                    <tbody>
+                        <tr>
+                            <td style="">Barcode</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

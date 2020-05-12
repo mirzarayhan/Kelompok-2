@@ -34,7 +34,7 @@ class Stock extends CI_Controller
     public function stock_in_add()
     {
         $item           = $this->item_m->get()->result();
-        $supplier       = $this->supplier_m->get()->result();
+        $supplier       = $this->supplier_m->get();
         $data           = [
             'item'      => $item,
             'supplier'  => $supplier

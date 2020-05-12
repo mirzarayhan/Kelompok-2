@@ -71,9 +71,9 @@
                             <label for="supplier">Supplier</label>
                             <select name="supplier" id="supplier" class="form-control">
                                 <option value="">- Pilih -</option>
-                                <?php foreach ($supplier as $s => $data) {
-                                    echo '<option value="' . $data->supplier_id . '>' . $data->name . '</option>';
-                                } ?>
+                                <?php foreach ($supplier->result() as $s => $data) { ?>
+                                    <option value="<?= $data->supplier_id ?>"> <?= $data->name ?></option>
+                                <?php } ?>
                             </select>
                             <span class="help-block"><?= form_error('supplier'); ?></span>
                         </div>

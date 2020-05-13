@@ -261,10 +261,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#dtable').DataTable()
-            $("dtl").click(function(e) {
-                e.preventDefault();
-                console.log("aa");
+            $(document).on('click', '#set_dtl', function() {
                 var barcode = $(this).data('barcode');
                 var itemname = $(this).data('itemname');
                 var detail = $(this).data('detail');
@@ -277,7 +274,7 @@
                 $('#supplier_name').text(suppliername);
                 $('#qty').text(qty);
                 $('#date').text(date);
-            });
+            })
         })
     </script>
 

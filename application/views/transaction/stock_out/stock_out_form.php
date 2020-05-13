@@ -1,11 +1,11 @@
 <section class="content-header">
-    <h1>Stock In
-        <small>Barang Masuk / Penambahan Barang</small>
+    <h1>Stock Out
+        <small>Barang Keluar / Pengurangan Barang</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href=""><i class="fa fa-dashboard"></i></a></li>
         <li>Transaction</li>
-        <li class="active">Stock In</li>
+        <li class="active">Stock Out</li>
     </ol>
 </section>
 
@@ -13,9 +13,9 @@
 <section class="content">
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Add Stock In</h3>
+            <h3 class="box-title">Add Stock Out</h3>
             <div class="pull-right">
-                <a href="<?= site_url('stock/in'); ?>" class="btn btn-warning">
+                <a href="<?= site_url('stock/out'); ?>" class="btn btn-warning">
                     <i class="fa fa-arrow-left"></i> Back</a>
             </div>
         </div>
@@ -68,22 +68,12 @@
                             <span class="help-block"><?= form_error('detail'); ?></span>
                         </div>
                         <div class="form-group <?= form_error('datail') ? 'has-error' : null; ?>">
-                            <label for="supplier">Supplier</label>
-                            <select name="supplier" id="supplier" class="form-control">
-                                <option value="">- Pilih -</option>
-                                <?php foreach ($supplier->result() as $s => $data) { ?>
-                                    <option value="<?= $data->supplier_id ?>"> <?= $data->name ?></option>
-                                <?php } ?>
-                            </select>
-                            <span class="help-block"><?= form_error('supplier'); ?></span>
-                        </div>
-                        <div class="form-group <?= form_error('datail') ? 'has-error' : null; ?>">
                             <label for="qty">Qty</label>
                             <input type="text" name="qty" id="qty" class="form-control" required>
                             <span class="help-block"><?= form_error('qty'); ?></span>
                         </div>
                         <div class="from-group">
-                            <button type="submit" name="in_add" class="btn btn-success"><i class="fa fa-paper-plane"></i> Save</button>
+                            <button type="submit" name="out_add" class="btn btn-success"><i class="fa fa-paper-plane"></i> Save</button>
                             <button type="reset" class="btn" style="margin-left: 10px"><i class="fa fa-undo"></i> Reset</button>
                         </div>
                     </form>

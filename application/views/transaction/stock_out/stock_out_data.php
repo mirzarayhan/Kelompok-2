@@ -1,11 +1,11 @@
 <section class="content-header">
-    <h1>Stock In
-        <small>Barang Masuk / Penambahan Barang</small>
+    <h1>Stock Out
+        <small>Barang Keluar / Pengurangan Barang</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href=""><i class="fa fa-dashboard"></i></a></li>
         <li>Transaction</li>
-        <li class="active">Stock In</li>
+        <li class="active">Stock Out</li>
     </ol>
 </section>
 
@@ -14,11 +14,11 @@
     <?php $this->view('messages'); ?>
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Data Stock In</h3>
+            <h3 class="box-title">Data Stock Out</h3>
             <div class="pull-right">
-                <a href="<?= site_url('stock/in/add'); ?>" class="btn btn-primary">
+                <a href="<?= site_url('stock/out/add'); ?>" class="btn btn-primary">
                     <i class="fa fa-plus"></i> Add</a>
-                <a href="<?= site_url('Stock In/laporan_pdf'); ?>" class="btn btn-primary">
+                <a href="<?= site_url('Stock Out/laporan_pdf'); ?>" class="btn btn-primary">
                     <i class="fa fa-print"></i> Print</a>
             </div>
         </div>
@@ -67,7 +67,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">Stock In Details</h4>
+                <h4 class="modal-title">Stock Out Details</h4>
             </div>
             <div class="modal-body table-responsive">
                 <table class="table table-bordered no-margin">
@@ -83,10 +83,6 @@
                         <tr>
                             <td>Info</td>
                             <td><span id="detail"></span></td>
-                        </tr>
-                        <tr>
-                            <td>Supplier Name</td>
-                            <td><span id="supplier_name"></span></td>
                         </tr>
                         <tr>
                             <td>Qty</td>

@@ -35,12 +35,12 @@ class Customer extends CI_Controller
 
     public function add()
     {
-        $customer = new stdClass();
-        $customer->customer_id = null;
-        $customer->name = null;
-        $customer->gender = null;
-        $customer->phone = null;
-        $customer->address = null;
+        $customer               = new stdClass();
+        $customer->customer_id  = null;
+        $customer->name         = null;
+        $customer->gender       = null;
+        $customer->phone        = null;
+        $customer->address      = null;
         $data = [
             'page' => 'add',
             'row' => $customer
@@ -50,12 +50,12 @@ class Customer extends CI_Controller
 
     public function edit($id)
     {
-        $query = $this->customer_m->get($id);
+        $query                  = $this->customer_m->get($id);
         if ($query->num_rows() > 0) {
-            $customer = $query->row();
+            $customer           = $query->row();
             $data = [
-                'page' => 'edit',
-                'row' => $customer
+                'page'          => 'edit',
+                'row'           => $customer
             ];
             $this->template->load('template', 'customer/customer_form', $data);
         } else {
@@ -66,21 +66,26 @@ class Customer extends CI_Controller
 
     public function delete()
     {
-        $id = $this->input->post('customer_id');
+        $id     = $this->input->post('customer_id');
         $this->customer_m->del($id);
+        $error  = $this->db->error();
 
-        if ($this->db->affected_rows() > 0) {
-            echo "<script>alert('Data Berhasil di Hapus')</script>";
+        if ($error['code'] != 0) {
+            echo "<script>alert('Data Tidak dapat di Hapus ( Sudah berelasi dengan tabel lain )');</script>";
+        } else {
+            echo "<script>alert('Data Berhasil di Hapus');</script>";
         }
-        echo "<script>window.location='" . site_url('customer') . "'</script>";
+        echo "<script>window.location='" . site_url('customer') . "';</script>";
     }
-    public function laporan_pdf() {
-        $data['title'] = 'Report Customer';
-        $data['customer'] = $this->Cetak_m->viewCustomer();
+    public function laporan_pdf()
+    {
+
+        $data['title']          = 'Report Customer';
+        $data['customer']       = $this->Cetak_m->viewCustomer();
         $this->load->library('pdf');
 
         $this->pdf->setPaper('A4', 'potrait');
-        $this->pdf->filename = "laporan_customer.pdf";
+        $this->pdf->filename    = "laporan_customer.pdf";
         $this->pdf->load_view('customer/laporan', $data);
     }
 }

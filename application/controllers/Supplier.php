@@ -35,15 +35,15 @@ class Supplier extends CI_Controller
 
     public function add()
     {
-        $supplier = new stdClass();
-        $supplier->supplier_id = null;
-        $supplier->name = null;
-        $supplier->phone = null;
-        $supplier->address = null;
-        $supplier->description = null;
-        $data = [
-            'page' => 'add',
-            'row' => $supplier
+        $supplier               = new stdClass();
+        $supplier->supplier_id  = null;
+        $supplier->name         = null;
+        $supplier->phone        = null;
+        $supplier->address      = null;
+        $supplier->description  = null;
+        $data       = [
+            'page'  => 'add',
+            'row'   => $supplier
         ];
         $this->template->load('template', 'supplier/supplier_form_add', $data);
     }
@@ -52,10 +52,10 @@ class Supplier extends CI_Controller
     {
         $query = $this->supplier_m->get($id);
         if ($query->num_rows() > 0) {
-            $supplier = $query->row();
-            $data = [
-                'page' => 'edit',
-                'row' => $supplier
+            $supplier   = $query->row();
+            $data       = [
+                'page'  => 'edit',
+                'row'   => $supplier
             ];
             $this->template->load('template', 'supplier/supplier_form_add', $data);
         } else {
@@ -66,15 +66,20 @@ class Supplier extends CI_Controller
 
     public function delete()
     {
-        $id = $this->input->post('supplier_id');
+        $id         = $this->input->post('supplier_id');
         $this->supplier_m->del($id);
+        $error      = $this->db->error();
 
-        if ($this->db->affected_rows() > 0) {
-            echo "<script>alert('Data Berhasil di Hapus')</script>";
+        if ($error['code'] != 0) {
+            echo "<script>alert('Data Tidak dapat di Hapus ( Sudah berelasi dengan tabel lain )');</script>";
+        } else {
+            echo "<script>alert('Data Berhasil di Hapus');</script>";
         }
-        echo "<script>window.location='" . site_url('supplier') . "'</script>";
+        echo "<script>window.location='" . site_url('supplier') . "';</script>";
     }
-    public function laporan_pdf() {
+
+    public function laporan_pdf()
+    {
         $data['title'] = 'Report Supplier';
         $data['supplier'] = $this->Cetak_m->viewSupplier();
         $this->load->library('pdf');

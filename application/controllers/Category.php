@@ -66,10 +66,13 @@ class Category extends CI_Controller
 
     public function delete()
     {
-        $id = $this->input->post('category_id');
+        $id         = $this->input->post('category_id');
         $this->category_m->del($id);
+        $error      = $this->db->error();
 
-        if ($this->db->affected_rows() > 0) {
+        if ($error['code'] != 0) {
+            echo "<script>alert('Data Tidak dapat di Hapus ( Sudah berelasi dengan tabel lain )');</script>";
+        } else {
             $this->session->set_flashdata('success', 'Data has been successfully deleted!!');
         }
         redirect('category');

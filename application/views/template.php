@@ -167,7 +167,7 @@
                     </li>
                     <li class="treeview <?= $this->uri->segment(1) == 'sales' ||
                                             $this->uri->segment(1) == 'stock' && $this->uri->segment(2) == 'in' ||
-                                            $this->uri->segment(1) == 'stockout' ? 'active' : ''; ?>">
+                                            $this->uri->segment(1) == 'stock'  && $this->uri->segment(2) == 'out' ? 'active' : ''; ?>">
                         <a href="#">
                             <i class="fa fa-money"></i> <span>Transaction</span>
                             <span class="pull-right-container">
@@ -181,8 +181,8 @@
                             <li <?= $this->uri->segment(1) == 'stock' && $this->uri->segment(2) == 'in' ? 'class="active"' : ''; ?>>
                                 <a href="<?= site_url('stock/in'); ?>"><i class="fa fa-circle-o"></i> Stock In</a>
                             </li>
-                            <li <?= $this->uri->segment(1) == 'stockout' ? 'class="active"' : ''; ?>>
-                                <a href="<?= site_url('stockout'); ?>"><i class="fa fa-circle-o"></i> Stock Out</a>
+                            <li <?= $this->uri->segment(1) == 'stock' && $this->uri->segment(2) == 'out' ? 'class="active"' : ''; ?>>
+                                <a href="<?= site_url('stock/out'); ?>"><i class="fa fa-circle-o"></i> Stock Out</a>
                             </li>
                         </ul>
                     </li>
@@ -233,7 +233,7 @@
             $('#dtable').DataTable()
         })
     </script>
-
+    <!-- ini untuk tombol search pada tambah stock in -->
     <script>
         $(document).ready(function() {
             $('#dtable').DataTable()
@@ -256,6 +256,26 @@
                 $('#price').val(price);
                 $('#modal-item').modal('hide');
             });
+        })
+    </script>
+
+    <!-- ini untuk tombol detail pada tampil data stock in -->
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '#set_dtl', function() {
+                var barcode = $(this).data('barcode');
+                var itemname = $(this).data('itemname');
+                var detail = $(this).data('detail');
+                var suppliername = $(this).data('suppliername');
+                var qty = $(this).data('qty');
+                var date = $(this).data('date');
+                $('#barcode').text(barcode);
+                $('#item_name').text(itemname);
+                $('#detail').text(detail);
+                $('#supplier_name').text(suppliername);
+                $('#qty').text(qty);
+                $('#date').text(date);
+            })
         })
     </script>
 </body>

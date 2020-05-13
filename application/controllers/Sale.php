@@ -1,14 +1,17 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Sale extends CI_Controller {
-	function __construct() {
+class Sale extends CI_Controller
+{
+	function __construct()
+	{
 		parent::__construct();
 		check_not_login();
 		$this->load->model('sale_m');
 	}
 
-	public function index() {
+	public function index()
+	{
 		$this->load->model(['customer_m', 'item_m']);
 		$customer 	= $this->customer_m->get()->result();
 		$item 		= $this->item_m->get()->result();
@@ -20,15 +23,16 @@ class Sale extends CI_Controller {
 		$this->template->load('template', 'transaction/sale/sale_form', $data);
 	}
 
-	public function process() {
+	public function process()
+	{
 		$data = $this->input->post(null, TRUE);
-		
-		if(issets($_POST['add_cart'])) {
+
+		if (isset($_POST['add_cart'])) {
 			$this->sale_m->add_cart($data);
-			
-			if($this->db->affected_rows() > 0) {
+
+			if ($this->db->affected_rows() > 0) {
 				$params = array("success" => true);
-			}else {
+			} else {
 				$params = array("success" => false);
 			}
 			echo json_encode($params);

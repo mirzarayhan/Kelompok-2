@@ -279,8 +279,12 @@
     </script>
 
     <script>
-        $(document).on('click', '#select', function() {
-            $('#item_id').val($(this).data('id'));
+        $(document).on('click', '#slct', function() {
+            // var item_id = $(this).data('itemid');
+            // var barcode = $(this).data('barcode');
+            // var price = $(this).data('price');
+            // var stock = $(this).data('stock');
+            $('#item_id').val($(this).data('itemid'));
             $('#barcode').val($(this).data('barcode'));
             $('#price').val($(this).data('price'));
             $('#stock').val($(this).data('stock'));

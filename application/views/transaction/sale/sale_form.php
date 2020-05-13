@@ -21,17 +21,17 @@
                             </td>
                             <td>
                                 <div class="form-group">
-                                    <input type="date" id="date" value="<?=date('Y-m-d')?>" class="form-control">
+                                    <input type="date" id="date" value="<?= date('Y-m-d') ?>" class="form-control">
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td style="vertical-align:top: width:30%">
+                            <td style="vertical-align:top; width:30%">
                                 <label for="user">Kasir</label>
                             </td>
                             <td>
                                 <div class="form-group">
-                                    <input type="text" id="user" value="<?=$this->fungsi->user_login()->name?>" class="form-control" readonly>
+                                    <input type="text" id="user" value="<?= $this->fungsi->user_login()->name ?>" class="form-control" readonly>
                                 </div>
                             </td>
                         </tr>
@@ -43,8 +43,8 @@
                                 <div>
                                     <select id="customer" class="form-control">
                                         <option value="">Umum</option>
-                                        <?php foreach($customer as $cust => $value) {
-                                            echo '<option value="'.$value->customer_id.'">'.$value->name.'</option>';
+                                        <?php foreach ($customer as $cust => $value) {
+                                            echo '<option value="' . $value->customer_id . '">' . $value->name . '</option>';
                                         } ?>
                                     </select>
                                 </div>
@@ -60,7 +60,7 @@
                 <div class="box-body">
                     <table width="100%">
                         <tr>
-                            <td style="vertical-align:top: width:30%">
+                            <td style="vertical-align:top; width:30%">
                                 <label for="barcode">Barcode</label>
                             </td>
                             <td>
@@ -148,7 +148,7 @@
                 <div class="box-body">
                     <table width="100%">
                         <tr>
-                            <td style="vertical-align:top width:30%">
+                            <td style="vertical-align:top; width:30%">
                                 <label for="sub_total">Sub Total</label>
                             </td>
                             <td>
@@ -187,7 +187,7 @@
                 <div class="box-body">
                     <table width="100%">
                         <tr>
-                            <td style="vertical-align:top width:30%">
+                            <td style="vertical-align:top; width:30%">
                                 <label for="cash">Cash</label>
                             </td>
                             <td>
@@ -275,11 +275,7 @@
                                 <td class="text-right"><?= indo_currency($data->price); ?></td>
                                 <td class="text-right"><?= $data->stock ?></td>
                                 <td class="text-right">
-                                    <button class="btn btn-xs btn-info btn-modal" id="select" 
-                                    data-id         ="<?= $data->item_id; ?>" 
-                                    data-barcode    ="<?= $data->barcode; ?>" 
-                                    data-price      ="<?= $data->price; ?>" 
-                                    data-stock      ="<?= $data->stock; ?>">
+                                    <button class="btn btn-xs btn-info btn-modal" id="slct" data-itemid="<?= $data->item_id; ?>" data-barcode="<?= $data->barcode; ?>" data-price="<?= $data->price; ?>" data-stock="<?= $data->stock; ?>">
                                         <i class="fa fa-check">Select</i>
                                     </button>
                                 </td>

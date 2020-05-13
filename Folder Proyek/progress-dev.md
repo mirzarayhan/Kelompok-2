@@ -30,3 +30,13 @@
 -Fitur Barcode, QR-Code & Print <br>
 -Merubah Struktur tabel database <br>
 -Akumulasi Progress : 50% <br>
+
+### MINGGU KE 15 (13 MEI 2020) ###
+-Move Tour Product Unit to Item <br>
+-Tampilan form fitur stock in<br>
+-Membuat detail data dengan popup<br>
+-Membuat desain form transaksi penjualan<br>
+-Membuat kode invoice otomatis dengan counter harian<br>
+-Cart item dengan CI + ajax<br>
+-Update struktur tabel database<br>
+-Akumulasi Progress : 65% <br>

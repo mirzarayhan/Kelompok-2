@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini <?= $this->uri->segment(1) == 'sale' ? 'sidebar-collapse' : null ?>">
     <!-- Site wrapper -->
     <div class="wrapper">
 
@@ -165,7 +165,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="treeview <?= $this->uri->segment(1) == 'sales' ||
+                    <li class="treeview <?= $this->uri->segment(1) == 'sale' ? 'active' : '' ||
                                             $this->uri->segment(1) == 'stock' && $this->uri->segment(2) == 'in' ||
                                             $this->uri->segment(1) == 'stock'  && $this->uri->segment(2) == 'out' ? 'active' : ''; ?>">
                         <a href="#">
@@ -175,8 +175,8 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li <?= $this->uri->segment(1) == 'sales' ? 'class="active"' : ''; ?>>
-                                <a href="<?= site_url('sales'); ?>"><i class="fa fa-circle-o"></i> Sales</a>
+                            <li <?= $this->uri->segment(1) == 'sale' ? 'class="active"' : ''; ?>>
+                                <a href="<?= site_url('sale'); ?>"><i class="fa fa-circle-o"></i> Sales</a>
                             </li>
                             <li <?= $this->uri->segment(1) == 'stock' && $this->uri->segment(2) == 'in' ? 'class="active"' : ''; ?>>
                                 <a href="<?= site_url('stock/in'); ?>"><i class="fa fa-circle-o"></i> Stock In</a>
@@ -259,10 +259,12 @@
         })
     </script>
 
-    <!-- ini untuk tombol detail pada tampil data stock in -->
     <script>
         $(document).ready(function() {
-            $(document).on('click', '#set_dtl', function() {
+            $('#dtable').DataTable()
+            $("dtl").click(function(e) {
+                e.preventDefault();
+                console.log("aa");
                 var barcode = $(this).data('barcode');
                 var itemname = $(this).data('itemname');
                 var detail = $(this).data('detail');
@@ -275,7 +277,52 @@
                 $('#supplier_name').text(suppliername);
                 $('#qty').text(qty);
                 $('#date').text(date);
-            })
+            });
+        })
+    </script>
+
+    <script>
+        $(document).on('click', '#select', function() {
+            $('#item_id').val($(this).data('id'));
+            $('#barcode').val($(this).data('barcode'));
+            $('#price').val($(this).data('price'));
+            $('#stock').val($(this).data('stock'));
+            $('#modal-item').modal('hide');
+        })
+
+        $(document).on('click', '#add_cart', function() {
+            var item_id = $('#item_id').val()
+            var price = $('#price').val()
+            var stock = $('#stock').val()
+            var qty = $('#qty').val()
+            if (item_id == '') {
+                alert('Product belum dipilih')
+                $('#barcode').focus()
+            } else if (stock < 1) {
+                alert('Stock tidak mencukupi')
+                $('#item_id').val('')
+                $('#barcode').val('')
+                $('#barcode').focus()
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: '<?= site_url('sale/process') ?>',
+                    data: {
+                        'add_cart': true,
+                        'item_id': item_id,
+                        'price': price,
+                        'qty': qty
+                    },
+                    datatype: 'json',
+                    success: function(result) {
+                        if (result.success == true) {
+                            alert('Berhasil tambah cart ke db')
+                        } else {
+                            alert('Gagal tambah item cart')
+                        }
+                    }
+                })
+            }
         })
     </script>
 </body>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Bulan Mei 2020 pada 16.21
+-- Waktu pembuatan: 13 Bulan Mei 2020 pada 11.11
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.3.11
 
@@ -107,7 +107,7 @@ CREATE TABLE `p_item` (
 --
 
 INSERT INTO `p_item` (`item_id`, `barcode`, `name`, `address`, `image`, `duration`, `groupsize`, `language`, `overview`, `type_id`, `category_id`, `stock`, `price`, `created`, `updated`) VALUES
-(8, 'A001', 'BROMO', 'Probolinggo, Jawa Timur', 'item-070520-d21bae68bb.jpg', '2 Days', 'Unlimited', 'English', 'Bromo Mountain', 1, 1, 0, 2000000, '2020-05-11 12:46:13', '2020-05-07 17:49:52'),
+(8, 'A001', 'BROMO', 'Probolinggo, Jawa Timur', 'item-070520-d21bae68bb.jpg', '2 Days', 'Unlimited', 'English', 'Bromo Mountain', 1, 1, 12, 2000000, '2020-05-12 21:01:21', '2020-05-07 17:49:52'),
 (15, 'A002', 'Batu', 'Malang', 'item-070520-85759d47b3.jpg', '8 hours', 'Unlimited', 'English', 'Malang City', 2, 1, 0, 1000000, '2020-05-11 12:46:14', '2020-05-07 18:23:38'),
 (19, 'A003', 'Gili ', 'West Nusa Tenggara, Indonesia', 'item-070520-3f2dc55bc9.jpg', '8 hours', 'Unlimited', 'English', 'Gili Bali', 1, 2, 0, 1200000, '2020-05-11 12:46:15', '2020-05-07 18:41:30'),
 (21, 'A006', 'Sendang Gile', 'West Nusa Tenggara, Indonesia', 'item-070520-02437c1d16.jpg', '8 hours', 'Unlimited', 'English', 'Waterfall', 1, 3, 0, 950000, '2020-05-11 12:46:17', '2020-05-07 19:04:06'),
@@ -202,6 +202,43 @@ INSERT INTO `supplier` (`supplier_id`, `name`, `phone`, `address`, `description`
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `t_cart`
+--
+
+CREATE TABLE `t_cart` (
+  `cart_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `qty` int(10) NOT NULL,
+  `discount_item` int(11) NOT NULL DEFAULT 0,
+  `total` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `t_sale`
+--
+
+CREATE TABLE `t_sale` (
+  `sale_id` int(11) NOT NULL,
+  `invoice` varchar(50) NOT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `total_price` int(11) NOT NULL,
+  `discount` int(11) NOT NULL,
+  `final_price` int(11) NOT NULL,
+  `cash` int(11) NOT NULL,
+  `remaining` int(11) NOT NULL,
+  `note` text NOT NULL,
+  `date` date NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `t_stock`
 --
 
@@ -210,12 +247,19 @@ CREATE TABLE `t_stock` (
   `item_id` int(11) NOT NULL,
   `type` enum('in','out') NOT NULL,
   `detail` varchar(225) NOT NULL,
-  `supplier_id` int(11) NOT NULL,
+  `supplier_id` int(11) DEFAULT NULL,
   `qty` int(10) NOT NULL,
   `date` date NOT NULL,
   `created` datetime NOT NULL DEFAULT current_timestamp(),
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `t_stock`
+--
+
+INSERT INTO `t_stock` (`stock_id`, `item_id`, `type`, `detail`, `supplier_id`, `qty`, `date`, `created`, `user_id`) VALUES
+(1, 8, 'in', 'Booking', 4, 12, '2020-05-12', '2020-05-12 21:01:20', 2);
 
 -- --------------------------------------------------------
 
@@ -293,6 +337,20 @@ ALTER TABLE `supplier`
   ADD PRIMARY KEY (`supplier_id`);
 
 --
+-- Indeks untuk tabel `t_cart`
+--
+ALTER TABLE `t_cart`
+  ADD PRIMARY KEY (`cart_id`),
+  ADD KEY `item_id` (`item_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indeks untuk tabel `t_sale`
+--
+ALTER TABLE `t_sale`
+  ADD PRIMARY KEY (`sale_id`);
+
+--
 -- Indeks untuk tabel `t_stock`
 --
 ALTER TABLE `t_stock`
@@ -348,10 +406,16 @@ ALTER TABLE `supplier`
   MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT untuk tabel `t_sale`
+--
+ALTER TABLE `t_sale`
+  MODIFY `sale_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `t_stock`
 --
 ALTER TABLE `t_stock`
-  MODIFY `stock_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `stock_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
@@ -369,6 +433,13 @@ ALTER TABLE `user`
 ALTER TABLE `p_item`
   ADD CONSTRAINT `FK_p_item_p_category` FOREIGN KEY (`category_id`) REFERENCES `p_category` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_p_item_p_item` FOREIGN KEY (`type_id`) REFERENCES `p_type` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `t_cart`
+--
+ALTER TABLE `t_cart`
+  ADD CONSTRAINT `t_cart_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `p_item` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `t_cart_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `t_stock`

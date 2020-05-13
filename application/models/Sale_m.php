@@ -31,9 +31,21 @@ class Sale_m extends CI_Model {
             'item_id'   => $post['item_id'],
             'price'     => $post['price'],
             'qty'       => $post['qty'],
-            'total'     => $post['price'] * $post['qty'],
+            'total'     => ($post['price'] * $post['qty']),
             'user_id'   => $this->session->userdata('userid'),
         );
         $this->db->insert('t_cart', $params);
+    }
+    
+    public function get_cart($params = null) {
+        $this->db->select('*, p_item.name as item_name, t_cart.price as cart_price');
+        $this->db->from('t_cart');
+        $this->db->join('p_item', 't_cart.item_id = p_item.item_id');
+        if($params != null) {
+            $this->db->where($params);
+        }
+        $this->db->where('user_id', $this->session->userdata('userid'));
+        $query = $this->db->get();
+        return $query;
     }
 }

@@ -18,8 +18,6 @@
             <div class="pull-right">
                 <a href="<?= site_url('stock/out/add'); ?>" class="btn btn-primary">
                     <i class="fa fa-plus"></i> Add</a>
-                <a href="<?= site_url('Stock Out/laporan_pdf'); ?>" class="btn btn-primary">
-                    <i class="fa fa-print"></i> Print</a>
             </div>
         </div>
 
@@ -48,7 +46,7 @@
                                 <a id="set_dtl" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal-detail" data-barcode="<?= $data->barcode ?>" data-itemname="<?= $data->item_name ?>" data-detail="<?= $data->detail ?>" data-suppliername="<?= $data->supplier_name ?>" data-qty="<?= $data->qty ?>" data-date="<?= indo_date($data->date) ?>">
                                     <i class="fa fa-eye"></i> Details
                                 </a>
-                                <a href="<?= site_url('stock/in/del/' . $data->stock_id . '/' . $data->item_id); ?>" class="btn btn-danger btn-xs" onclick="return confirm('Apakah Anda Yakin ingin menghapus data ini?')">
+                                <a href="<?= site_url('stock/out/del/' . $data->stock_id . '/' . $data->item_id); ?>" class="btn btn-danger btn-xs" onclick="return confirm('Apakah Anda Yakin ingin menghapus data ini?')">
                                     <i class="fa fa-Trash"></i> Delete
                                 </a>
                             </td>

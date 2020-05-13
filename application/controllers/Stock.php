@@ -40,7 +40,7 @@ class Stock extends CI_Controller
             $this->item_m->update_stock_out($post);
 
             if ($this->db->affected_rows() > 0) {
-                $this->session->set_flashdata('success', 'Data Stock-In berhasil disimpan');
+                $this->session->set_flashdata('success', 'Data Stock-Out berhasil disimpan');
             }
             redirect('stock/out');
         }
@@ -97,8 +97,8 @@ class Stock extends CI_Controller
         $this->stock_m->del($stock_id);
 
         if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', 'Data Stock-In berhasil dihapus');
+            $this->session->set_flashdata('success', 'Data Stock-Out berhasil dihapus');
         }
-        redirect('stock/in');
+        redirect('stock/out');
     }
 }

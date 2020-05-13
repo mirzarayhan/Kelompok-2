@@ -69,5 +69,4 @@ $route['stock/out/add'] = 'stock/stock_out_add';
 $route['stock/out/process'] = 'stock/stock_out_process';
 $route['stock/out/del/(:num)/(:num)'] = 'stock/stock_out_del';
 
-
 // $route['translate_uri_dashes'] = FALSE;

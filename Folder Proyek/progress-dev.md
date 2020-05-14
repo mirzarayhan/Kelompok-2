@@ -31,7 +31,7 @@
 -Merubah Struktur tabel database <br>
 -Akumulasi Progress : 50% <br>
 
-### MINGGU KE 15 (13 MEI 2020) ###
+### MINGGU KE 15 (13 MEI 2020 + 14 MEI 2020) ###
 -Move Tour Product Unit to Item <br>
 -Tampilan form fitur stock in dan fitur stock out<br>
 -Membuat detail data dengan popup<br>
@@ -40,4 +40,11 @@
 -Cart item dengan CI + ajax<br>
 -Load dan tampil cart tanpa refresh<br>
 -Update struktur tabel database<br>
--Akumulasi Progress : 70% <br>
+-Update jumlah qty di cart<br>
+-Hapus item cart tanpaa refresh dengan ajax<br>
+-Edit item cart dengan modal popup<br>
+-Update cart<br>
+-Hitung kalkulasi diskon, total belanja, kembalian<br>
+-Proses simpan transaksi<br>
+-Akumulasi Progress : 80% <br>
+

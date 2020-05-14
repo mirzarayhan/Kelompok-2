@@ -157,7 +157,7 @@
                         <div class="card mb-4 shadow-sm">
                         <img src="<?= base_url('assets\img\api_biru.jpg') ?>" width="100%" height="155px">
                             <div class="card-body">
-                                <p class="card-text">Wonderful Bromo adn Ijen Trip-Start Bali</p>
+                                <p class="card-text">Wonderful Bromo and Ijen Trip-Start Bali</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <a href="#" class="btn btn-sm btn-outline-secondary">View</a>

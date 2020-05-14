@@ -38,17 +38,14 @@
                 </a>
             </nav>
         </header>
+
         <!-- Left side column -->
         <aside class="main-sidebar">
             <section class="sidebar">
 
                 <!-- sidebar menu -->
                 <ul class="sidebar-menu" data-widget="tree">
-                    <li class="header">MAIN NAVIGATION</li>
-                    <li class="treeview <?= $this->uri->segment(1) == 'category' ||
-                                            $this->uri->segment(1) == 'item' ||
-                                            $this->uri->segment(1) == 'unit' ||
-                                            $this->uri->segment(1) == 'type' ? 'active' : ''; ?>">
+                    <li class="treeview">
                         <a href="#">
                             <span>Tour Jawa</span>
                             <span class="pull-right-container">
@@ -56,17 +53,17 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li <?= $this->uri->segment(1) == 'item' ? 'class="active"' : ''; ?>>
-                                <a href="<?= site_url('item'); ?>"><i class="fa fa-circle-o"></i>Wisata Gunung Bromo</a>
+                            <li >
+                                <a href="<?= site_url('katalog'); ?>"><i class="fa fa-circle-o"></i>Wisata Gunung Bromo</a>
                             </li>
-                            <li <?= $this->uri->segment(1) == 'category' ? 'class="active"' : ''; ?>>
-                                <a href="<?= site_url('category'); ?>"><i class="fa fa-circle-o"></i>Banyuwangi</a>
+                            <li>
+                                <a href="<?= site_url('katalog'); ?>"><i class="fa fa-circle-o"></i>Banyuwangi</a>
                             </li>
-                            <li <?= $this->uri->segment(1) == 'type' ? 'class="active"' : ''; ?>>
-                                <a href="<?= site_url('type'); ?>"><i class="fa fa-circle-o"></i> Malang</a>
+                            <li>
+                                <a href="<?= site_url('katalog'); ?>"><i class="fa fa-circle-o"></i> Malang</a>
                             </li>
-                            <li <?= $this->uri->segment(1) == 'unit' ? 'class="active"' : ''; ?>>
-                                <a href="<?= site_url('unit'); ?>"><i class="fa fa-circle-o"></i> Yogyakarta</a>
+                            <li>
+                                <a href="<?= site_url('katalog'); ?>"><i class="fa fa-circle-o"></i> Yogyakarta</a>
                             </li>
                         </ul>
                     </li>
@@ -80,14 +77,14 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li <?= $this->uri->segment(1) == 'sales' ? 'class="active"' : ''; ?>>
-                                <a href="<?= site_url('sales'); ?>"><i class="fa fa-circle-o"></i>Tour Pulau Bali</a>
+                            <li>
+                                <a href="<?= site_url('katalog'); ?>"><i class="fa fa-circle-o"></i>Tour Pulau Bali</a>
                             </li>
-                            <li <?= $this->uri->segment(1) == 'stockin' ? 'class="active"' : ''; ?>>
-                                <a href="<?= site_url('stockin'); ?>"><i class="fa fa-circle-o"></i>Tour Nusa Penida</a>
+                            <li>
+                                <a href="<?= site_url('katalog'); ?>"><i class="fa fa-circle-o"></i>Tour Nusa Penida</a>
                             </li>
-                            <li <?= $this->uri->segment(1) == 'stockout' ? 'class="active"' : ''; ?>>
-                                <a href="<?= site_url('stockout'); ?>"><i class="fa fa-circle-o"></i>Tour Nusa Lembongan</a>
+                            <li>
+                                <a href="<?= site_url('katalog'); ?>"><i class="fa fa-circle-o"></i>Tour Nusa Lembongan</a>
                             </li>
                         </ul>
                     </li>
@@ -99,13 +96,19 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-circle-o"></i> Tour Pulau Lombok</a></li>
-                            <li><a href="#"><i class="fa fa-circle-o"></i> Penanjakan Gunung Rinjani</a></li>
-                            <li><a href="#"><i class="fa fa-circle-o"></i> Tour Kepulauan Gili</a></li>
+                            <li>
+                                <a href="<?= site_url('katalog'); ?>"><i class="fa fa-circle-o"></i> Tour Pulau Lombok</a>
+                            </li>
+                            <li>
+                                <a href="<?= site_url('katalog'); ?>"><i class="fa fa-circle-o"></i> Penanjakan Gunung Rinjani</a>
+                            </li>
+                            <li>
+                                <a href="<?= site_url('katalog'); ?>"><i class="fa fa-circle-o"></i> Tour Kepulauan Gili</a>
+                            </li>
                         </ul>
                     </li>
-                    <li <?= $this->uri->segment(1) == 'dashboard' ||  $this->uri->segment(1) == '' ? 'class="active"' : ''; ?>>
-                        <a href="<?= site_url('dashboard'); ?>"><span>Blog</span></a>
+                    <li>
+                        <a href="<?= base_url('client\blog'); ?>"><span>Blog</span></a>
                     </li>
             </section>
         </aside>

@@ -21,7 +21,7 @@ class Katalog extends CI_Controller
     }
 
 
-    public function edit($id)
+    public function detail($id)
     {
         $query = $this->Item_m->get($id);
         $this->template->load('template_c', 'client\detail');

@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini <?=$this->uri->segment(1) == 'sale' ? 'sidebar-collapse' : null?>">
+<body class="hold-transition skin-blue sidebar-mini <?= $this->uri->segment(1) == 'sale' ? 'sidebar-collapse' : null ?>">
     <!-- Site wrapper -->
     <div class="wrapper">
 
@@ -258,7 +258,7 @@
             });
         })
     </script>
-    
+
     <script>
         $(document).ready(function() {
             $(document).on('click', '#set_dtl', function() {
@@ -279,45 +279,147 @@
     </script>
 
     <script>
-    $(document).on('click', '#select', function() {
-        $('#item_id').val($(this).data('id'));
-        $('#barcode').val($(this).data('barcode'));
-        $('#price').val($(this).data('price'));
-        $('#stock').val($(this).data('stock'));
-        $('#modal-item').modal('hide');
-    })
+        // masukkan data ke inputan cart hasil search
+        $(document).on('click', '#select', function() {
+            $('#item_id').val($(this).data('id'));
+            $('#barcode').val($(this).data('barcode'));
+            $('#price').val($(this).data('price'));
+            $('#stock').val($(this).data('stock'));
+            $('#modal-item').modal('hide');
+        })
+        // memasukkan data pada cart di halaman sale. 
+        $(document).on('click', '#add_cart', function() {
+            var item_id = $('#item_id').val()
+            var price = $('#price').val()
+            var stock = $('#stock').val()
+            var qty = $('#qty').val()
+            if (item_id == '') {
+                alert('Product belum dipilih')
+                $('#barcode').focus()
+            } else if (stock < 1) {
+                alert('Stock tidak mencukupi')
+                $('#item_id').val('')
+                $('#barcode').val('')
+                $('#barcode').focus()
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: '<?= site_url('sale/process') ?>',
+                    data: {
+                        'add_cart': true,
+                        'item_id': item_id,
+                        'price': price,
+                        'qty': qty
+                    },
+                    dataType: 'json',
+                    success: function(result) {
+                        if (result.success == true) {
+                            $('#cart_table').load('<?= site_url('sale/cart_data') ?>', function() {
 
-    $(document).on('click', '#add_cart', function() {
-        var item_id     = $('#item_id').val()
-        var price       = $('#price').val()
-        var stock       = $('#stock').val()
-        var qty         = $('#qty').val()
-        if(item_id == '') {
-            alert('Product belum dipilih')
-            $('#barcode').focus()
-        }else if(stock < 1) {
-            alert('Stock tidak mencukupi')
-            $('#item_id').val('')
-            $('#barcode').val('')
-            $('#barcode').focus()
-        }else {
-            $.ajax({
-                type: 'POST',
-                url: '<?=site_url('sale/process')?>',
-                data: {'add_cart' : true, 'item_id' : item_id, 'price' : price, 'qty' : qty},
-                dataType: 'json',
-                success: function(result) {
-                    if(result.success == true) {
-                        $('#cart_table').load('<?=site_url('sale/cart_data')?>', function() {
-                            
-                        })
-                    }else {
-                        alert('Gagal tambah item cart')
+                            })
+                            $('#item_id').val('')
+                            $('#barcode').val('')
+                            $('#qty').val(1)
+                            $('#barcode').focus()
+                        } else {
+                            alert('Gagal tambah item cart')
+                        }
                     }
-                }
-            })
+                })
+            }
+        })
+        // delete chart list
+        $(document).on('click', '#del_cart', function() {
+            if (confirm('Apakah Anda yakin ingin menghapus cart ini??')) {
+                var cart_id = $(this).data('cartid')
+                $.ajax({
+                    type: 'POST',
+                    url: '<?= site_url('sale/cart_del') ?>',
+                    dataType: 'json',
+                    data: {
+                        'cart_id': cart_id
+                    },
+                    success: function(result) {
+                        if (result.success == true) {
+                            $('#cart_table').load('<?= site_url('sale/cart_data') ?>', function() {
+
+                            })
+                        } else {
+                            alert('Gagal hapus item cart');
+                        }
+                    }
+                })
+            }
+        })
+
+        $(document).on('click', '#update_cart', function() {
+            $('#cartid_item').val($(this).data('cartid'));
+            $('#barcode_item').val($(this).data('barcode'));
+            $('#product_item').val($(this).data('product'));
+            $('#price_item').val($(this).data('price'));
+            $('#qty_item').val($(this).data('qty'));
+            $('#total_before').val($(this).data('price') * $(this).data('qty'));
+            $('#discount_item').val($(this).data('discount'));
+            $('#total_item').val($(this).data('total'));
+        })
+
+        function count_edit_modal() {
+            var price = $('#price_item').val()
+            var qty = $('#qty_item').val()
+            var discount = $('#discount_item').val()
+
+            total_before = price * qty
+            $('#total_before').val(total_before)
+
+            total = (price - discount) * qty
+            $('#total_item').val(total)
         }
-    })
+
+        $(document).on('keyup mouseup', '#price_item, #qty_item, #discount_item', function() {
+            count_edit_modal()
+        })
+        // merubah data yang sudah masuk pada list cart
+        $(document).on('click', '#edit_cart', function() {
+            var cart_id = $('#cartid_item').val()
+            var price = $('#price_item').val()
+            var qty = $('#qty_item').val()
+            var discount = $('#discount_item').val()
+            var total = $('#total_item').val()
+            if (price == '' || price < 1) {
+                alert('Harga tidak boleh kosong (minimal 1)')
+                $('#price_item').focus()
+            } else if (qty == '' || qty < 1) {
+                alert('Qty tidak boleh kosong (minimal 1)')
+                $('#qty_item').focus()
+            } else if (discount == '') {
+                $('#discount_item').val(0)
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: '<?= site_url('sale/process') ?>',
+                    data: {
+                        'edit_cart': true,
+                        'cart_id': cart_id,
+                        'price': price,
+                        'qty': qty,
+                        'discount': discount,
+                        'total': total
+                    },
+                    dataType: 'json',
+                    success: function(result) {
+                        if (result.success == true) {
+                            $('#cart_table').load('<?= site_url('sale/cart_data') ?>', function() {
+
+                            })
+                            $('#modal-item-edit').modal('hide')
+                        } else {
+                            alert('Data item cart tidak ter-update')
+                        }
+                    }
+                })
+            }
+        })
     </script>
 </body>
+
 </html>

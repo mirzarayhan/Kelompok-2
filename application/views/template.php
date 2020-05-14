@@ -294,10 +294,10 @@
             var stock = $('#stock').val()
             var qty = $('#qty').val()
             if (item_id == '') {
-                alert('Product belum dipilih')
+                alert('Product not selected!!')
                 $('#barcode').focus()
             } else if (stock < 1) {
-                alert('Stock tidak mencukupi')
+                alert('Insufficient stock!!')
                 $('#item_id').val('')
                 $('#barcode').val('')
                 $('#barcode').focus()
@@ -306,23 +306,23 @@
                     type: 'POST',
                     url: '<?= site_url('sale/process') ?>',
                     data: {
-                        'add_cart': true,
-                        'item_id': item_id,
-                        'price': price,
-                        'qty': qty
+                        'add_cart'  : true,
+                        'item_id'   : item_id,
+                        'price'     : price,
+                        'qty'       : qty
                     },
                     dataType: 'json',
                     success: function(result) {
                         if (result.success == true) {
                             $('#cart_table').load('<?= site_url('sale/cart_data') ?>', function() {
-
+                                calculate()
                             })
                             $('#item_id').val('')
                             $('#barcode').val('')
                             $('#qty').val(1)
                             $('#barcode').focus()
                         } else {
-                            alert('Gagal tambah item cart')
+                            alert('Failed to add item cart!!')
                         }
                     }
                 })
@@ -330,7 +330,7 @@
         })
         // delete chart list
         $(document).on('click', '#del_cart', function() {
-            if (confirm('Apakah Anda yakin ingin menghapus cart ini??')) {
+            if (confirm('Are you sure you want to delete this data??')) {
                 var cart_id = $(this).data('cartid')
                 $.ajax({
                     type: 'POST',
@@ -342,10 +342,10 @@
                     success: function(result) {
                         if (result.success == true) {
                             $('#cart_table').load('<?= site_url('sale/cart_data') ?>', function() {
-
+                                calculate()
                             })
                         } else {
-                            alert('Gagal hapus item cart');
+                            alert('Failed to delete item cart!!');
                         }
                     }
                 })
@@ -363,6 +363,7 @@
             $('#total_item').val($(this).data('total'));
         })
 
+        //fungsi count
         function count_edit_modal() {
             var price = $('#price_item').val()
             var qty = $('#qty_item').val()
@@ -373,6 +374,10 @@
 
             total = (price - discount) * qty
             $('#total_item').val(total)
+
+            if(discount == '') {
+                $('#discount_item').val(0)
+            }
         }
 
         $(document).on('keyup mouseup', '#price_item, #qty_item, #discount_item', function() {
@@ -386,13 +391,11 @@
             var discount = $('#discount_item').val()
             var total = $('#total_item').val()
             if (price == '' || price < 1) {
-                alert('Harga tidak boleh kosong (minimal 1)')
+                alert('Price cannot be empty!!')
                 $('#price_item').focus()
             } else if (qty == '' || qty < 1) {
-                alert('Qty tidak boleh kosong (minimal 1)')
+                alert('Qty cannot be empty!!')
                 $('#qty_item').focus()
-            } else if (discount == '') {
-                $('#discount_item').val(0)
             } else {
                 $.ajax({
                     type: 'POST',
@@ -409,14 +412,84 @@
                     success: function(result) {
                         if (result.success == true) {
                             $('#cart_table').load('<?= site_url('sale/cart_data') ?>', function() {
-
+                                calculate()
                             })
+                            alert('Item cart successfully updated!!')
                             $('#modal-item-edit').modal('hide')
                         } else {
-                            alert('Data item cart tidak ter-update')
+                            alert('Item cart data is not updated!!')
                         }
                     }
                 })
+            }
+        })
+
+        // Kalkulasi
+        function calculate() {
+            var subtotal = 0;
+            $('#cart_table tr').each(function() {
+                subtotal += parseInt($(this).find('#total').text())
+            })
+            isNaN(subtotal) ? $('#sub_total').val(0) : $('#sub_total').val(subtotal)
+
+            var discount    = $('#discount').val()
+            var grand_total = subtotal - discount
+            if(isNaN(grand_total)) {
+                $('#grand_total').val(0)
+                $('#grand_total2').text(0)
+            }else {
+                $('#grand_total').val(grand_total)
+                $('#grand_total2').text(grand_total)
+            }
+            var cash = $('#cash').val()
+            cash != 0 ? $('#change').val(cash - grand_total) : $('#change').val(0)
+
+            if(discount == '') {
+                $('#discount').val(0)
+            }
+        }
+        $(document).on('keyup mouse', '#discount, #cash', function() {
+            calculate()
+        })
+        $(document).ready(function() {
+            calculate()
+        })
+
+        //proses payment
+        $(document).on('click', '#process_payment', function() {
+            var customer_id = $('#customer').val()
+            var subtotal    = $('#sub_total').val()
+            var discount    = $('#discount').val()
+            var grandtotal  = $('#grand_total').val()
+            var cash        = $('#cash').val()
+            var change      = $('#change').val()
+            var note        = $('#note').val()
+            var date        = $('#date').val()
+            if(subtotal < 1) {
+                alert('No Products selected!!')
+                $('#barcode').focus()
+            }else if(cash < 1) {
+                alert('The amount of cash have not been inputted!!')
+                $('#cash').focus()
+            }else {
+                if(confirm('Are you sure about this transaction proces??')) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '<?=site_url('sale/process')?>',
+                        data: {'process_payment' : true, 'customer_id' : customer_id, 'subtotal' : subtotal,
+                                'discount' : discount, 'grandtotal' : grandtotal, 'cash' : cash, 'change' : change,
+                                'note' : note, 'date' : date},
+                        dataType: 'json',
+                        success: function(result) {
+                            if(result.success) {
+                                alert('Transaction success!!')
+                            }else {
+                                alert('Transaction failed!!')
+                            }
+                            location.href='<?=site_url('sale')?>'
+                        }
+                    })
+                }
             }
         })
     </script>

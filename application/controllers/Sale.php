@@ -55,6 +55,33 @@ class Sale extends CI_Controller
 			}
 			echo json_encode($params);
 		}
+
+		if(isset($_POST['process_payment'])) {
+			$sale_id 	= $this->sale_m->add_sale($data);
+			$cart		= $this->sale_m->get_cart()->result();
+			$row = [];
+			foreach($cart as $c => $value) {
+				
+				//array_push menambahkan kedalam array row yang kosong
+				array_push($row, array(
+					'sale_id'		=> $sale_id,
+					'item_id'		=> $value->item_id,
+					'price'			=> $value->price,
+					'qty'			=> $value->discount_item,
+					'total'			=> $value->total,
+					)
+				); 
+			}
+			$this->sale_m->add_sale_detail($row);
+			$this->sale_m->del_cart(['user_id' => $this->session->userdata('userid')]);
+
+			if($this->db->affected_row() > 0) {
+				$params = array("success" => true);
+			}else {
+				$params = array("success" => false);
+			}
+			echo json_encode($params);
+		}
 	}
 
 	function cart_data()

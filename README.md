@@ -61,3 +61,12 @@ Matkul Proyek
 6. Cart item dengan CI + ajax
 7. Load tampil cart tanpa refresh
 8. Update struktur tabel database
+
+(Kamis, 14 Mei 2020)
+1. Update jumlah qty di cart
+2. Hapus item cart tanpaa refresh dengan ajax
+3. Edit item cart dengan modal popup
+4. Update cart 
+5. Hitung kalkulasi diskon, total belanja, kembalian
+6. Proses simpan transaksi
+7. Update struktur tabel database

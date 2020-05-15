@@ -215,7 +215,7 @@
             <div class="pull-right hidden-xs">
                 <b>Version</b> 1.0
             </div>
-            <strong>Copyright &copy; 2020 <a href="https://www.linkedin.com/in/m-irvan-alfi-hidayat-63bb28169/">Project1</a>.</strong> All rights reserved.
+            <strong>Copyright &copy; 2020 <a href="https://github.com/SeptiandaRezaMaulana">Project1</a>.</strong> All rights reserved.
         </footer>
     </div>
 
@@ -499,6 +499,28 @@
                         }
                     })
                 }
+            }
+        })
+        $(document).on('click', '#cancel_payment', function() {
+            if(confirm('Are you sure want to cancel this transaction?')) {
+                $.ajax({
+                    type: 'POST',
+                    url: '<?=site_url('sale/cart_del')?>',
+                    dataType : 'json',
+                    data: {'cancel_payment' : true},
+                    success: function(result) {
+                        if(result.success == true) {
+                            $('#cart_table').load('<?=site_url('sale/cart_data')?>', function() {
+                                calculate()
+                            })
+                        }
+                    }
+                })
+                $('#discount').val(0)
+                $('#cash').val(0)
+                $('#customer').val(0)
+                $('#barcode').val('')
+                $('#barcode').focus()
             }
         })
     </script>

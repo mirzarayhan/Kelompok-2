@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Bulan Mei 2020 pada 07.38
+-- Waktu pembuatan: 15 Bulan Mei 2020 pada 05.24
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.3.11
 
@@ -107,12 +107,12 @@ CREATE TABLE `p_item` (
 --
 
 INSERT INTO `p_item` (`item_id`, `barcode`, `name`, `address`, `image`, `duration`, `groupsize`, `language`, `overview`, `type_id`, `category_id`, `stock`, `price`, `created`, `updated`) VALUES
-(8, 'A001', 'BROMO', 'Probolinggo, Jawa Timur', 'item-070520-d21bae68bb.jpg', '2 Days', 'Unlimited', 'English', 'Bromo Mountain', 1, 1, 11, 2000000, '2020-05-13 22:55:44', '2020-05-13 17:50:34'),
-(15, 'A002', 'Batu', 'Malang', 'item-070520-85759d47b3.jpg', '8 hours', 'Unlimited', 'English', 'Malang City', 2, 1, 4, 1000000, '2020-05-14 08:24:38', '2020-05-07 18:23:38'),
-(19, 'A003', 'Gili ', 'West Nusa Tenggara, Indonesia', 'item-070520-3f2dc55bc9.jpg', '8 hours', 'Unlimited', 'English', 'Gili Bali', 1, 2, 0, 1200000, '2020-05-11 12:46:15', '2020-05-07 18:41:30'),
-(21, 'A006', 'Sendang Gile', 'West Nusa Tenggara, Indonesia', 'item-070520-02437c1d16.jpg', '8 hours', 'Unlimited', 'English', 'Waterfall', 1, 3, 5, 950000, '2020-05-14 08:24:50', '2020-05-07 19:04:06'),
-(23, 'A004', 'Bentar', 'Probolinggo', 'item-070520-1d8df7e34e.jpg', '8 hours', 'Unlimited', 'English', 'Bentar Beach', 1, 1, 0, 150000, '2020-05-11 12:46:18', '2020-05-07 19:07:08'),
-(24, 'A008', 'Matos', 'Malang', 'item-070520-91d4f9302d.jpg', '3 Hours', 'Unlimited', 'English', 'Matos Mall', 1, 1, 0, 450000, '2020-05-11 12:46:20', NULL);
+(8, 'A001', 'BROMO', 'Probolinggo, Jawa Timur', 'item-070520-d21bae68bb.jpg', '2 Days', 'Unlimited', 'English', 'Bromo Mountain', 1, 1, 12, 2000000, '2020-05-15 06:36:13', '2020-05-13 17:50:34'),
+(15, 'A002', 'Batu', 'Malang', 'item-070520-85759d47b3.jpg', '8 hours', 'Unlimited', 'English', 'Malang City', 2, 1, 15, 1000000, '2020-05-15 06:34:55', '2020-05-07 18:23:38'),
+(19, 'A003', 'Gili ', 'West Nusa Tenggara, Indonesia', 'item-070520-3f2dc55bc9.jpg', '8 hours', 'Unlimited', 'English', 'Gili Bali', 1, 2, 12, 1200000, '2020-05-15 06:02:10', '2020-05-07 18:41:30'),
+(21, 'A006', 'Sendang Gile', 'West Nusa Tenggara, Indonesia', 'item-070520-02437c1d16.jpg', '8 hours', 'Unlimited', 'English', 'Waterfall', 1, 3, 15, 950000, '2020-05-15 06:03:28', '2020-05-07 19:04:06'),
+(23, 'A004', 'Bentar', 'Probolinggo', 'item-070520-1d8df7e34e.jpg', '8 hours', 'Unlimited', 'English', 'Bentar Beach', 1, 1, 12, 150000, '2020-05-15 06:04:22', '2020-05-07 19:07:08'),
+(24, 'A008', 'Matos', 'Malang', 'item-070520-91d4f9302d.jpg', '3 Hours', 'Unlimited', 'English', 'Matos Mall', 1, 1, 6, 450000, '2020-05-15 06:03:48', NULL);
 
 -- --------------------------------------------------------
 
@@ -241,8 +241,7 @@ CREATE TABLE `t_sale` (
 --
 
 INSERT INTO `t_sale` (`sale_id`, `invoice`, `customer_id`, `total_price`, `discount`, `final_price`, `cash`, `remaining`, `note`, `date`, `user_id`, `created`) VALUES
-(1, 'MP2005140001', NULL, 88500, 0, 88500, 100000, 11500, '', '2020-05-14', 2, '2020-05-14 12:31:30'),
-(2, 'MP2005140002', NULL, 2000000, 100, 1999900, 2000000, 100, '', '2020-05-14', 2, '2020-05-14 12:37:44');
+(1, 'MP2005150001', NULL, 3800000, 0, 3800000, 3800000, 0, 'lunas', '2020-05-15', 1, '2020-05-15 06:36:13');
 
 -- --------------------------------------------------------
 
@@ -265,9 +264,18 @@ CREATE TABLE `t_sale_detail` (
 --
 
 INSERT INTO `t_sale_detail` (`detail_id`, `sale_id`, `item_id`, `price`, `qty`, `discount_item`, `total`) VALUES
-(1, 1, 8, 2000000, 0, 0, 60000),
-(2, 1, 21, 950000, 0, 0, 28500),
-(3, 2, 15, 1000000, 0, 0, 2000000);
+(1, 1, 8, 2000000, 2, 0, 3800000);
+
+--
+-- Trigger `t_sale_detail`
+--
+DELIMITER $$
+CREATE TRIGGER `stock_min` AFTER INSERT ON `t_sale_detail` FOR EACH ROW BEGIN
+	UPDATE p_item SET stock = stock - NEW.qty
+    WHERE item_id = NEW.item_id;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -292,13 +300,14 @@ CREATE TABLE `t_stock` (
 --
 
 INSERT INTO `t_stock` (`stock_id`, `item_id`, `type`, `detail`, `supplier_id`, `qty`, `date`, `created`, `user_id`) VALUES
-(7, 8, 'in', 'Booking', 4, 2, '2020-05-13', '2020-05-13 22:55:04', 2),
-(8, 8, 'in', 'Tambahan', NULL, 12, '2020-05-13', '2020-05-13 22:55:26', 2),
-(9, 8, 'out', 'Dampak Covid', NULL, 3, '2020-05-13', '2020-05-13 22:55:44', 2),
-(10, 15, 'in', 'Booking', 4, 6, '2020-05-14', '2020-05-14 08:23:44', 2),
-(11, 21, 'in', 'Booking', 4, 8, '2020-05-14', '2020-05-14 08:24:11', 2),
-(12, 15, 'out', 'Dampak Covid', NULL, 2, '2020-05-14', '2020-05-14 08:24:38', 2),
-(13, 21, 'out', 'Dampak Covid', NULL, 3, '2020-05-14', '2020-05-14 08:24:50', 2);
+(1, 8, 'in', 'tambah stock', NULL, 6, '2020-05-15', '2020-05-15 05:59:13', 1),
+(2, 15, 'in', 'add stock from irvan', 1, 15, '2020-05-15', '2020-05-15 05:59:32', 1),
+(3, 19, 'in', 'irvan', 3, 12, '2020-05-15', '2020-05-15 06:02:10', 1),
+(4, 23, 'in', 'tambah stock', 3, 15, '2020-05-15', '2020-05-15 06:02:39', 1),
+(5, 8, 'in', 'tambah stock', 1, 8, '2020-05-15', '2020-05-15 06:03:02', 1),
+(6, 21, 'in', 'tambah stock', 4, 15, '2020-05-15', '2020-05-15 06:03:28', 1),
+(7, 24, 'in', 'tambah stock', 2, 6, '2020-05-15', '2020-05-15 06:03:48', 1),
+(8, 23, 'out', 'pengurangan dampak covid', NULL, 3, '2020-05-15', '2020-05-15 06:04:22', 1);
 
 -- --------------------------------------------------------
 
@@ -455,19 +464,19 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT untuk tabel `t_sale`
 --
 ALTER TABLE `t_sale`
-  MODIFY `sale_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `sale_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_sale_detail`
 --
 ALTER TABLE `t_sale_detail`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_stock`
 --
 ALTER TABLE `t_stock`
-  MODIFY `stock_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `stock_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`

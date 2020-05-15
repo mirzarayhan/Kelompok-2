@@ -27,7 +27,7 @@
                         </tr>
                         <tr>
                             <td style="vertical-align:top; width:30%">
-                                <label for="user">Kasir</label>
+                                <label for="user">User</label>
                             </td>
                             <td>
                                 <div class="form-group">

@@ -56,28 +56,30 @@ class Sale extends CI_Controller
 			echo json_encode($params);
 		}
 
-		if(isset($_POST['process_payment'])) {
+		if (isset($_POST['process_payment'])) {
 			$sale_id 	= $this->sale_m->add_sale($data);
 			$cart		= $this->sale_m->get_cart()->result();
-			$row = [];
-			foreach($cart as $c => $value) {
-				
+			$row 		= [];
+			foreach ($cart as $c => $value) {
+
 				//array_push menambahkan kedalam array row yang kosong
-				array_push($row, array(
-					'sale_id'		=> $sale_id,
-					'item_id'		=> $value->item_id,
-					'price'			=> $value->price,
-					'qty'			=> $value->discount_item,
-					'total'			=> $value->total,
+				array_push(
+					$row,
+					array(
+						'sale_id'		=> $sale_id,
+						'item_id'		=> $value->item_id,
+						'price'			=> $value->price,
+						'qty'			=> $value->qty,
+						'total'			=> $value->total,
 					)
-				); 
+				);
 			}
 			$this->sale_m->add_sale_detail($row);
 			$this->sale_m->del_cart(['user_id' => $this->session->userdata('userid')]);
 
-			if($this->db->affected_row() > 0) {
+			if ($this->db->affected_rows() > 0) {
 				$params = array("success" => true);
-			}else {
+			} else {
 				$params = array("success" => false);
 			}
 			echo json_encode($params);
@@ -101,5 +103,14 @@ class Sale extends CI_Controller
 			$params = array("success" => false);
 		}
 		echo json_encode($params);
+	}
+
+	public function cetak($id)
+	{
+		$data = array(
+			'sale'			=> $this->sale_m->get_sale($id)->row(),
+			'sale_detail'	=> $this->sale_m->get_sale_detail($id)->result()
+		);
+		$this->load->view('transaction/sale/receipt_print', $data);
 	}
 }

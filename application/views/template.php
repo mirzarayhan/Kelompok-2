@@ -306,10 +306,10 @@
                     type: 'POST',
                     url: '<?= site_url('sale/process') ?>',
                     data: {
-                        'add_cart'  : true,
-                        'item_id'   : item_id,
-                        'price'     : price,
-                        'qty'       : qty
+                        'add_cart': true,
+                        'item_id': item_id,
+                        'price': price,
+                        'qty': qty
                     },
                     dataType: 'json',
                     success: function(result) {
@@ -375,7 +375,7 @@
             total = (price - discount) * qty
             $('#total_item').val(total)
 
-            if(discount == '') {
+            if (discount == '') {
                 $('#discount_item').val(0)
             }
         }
@@ -432,19 +432,19 @@
             })
             isNaN(subtotal) ? $('#sub_total').val(0) : $('#sub_total').val(subtotal)
 
-            var discount    = $('#discount').val()
+            var discount = $('#discount').val()
             var grand_total = subtotal - discount
-            if(isNaN(grand_total)) {
+            if (isNaN(grand_total)) {
                 $('#grand_total').val(0)
                 $('#grand_total2').text(0)
-            }else {
+            } else {
                 $('#grand_total').val(grand_total)
                 $('#grand_total2').text(grand_total)
             }
             var cash = $('#cash').val()
             cash != 0 ? $('#change').val(cash - grand_total) : $('#change').val(0)
 
-            if(discount == '') {
+            if (discount == '') {
                 $('#discount').val(0)
             }
         }
@@ -458,35 +458,43 @@
         //proses payment
         $(document).on('click', '#process_payment', function() {
             var customer_id = $('#customer').val()
-            var subtotal    = $('#sub_total').val()
-            var discount    = $('#discount').val()
-            var grandtotal  = $('#grand_total').val()
-            var cash        = $('#cash').val()
-            var change      = $('#change').val()
-            var note        = $('#note').val()
-            var date        = $('#date').val()
-            if(subtotal < 1) {
+            var subtotal = $('#sub_total').val()
+            var discount = $('#discount').val()
+            var grandtotal = $('#grand_total').val()
+            var cash = $('#cash').val()
+            var change = $('#change').val()
+            var note = $('#note').val()
+            var date = $('#date').val()
+            if (subtotal < 1) {
                 alert('No Products selected!!')
                 $('#barcode').focus()
-            }else if(cash < 1) {
+            } else if (cash < 1) {
                 alert('The amount of cash have not been inputted!!')
                 $('#cash').focus()
-            }else {
-                if(confirm('Are you sure about this transaction proces??')) {
+            } else {
+                if (confirm('Are you sure about this transaction proces??')) {
                     $.ajax({
                         type: 'POST',
-                        url: '<?=site_url('sale/process')?>',
-                        data: {'process_payment' : true, 'customer_id' : customer_id, 'subtotal' : subtotal,
-                                'discount' : discount, 'grandtotal' : grandtotal, 'cash' : cash, 'change' : change,
-                                'note' : note, 'date' : date},
+                        url: '<?= site_url('sale/process') ?>',
+                        data: {
+                            'process_payment': true,
+                            'customer_id': customer_id,
+                            'subtotal': subtotal,
+                            'discount': discount,
+                            'grandtotal': grandtotal,
+                            'cash': cash,
+                            'change': change,
+                            'note': note,
+                            'date': date
+                        },
                         dataType: 'json',
                         success: function(result) {
-                            if(result.success) {
+                            if (result.success) {
                                 alert('Transaction success!!')
-                            }else {
+                            } else {
                                 alert('Transaction failed!!')
                             }
-                            location.href='<?=site_url('sale')?>'
+                            location.href = '<?= site_url('sale') ?>'
                         }
                     })
                 }

@@ -2,6 +2,61 @@
 
 class Sale_m extends CI_Model
 {
+
+    public function get_cart($params = null)
+    {
+        $this->db->select(
+            '*, p_item.name as item_name, 
+            t_cart.price as cart_price'
+        );
+        $this->db->from('t_cart');
+        $this->db->join(
+            'p_item',
+            't_cart.item_id = p_item.item_id'
+        );
+        if ($params != null) {
+            $this->db->where($params);
+        }
+        $this->db->where('user_id', $this->session->userdata('userid'));
+        $query = $this->db->get();
+        return $query;
+    }
+
+    public function get_sale($id = null)
+    {
+        $this->db->select(
+            '*, customer.name as customer_name,
+            user.username as user_name, 
+            t_sale.created as sale_created'
+        );
+        $this->db->from('t_sale');
+        $this->db->join(
+            'customer',
+            't_sale.customer_id = customer.customer_id',
+            'left'
+        );
+        $this->db->join(
+            'user',
+            't_sale.user_id = user.user_id'
+        );
+        if ($id != null) {
+            $this->db->where('sale_id', $id);
+        }
+        $query = $this->db->get();
+        return $query;
+    }
+
+    public function get_sale_detail($sale_id = null)
+    {
+        $this->db->from('t_sale_detail');
+        $this->db->join('p_item', 't_sale_detail.item_id = p_item.item_id');
+        if ($sale_id != null) {
+            $this->db->where('t_sale_detail.sale_id', $sale_id);
+        }
+        $query = $this->db->get();
+        return $query;
+    }
+
     public function invoice_no()
     {
         $sql    = "SELECT MAX(MID(invoice, 9, 4)) AS invoice_no
@@ -51,19 +106,6 @@ class Sale_m extends CI_Model
         $this->db->query($sql);
     }
 
-    public function get_cart($params = null)
-    {
-        $this->db->select('*, p_item.name as item_name, t_cart.price as cart_price');
-        $this->db->from('t_cart');
-        $this->db->join('p_item', 't_cart.item_id = p_item.item_id');
-        if ($params != null) {
-            $this->db->where($params);
-        }
-        $this->db->where('user_id', $this->session->userdata('userid'));
-        $query = $this->db->get();
-        return $query;
-    }
-
     public function del_cart($params = null)
     {
         if ($params != null) {
@@ -84,7 +126,8 @@ class Sale_m extends CI_Model
         $this->db->update('t_cart', $params);
     }
 
-    public function add_sale($post) {
+    public function add_sale($post)
+    {
         $params = array(
             'invoice'       => $this->invoice_no(),
             'customer_id'   => $post['customer_id'] == "" ? null : $data['customer_id'],
@@ -100,7 +143,9 @@ class Sale_m extends CI_Model
         $this->db->insert('t_sale', $params);
         return $this->db->insert_id();
     }
-    function add_sale_detail($params) {
+
+    function add_sale_detail($params)
+    {
         $this->db->insert_batch('t_sale_detail', $params);
     }
 }

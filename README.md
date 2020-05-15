@@ -70,3 +70,8 @@ Matkul Proyek
 5. Hitung kalkulasi diskon, total belanja, kembalian
 6. Proses simpan transaksi
 7. Update struktur tabel database
+
+(Jumat, 15 Mei 2020)
+1. Update stock otomatis
+2. Halaman cetak struk nota invoice
+3. Cancel pembayaran dan reset form

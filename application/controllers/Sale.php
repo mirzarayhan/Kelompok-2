@@ -78,7 +78,7 @@ class Sale extends CI_Controller
 			$this->sale_m->del_cart(['user_id' => $this->session->userdata('userid')]);
 
 			if ($this->db->affected_rows() > 0) {
-				$params = array("success" => true);
+				$params = array("success" => true, "sale_id" => $sale_id);
 			} else {
 				$params = array("success" => false);
 			}

@@ -490,9 +490,10 @@
                         dataType: 'json',
                         success: function(result) {
                             if (result.success) {
-                                alert('Transaction success!!')
+                                alert('Transaction success!!');
+                                window.open('<?= site_url('sale/cetak/') ?>' + result.sale_id, '_blank');
                             } else {
-                                alert('Transaction failed!!')
+                                alert('Transaction failed!!');
                             }
                             location.href = '<?= site_url('sale') ?>'
                         }

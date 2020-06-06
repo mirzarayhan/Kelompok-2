@@ -77,5 +77,5 @@ Matkul Proyek
 3. Cancel pembayaran dan reset form
 
 (Sabtu, 6 Juni 2020)
-Validasi Stock di Penjualan + Tracking Solving Error jQuery
-Membuat Laporan Penjualan
+1. Validasi Stock di Penjualan + Tracking Solving Error jQuery
+2. Membuat Laporan Penjualan

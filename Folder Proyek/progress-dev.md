@@ -51,3 +51,8 @@
 -Cancel pembayaran dan reset form<br>
 -Akumulasi Progress : 92% <br>
 
+### MINGGU KE 18 (6 Juni 2020) ###
+-Validasi Stock di Penjualan + Tracking Solving Error jQuery
+-Membuat Laporan Penjualan
+-Akumulasi Progress : 95%
+

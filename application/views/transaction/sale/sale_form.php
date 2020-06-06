@@ -68,6 +68,7 @@
                                     <input type="hidden" id="item_id">
                                     <input type="hidden" id="price">
                                     <input type="hidden" id="stock">
+                                    <input type="hidden" id="qty_cart">
                                     <input type="text" id="barcode" class="form-control" autofocus>
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-item">
@@ -313,8 +314,17 @@
                     <input type="number" id="price_item" min="0" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="qty_item">Qty</label>
-                    <input type="number" id="qty_item" min="1" class="form-control">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="qty_item">Qty</label>
+                            <input type="number" id="qty_item" min="1" class="form-control">    
+                        </div>
+                        <div class="col-md-5">
+                            <label>Stock Item</label>
+                            <input type="number" id="stock_item" class="form-control" readonly>
+                        </div>
+                    </div>
+                    
                 </div>
                 <div class="form-group">
                     <label for="total_before">Total before Discount</label>

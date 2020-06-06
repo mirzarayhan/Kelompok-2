@@ -81,12 +81,12 @@
                         <!-- User Account -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="<?= base_url() ?>assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                                <img src="<?= base_url() ?>assets/dist/img/foto.jpg" class="user-image" alt="User Image">
                                 <span class="hidden-xs"><?= $this->fungsi->user_login()->username ?></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="user-header">
-                                    <img src="<?= base_url() ?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                    <img src="<?= base_url() ?>assets/dist/img/foto.jpg" class="img-circle" alt="User Image">
                                     <p>
                                         <?= ucfirst($this->fungsi->user_login()->name) ?>
                                         <small><?= $this->fungsi->user_login()->address ?></small>
@@ -111,7 +111,7 @@
             <section class="sidebar">
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="<?= base_url() ?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="<?= base_url() ?>assets/dist/img/foto.jpg" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
                         <p><?= $this->fungsi->user_login()->username ?></p>
@@ -186,7 +186,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="treeview">
+                    <li class="treeview <?= $this->uri->segment(1) == 'report' ? 'active' : ''?>">
                         <a href="#">
                             <i class="fa fa-pie-chart"></i> <span>Reports</span>
                             <span class="pull-right-container">
@@ -194,7 +194,9 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-circle-o"></i> Sales</a></li>
+                            <li <?= $this->uri->segment(1) == 'report' && $this->uri->segment(2) == 'sale' ? 'class="active"' : ''?>>
+                                <a href="<?= site_url('report/sale') ?>"><i class="fa fa-circle-o"></i> Sales</a>
+                            </li>
                             <li><a href="#"><i class="fa fa-circle-o"></i> Stock</a></li>
                         </ul>
                     </li>
@@ -281,26 +283,44 @@
     <script>
         // masukkan data ke inputan cart hasil search
         $(document).on('click', '#select', function() {
-            $('#item_id').val($(this).data('id'));
-            $('#barcode').val($(this).data('barcode'));
-            $('#price').val($(this).data('price'));
-            $('#stock').val($(this).data('stock'));
-            $('#modal-item').modal('hide');
+            var barcode = $(this).data('barcode')
+            
+            $('#item_id').val($(this).data('id'))
+            $('#barcode').val(barcode)
+            $('#price').val($(this).data('price'))
+            $('#stock').val($(this).data('stock'))
+            $('#modal-item').modal('hide')
+
+            get_cart_qty(barcode)
         })
+
+        //fungsi mendapatkan get_chart
+        function get_cart_qty(barcode) {
+            $('#cart_table tr').each(function() {
+                // var qty_cart = $(this).find("td").eq(4).html()
+                var qty_cart = $("#cart_table td.barcode:contains('"+barcode+"')").parent().find("td").eq(4).html()
+                if(qty_cart != null) {
+                    $('#qty_cart').val(qty_cart)
+                }else {
+                    $('#qty_cart').val(0)
+                }
+            })
+        }
         // memasukkan data pada cart di halaman sale. 
         $(document).on('click', '#add_cart', function() {
-            var item_id = $('#item_id').val()
-            var price = $('#price').val()
-            var stock = $('#stock').val()
-            var qty = $('#qty').val()
+            var item_id     = $('#item_id').val()
+            var price       = $('#price').val()
+            var stock       = $('#stock').val()
+            var qty         = $('#qty').val()
+            var qty_cart    = $('#qty_cart').val()
             if (item_id == '') {
                 alert('Product not selected!!')
                 $('#barcode').focus()
-            } else if (stock < 1) {
+            } else if (stock < 1 || parseInt(stock) < (parseInt(qty_cart) + parseInt(qty))) {
                 alert('Insufficient stock!!')
-                $('#item_id').val('')
-                $('#barcode').val('')
-                $('#barcode').focus()
+                // $('#item_id').val('')
+                // $('#barcode').val('')
+                $('#qty').focus()
             } else {
                 $.ajax({
                     type: 'POST',
@@ -356,6 +376,7 @@
             $('#cartid_item').val($(this).data('cartid'));
             $('#barcode_item').val($(this).data('barcode'));
             $('#product_item').val($(this).data('product'));
+            $('#stock_item').val($(this).data('stock'));
             $('#price_item').val($(this).data('price'));
             $('#qty_item').val($(this).data('qty'));
             $('#total_before').val($(this).data('price') * $(this).data('qty'));
@@ -385,18 +406,21 @@
         })
         // merubah data yang sudah masuk pada list cart
         $(document).on('click', '#edit_cart', function() {
-            var cart_id = $('#cartid_item').val()
-            var price = $('#price_item').val()
-            var qty = $('#qty_item').val()
-            var discount = $('#discount_item').val()
-            var total = $('#total_item').val()
+            var cart_id     = $('#cartid_item').val()
+            var price       = $('#price_item').val()
+            var qty         = $('#qty_item').val()
+            var stock       = $('#stock_item').val()
+            var discount    = $('#discount_item').val()
+            var total       = $('#total_item').val()
             if (price == '' || price < 1) {
                 alert('Price cannot be empty!!')
                 $('#price_item').focus()
             } else if (qty == '' || qty < 1) {
                 alert('Qty cannot be empty!!')
                 $('#qty_item').focus()
-            } else {
+            } else if(parseInt(qty) > parseInt(stock)) {
+                alert('Insufficient Stock!!')
+            }else {
                 $.ajax({
                     type: 'POST',
                     url: '<?= site_url('sale/process') ?>',
@@ -518,7 +542,7 @@
                 })
                 $('#discount').val(0)
                 $('#cash').val(0)
-                $('#customer').val(0)
+                $('#customer').val('').change()
                 $('#barcode').val('')
                 $('#barcode').focus()
             }

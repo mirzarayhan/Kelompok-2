@@ -24,12 +24,12 @@ class Auth extends CI_Controller
                 );
                 $this->session->set_userdata($params);
                 echo "<script>
-                    alert('Selamat, Anda berhasil login!')
+                    alert('Congratulations, You have successfully login!!')
                     window.location='" . site_url('dashboard') . "';
                 </script>";
             } else {
                 echo "<script>
-                alert('Maaf, Anda belum terdaftar!')
+                alert('Sorry, You have not registered!!')
                 window.location='" . site_url('auth/login') . "';
             </script>";
             }

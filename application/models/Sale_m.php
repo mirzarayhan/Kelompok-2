@@ -5,15 +5,9 @@ class Sale_m extends CI_Model
 
     public function get_cart($params = null)
     {
-        $this->db->select(
-            '*, p_item.name as item_name, 
-            t_cart.price as cart_price'
-        );
+        $this->db->select('*, p_item.name as item_name, t_cart.price as cart_price');
         $this->db->from('t_cart');
-        $this->db->join(
-            'p_item',
-            't_cart.item_id = p_item.item_id'
-        );
+        $this->db->join('p_item', 't_cart.item_id = p_item.item_id');
         if ($params != null) {
             $this->db->where($params);
         }
@@ -24,21 +18,11 @@ class Sale_m extends CI_Model
 
     public function get_sale($id = null)
     {
-        $this->db->select(
-            '*, customer.name as customer_name,
-            user.username as user_name, 
-            t_sale.created as sale_created'
-        );
+        $this->db->select('*, customer.name as customer_name, user.username as user_name, 
+                        t_sale.created as sale_created');
         $this->db->from('t_sale');
-        $this->db->join(
-            'customer',
-            't_sale.customer_id = customer.customer_id',
-            'left'
-        );
-        $this->db->join(
-            'user',
-            't_sale.user_id = user.user_id'
-        );
+        $this->db->join('customer', 't_sale.customer_id = customer.customer_id', 'left');
+        $this->db->join('user', 't_sale.user_id = user.user_id');
         if ($id != null) {
             $this->db->where('sale_id', $id);
         }
@@ -130,7 +114,7 @@ class Sale_m extends CI_Model
     {
         $params = array(
             'invoice'       => $this->invoice_no(),
-            'customer_id'   => $post['customer_id'] == "" ? null : $data['customer_id'],
+            'customer_id'   => $post['customer_id'] == "" ? null : $post['customer_id'],
             'total_price'   => $post['subtotal'],
             'discount'      => $post['discount'],
             'final_price'   => $post['grandtotal'],

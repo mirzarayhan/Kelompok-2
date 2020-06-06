@@ -75,3 +75,7 @@ Matkul Proyek
 1. Update stock otomatis
 2. Halaman cetak struk nota invoice
 3. Cancel pembayaran dan reset form
+
+(Sabtu, 6 Juni 2020)
+Validasi Stock di Penjualan + Tracking Solving Error jQuery
+Membuat Laporan Penjualan
